@@ -1,5 +1,6 @@
 package com.clickbait.orient.service;
 
+import com.clickbait.orient.database.UserRepository;
 import com.clickbait.orient.dto.UserDTO;
 import com.clickbait.orient.model.User;
 import org.modelmapper.ModelMapper;
@@ -15,19 +16,15 @@ public class UserService {
     // model mapper used to map models to dto
     private ModelMapper modelMapper;
 
-    // mock some users for now
-    private User[] users = new User[] {
-        new User("id1", "le_email@email.com", "password", "QWERTY", "ASDFGH"),
-        new User("id2", "karpis@gmail.com", "password", "Karpis", "Karsis"),
-        new User("id3", "stotele@inbox.lt", "password", "Stoteles", "Darbininke"),
-        new User("id4", "bulka@ktu.edu", "password", "Flex", "Tape")
-    };
+    // handles CRUD database operations
+    private UserRepository userRepository;
 
     /**
      * Default class constructor
      */
     @Autowired
-    public UserService(ModelMapper modelMapper) {
+    public UserService(UserRepository userRepository, ModelMapper modelMapper) {
+        this.userRepository = userRepository;
         this.modelMapper = modelMapper;
     }
 
@@ -38,9 +35,12 @@ public class UserService {
      * @return authenticated user dto if authentication was successful, null otherwise
      */
     public UserDTO authenticateUser(User user) {
-        for (User mockedUser: users) {
-            if (mockedUser.getEmail().equals(user.getEmail()) && mockedUser.getPassword().equals(user.getPassword())) {
-                return modelMapper.map(user, UserDTO.class);
+        if (userRepository.existsByEmail(user.getEmail())) {
+            User existing = userRepository.findByEmail(user.getEmail());
+
+            // check if the password is correct
+            if (existing.getPassword().equals(user.getPassword())) {
+                return modelMapper.map(existing, UserDTO.class);
             }
         }
 
