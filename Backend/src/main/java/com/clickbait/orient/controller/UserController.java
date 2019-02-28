@@ -3,9 +3,11 @@ package com.clickbait.orient.controller;
 import com.clickbait.orient.dto.UserDTO;
 import com.clickbait.orient.model.User;
 import com.clickbait.orient.service.UserService;
+import com.clickbait.orient.validation.OnRegistration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +20,7 @@ import javax.validation.Valid;
  */
 @RestController
 @RequestMapping("/user")
+@Validated
 public class UserController {
 
     // handles user actions
@@ -37,6 +40,7 @@ public class UserController {
      * @return
      */
     @PostMapping("/login")
+    @Validated(OnRegistration.class)
     public ResponseEntity<UserDTO> login(@Valid @RequestBody User user) {
         UserDTO userDto = service.authenticateUser(user);
 

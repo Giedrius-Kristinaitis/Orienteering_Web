@@ -1,5 +1,6 @@
 package com.clickbait.orient.model;
 
+import com.clickbait.orient.validation.OnRegistration;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.data.annotation.Id;
 
@@ -18,10 +19,10 @@ public class User {
     @Length(min = 6)
     private String email;
 
-    @NotBlank
+    @NotBlank(groups = OnRegistration.class)
     private String firstName;
 
-    @NotBlank
+    @NotBlank(groups = OnRegistration.class)
     private String lastName;
 
     @NotBlank
