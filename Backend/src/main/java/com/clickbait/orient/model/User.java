@@ -5,6 +5,7 @@ import org.hibernate.validator.constraints.Length;
 import org.springframework.data.annotation.Id;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 /**
  * User model class
@@ -16,7 +17,7 @@ public class User {
     private String id;
 
     @NotBlank
-    @Length(min = 6)
+    @Size(min = 6)
     private String email;
 
     @NotBlank(groups = OnRegistration.class)
@@ -26,7 +27,7 @@ public class User {
     private String lastName;
 
     @NotBlank
-    @Length(min = 5)
+    @Size(min = 5)
     private String password;
 
     /**
