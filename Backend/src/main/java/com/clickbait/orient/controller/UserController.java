@@ -36,7 +36,7 @@ public class UserController {
      * Authenticates a user
      * @return
      */
-    @PostMapping
+    @PostMapping("/login")
     public ResponseEntity<UserDTO> login(@Valid @RequestBody User user) {
         UserDTO userDto = service.authenticateUser(user);
 
