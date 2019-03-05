@@ -13,7 +13,7 @@ import java.math.BigDecimal;
 @SuppressWarnings("unused")
 public class Checkpoint {
 
-    @Id
+    @NotBlank
     private String id;
 
     @DecimalMin("-90")
