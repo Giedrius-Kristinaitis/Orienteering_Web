@@ -5,15 +5,13 @@ import com.clickbait.orient.dto.UserDTO;
 import com.clickbait.orient.model.User;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
 /**
  * Handles user operations
  */
-@Service
-public class UserService {
+public class UserServiceImpl implements UserService {
 
     // model mapper used to map models to dto
     private ModelMapper modelMapper;
@@ -25,7 +23,7 @@ public class UserService {
      * Default class constructor
      */
     @Autowired
-    public UserService(UserRepository userRepository, ModelMapper modelMapper) {
+    public UserServiceImpl(UserRepository userRepository, ModelMapper modelMapper) {
         this.userRepository = userRepository;
         this.modelMapper = modelMapper;
     }
