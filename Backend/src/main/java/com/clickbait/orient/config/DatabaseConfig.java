@@ -1,5 +1,7 @@
 package com.clickbait.orient.config;
 
+import com.clickbait.orient.database.EventRepository;
+import com.clickbait.orient.database.EventRepositoryMockImpl;
 import com.clickbait.orient.database.UserRepository;
 import com.clickbait.orient.database.UserRepositoryMockImpl;
 import org.springframework.context.annotation.Bean;
@@ -22,5 +24,15 @@ public class DatabaseConfig {
     @Primary
     public UserRepository userRepository() {
         return new UserRepositoryMockImpl();
+    }
+
+    /**
+     * Gets mock event repository implementation
+     * @return mocked event repository
+     */
+    @Bean
+    @Primary
+    public EventRepository eventRepository() {
+        return new EventRepositoryMockImpl();
     }
 }
