@@ -1,7 +1,5 @@
 package com.clickbait.orient.model;
 
-import org.springframework.data.annotation.Id;
-
 import javax.validation.constraints.DecimalMax;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotBlank;
@@ -34,6 +32,7 @@ public class Checkpoint {
 
     /**
      * Constructor with arguments
+     *
      * @param name
      * @param latitude
      * @param longitude
