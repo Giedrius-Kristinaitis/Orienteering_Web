@@ -10,6 +10,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.Optional;
+
 import static org.junit.Assert.assertEquals;
 import static org.mockito.BDDMockito.given;
 
@@ -28,7 +30,9 @@ public class UserServiceTest {
         // setup
         User user = new User("", "email@email.com", "", "", "");
 
-        given(repository.existsByEmail(user.getEmail())).willReturn(false);
+        Optional<User> optional = Optional.ofNullable(null);
+
+        given(repository.findByEmail(user.getEmail())).willReturn(optional);
 
         // execute
         UserDTO returned = service.authenticateUser(user);
@@ -42,16 +46,17 @@ public class UserServiceTest {
         // setup
         User userInDatabase = new User("", "email@email.com", "password", "", "");
 
-        given(repository.existsByEmail(userInDatabase.getEmail())).willReturn(true);
-        given(repository.findByEmail(userInDatabase.getEmail())).willReturn(userInDatabase);
+        Optional<User> returned = Optional.of(userInDatabase);
+
+        given(repository.findByEmail(userInDatabase.getEmail())).willReturn(returned);
 
         User userPassedToMethod = new User("", "email@email.com", "wrong password mate", "", "");
 
         // execute
-        UserDTO returned = service.authenticateUser(userPassedToMethod);
+        UserDTO userDTO = service.authenticateUser(userPassedToMethod);
 
         // assert
-        assertEquals(null, returned);
+        assertEquals(null, userDTO);
     }
 
     @Test
@@ -59,16 +64,17 @@ public class UserServiceTest {
         // setup
         User user = new User("1", "email@email.com", "password", "aaaaaa", "bbbbbbb");
 
-        given(repository.existsByEmail(user.getEmail())).willReturn(true);
-        given(repository.findByEmail(user.getEmail())).willReturn(user);
+        Optional<User> returned = Optional.of(user);
+
+        given(repository.findByEmail(user.getEmail())).willReturn(returned);
 
         // execute
-        UserDTO returned = service.authenticateUser(user);
+        UserDTO userDTO = service.authenticateUser(user);
 
         // assert
-        assertEquals(user.getId(), returned.getId());
-        assertEquals(user.getEmail(), returned.getEmail());
-        assertEquals(user.getFirstName(), returned.getFirstName());
-        assertEquals(user.getLastName(), returned.getLastName());
+        assertEquals(user.getId(), userDTO.getId());
+        assertEquals(user.getEmail(), userDTO.getEmail());
+        assertEquals(user.getFirstName(), userDTO.getFirstName());
+        assertEquals(user.getLastName(), userDTO.getLastName());
     }
 }

@@ -23,14 +23,14 @@ public class UserRepositoryMockImpl implements UserRepository {
     };
 
     @Override
-    public User findByEmail(String email) {
+    public Optional<User> findByEmail(String email) {
         for (User user: users) {
             if (user.getEmail().equals(email)) {
-                return user;
+                return Optional.of(user);
             }
         }
 
-        return null;
+        return Optional.ofNullable(null);
     }
 
     @Override

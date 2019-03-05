@@ -7,6 +7,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 /**
  * Handles user operations
  */
@@ -35,14 +37,18 @@ public class UserService {
      * @return authenticated user dto if authentication was successful, null otherwise
      */
     public UserDTO authenticateUser(User user) {
-        if (userRepository.existsByEmail(user.getEmail())) {
-            User existing = userRepository.findByEmail(user.getEmail());
+        Optional<User> optional = userRepository.findByEmail(user.getEmail());
 
+        // check if the optional contains any value
+        if (optional.isPresent()) {
             // check if the password is correct
-            if (existing.getPassword().equals(user.getPassword())) {
-                return modelMapper.map(existing, UserDTO.class);
+            if (optional.get().getPassword().equals(user.getPassword())) {
+                return modelMapper.map(optional.get(), UserDTO.class);
             }
         }
+
+        // if this piece of code is reached that means the user was not found
+        // or the password was incorrect
 
         return null;
     }
