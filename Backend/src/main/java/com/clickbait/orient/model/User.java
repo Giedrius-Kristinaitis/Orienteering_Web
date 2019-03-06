@@ -1,7 +1,6 @@
 package com.clickbait.orient.model;
 
 import com.clickbait.orient.validation.OnRegistration;
-import org.hibernate.validator.constraints.Length;
 import org.springframework.data.annotation.Id;
 
 import javax.validation.constraints.NotBlank;
