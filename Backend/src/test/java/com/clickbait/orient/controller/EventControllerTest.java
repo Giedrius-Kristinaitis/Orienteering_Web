@@ -46,7 +46,7 @@ public class EventControllerTest {
         given(service.getEventById(id)).willReturn(null);
 
         // execute and assert
-        mvc.perform(get("/api/event/" + id))
+        mvc.perform(get("/api/event/" + id).accept("application/json"))
                 .andExpect(status().isNotFound());
     }
 
@@ -72,7 +72,7 @@ public class EventControllerTest {
         given(service.getEventById(event.getId())).willReturn(event);
 
         // execute and assert
-        mvc.perform(get("/api/event/" + event.getId()))
+        mvc.perform(get("/api/event/" + event.getId()).accept("application/json"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id", is(event.getId())))
                 .andExpect(jsonPath("$.name", is(event.getName())))
@@ -90,7 +90,7 @@ public class EventControllerTest {
         given(service.getAllEvents()).willReturn(new ArrayList<Event>());
 
         // execute and assert
-        mvc.perform(get("/api/event"))
+        mvc.perform(get("/api/event").accept("application/json"))
                 .andExpect(status().isNotFound());
     }
 
@@ -116,7 +116,7 @@ public class EventControllerTest {
         given(service.getAllEvents()).willReturn(events);
 
         // execute and assert
-        mvc.perform(get("/api/event"))
+        mvc.perform(get("/api/event").accept("application/json"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(1)))
                 .andExpect(jsonPath("$[0].id", is(events.get(0).getId())))
