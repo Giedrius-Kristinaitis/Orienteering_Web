@@ -1,16 +1,16 @@
 package com.clickbait.orient.controller;
 
 import com.clickbait.orient.model.Event;
+import com.clickbait.orient.model.EventsResponse;
 import com.clickbait.orient.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
 
 /**
  * Handles requests related to events
@@ -47,17 +47,25 @@ public class EventController {
     }
 
     /**
-     * Gets all events
+     * Gets all events.
+     * Note: page numbers start from 0
      * @return event list
      */
-    @GetMapping
-    public ResponseEntity<List<Event>> getAllEvents() {
-        List<Event> events = service.getAllEvents();
+    @GetMapping("/page/{pageNumber}/{pageSize}")
+    public ResponseEntity<EventsResponse> getAllEvents(@PathVariable Integer pageNumber, @PathVariable Integer pageSize) {
+        // check if parameters are valid
+        if (pageNumber < 0 || pageSize <= 0) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
 
-        if (events == null || events.size() == 0) {
+        Page<Event> events = service.getAllEvents(pageNumber, pageSize);
+
+        if (events == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
-        return new ResponseEntity<>(events, HttpStatus.OK);
+        EventsResponse response = new EventsResponse(events.getContent(), events.getTotalElements(), events.getSize(), events.getTotalPages());
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }

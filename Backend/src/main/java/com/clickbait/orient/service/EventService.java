@@ -1,9 +1,8 @@
 package com.clickbait.orient.service;
 
 import com.clickbait.orient.model.Event;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 /**
  * Event service abstraction
@@ -21,7 +20,9 @@ public interface EventService {
 
     /**
      * Gets all existing events
-     * @return event list
+     * @param pageNumber which page to get
+     * @param pageSize size of one page
+     * @return event page
      */
-    List<Event> getAllEvents();
+    Page<Event> getAllEvents(Integer pageNumber, Integer pageSize);
 }
