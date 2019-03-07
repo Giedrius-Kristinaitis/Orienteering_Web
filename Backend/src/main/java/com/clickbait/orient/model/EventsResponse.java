@@ -9,7 +9,7 @@ import java.util.List;
 public class EventsResponse {
 
     private List<Event> events;
-    private Integer totalElements;
+    private Long totalElements;
     private Integer pageSize;
     private Integer totalPages;
 
@@ -20,7 +20,7 @@ public class EventsResponse {
      * @param pageSize
      * @param totalPages
      */
-    public EventsResponse(List<Event> events, Integer totalElements, Integer pageSize, Integer totalPages) {
+    public EventsResponse(List<Event> events, Long totalElements, Integer pageSize, Integer totalPages) {
         this.events = events;
         this.totalElements = totalElements;
         this.pageSize = pageSize;
@@ -29,13 +29,13 @@ public class EventsResponse {
 
     // GETTERS
     public List<Event> getEvents() { return events; }
-    public Integer getTotalElements() { return totalElements; }
+    public Long getTotalElements() { return totalElements; }
     public Integer getPageSize() { return pageSize; }
     public Integer getTotalPages() { return totalPages; }
 
     // SETTERS
     public void setEvents(List<Event> events) { this.events = events; }
-    public void setTotalElements(Integer totalElements) { this.totalElements = totalElements; }
+    public void setTotalElements(Long totalElements) { this.totalElements = totalElements; }
     public void setPageSize(Integer pageSize) { this.pageSize = pageSize; }
     public void setTotalPages(Integer totalPages) { this.totalPages = totalPages; }
 }
