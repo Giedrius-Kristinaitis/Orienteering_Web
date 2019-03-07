@@ -3,6 +3,7 @@ package com.clickbait.orient.controller;
 import com.clickbait.orient.dto.UserDTO;
 import com.clickbait.orient.model.Checkpoint;
 import com.clickbait.orient.model.Event;
+import com.clickbait.orient.model.EventStatus;
 import com.clickbait.orient.model.Team;
 import com.clickbait.orient.service.EventService;
 import org.junit.Test;
@@ -16,8 +17,10 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
+import static org.hamcrest.CoreMatchers.anything;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.BDDMockito.given;
@@ -61,7 +64,9 @@ public class EventControllerTest {
                 Arrays.asList(
                         new Team("team1", "Team One", Arrays.asList(new UserDTO("id1", "le_email@email.com", "QWERTY", "ASDFGH"), new UserDTO("id2", "karpis@gmail.com", "Karpis", "Karsis"))),
                         new Team("team2", "Team Two", Arrays.asList(new UserDTO("id3", "stotele@inbox.lt", "Stoteles", "Darbininke"), new UserDTO("id4", "bulka@ktu.edu", "Flex", "Tape")))
-                )
+                ),
+                new Date(),
+                EventStatus.OPEN
         );
 
         given(service.getEventById(event.getId())).willReturn(event);
@@ -74,7 +79,9 @@ public class EventControllerTest {
                 .andExpect(jsonPath("$.checkpointCount", is(event.getCheckpointCount())))
                 .andExpect(jsonPath("$.teamSize", is(event.getTeamSize())))
                 .andExpect(jsonPath("$.checkpoints", hasSize(2)))
-                .andExpect(jsonPath("$.teams", hasSize(2)));
+                .andExpect(jsonPath("$.teams", hasSize(2)))
+                .andExpect(jsonPath("$.status", is("Open")))
+                .andExpect(jsonPath("$.created", anything()));
     }
 
     @Test
@@ -101,7 +108,9 @@ public class EventControllerTest {
                 Arrays.asList(
                         new Team("team1", "Team One", Arrays.asList(new UserDTO("id1", "le_email@email.com", "QWERTY", "ASDFGH"), new UserDTO("id2", "karpis@gmail.com", "Karpis", "Karsis"))),
                         new Team("team2", "Team Two", Arrays.asList(new UserDTO("id3", "stotele@inbox.lt", "Stoteles", "Darbininke"), new UserDTO("id4", "bulka@ktu.edu", "Flex", "Tape")))
-                )
+                ),
+                new Date(),
+                EventStatus.OPEN
         ));
 
         given(service.getAllEvents()).willReturn(events);
@@ -115,6 +124,8 @@ public class EventControllerTest {
                 .andExpect(jsonPath("$[0].checkpointCount", is(events.get(0).getCheckpointCount())))
                 .andExpect(jsonPath("$[0].teamSize", is(events.get(0).getTeamSize())))
                 .andExpect(jsonPath("$[0].checkpoints", hasSize(2)))
-                .andExpect(jsonPath("$[0].teams", hasSize(2)));
+                .andExpect(jsonPath("$[0].teams", hasSize(2)))
+                .andExpect(jsonPath("$[0].status", is("Open")))
+                .andExpect(jsonPath("$[0].created", anything()));
     }
 }

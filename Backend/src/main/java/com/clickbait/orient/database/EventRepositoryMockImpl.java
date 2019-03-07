@@ -3,6 +3,7 @@ package com.clickbait.orient.database;
 import com.clickbait.orient.dto.UserDTO;
 import com.clickbait.orient.model.Checkpoint;
 import com.clickbait.orient.model.Event;
+import com.clickbait.orient.model.EventStatus;
 import com.clickbait.orient.model.Team;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
@@ -11,6 +12,7 @@ import org.springframework.data.domain.Sort;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,7 +34,9 @@ public class EventRepositoryMockImpl implements EventRepository {
                     Arrays.asList(
                             new Team("team1", "Team One", Arrays.asList(new UserDTO("id1", "le_email@email.com", "QWERTY", "ASDFGH"), new UserDTO("id2", "karpis@gmail.com", "Karpis", "Karsis"))),
                             new Team("team2", "Team Two", Arrays.asList(new UserDTO("id3", "stotele@inbox.lt", "Stoteles", "Darbininke"), new UserDTO("id4", "bulka@ktu.edu", "Flex", "Tape")))
-                    )
+                    ),
+                    new Date(),
+                    EventStatus.OPEN
             )
     );
 
