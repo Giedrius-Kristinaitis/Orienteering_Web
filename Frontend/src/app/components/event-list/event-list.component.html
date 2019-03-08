@@ -1,0 +1,46 @@
+<div class="main-div">
+  <div>
+    <i class="material-icons search-icon">search</i>
+    <mat-form-field class="search-input">
+      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search">
+    </mat-form-field>
+  </div>
+  <div class="mat-elevation-z8 sub-div">
+    <table mat-table class="event-list-table" [dataSource]="dataSource" matSort matSortActive="created" matSortDirection="desc">
+      <!-- Event name Column -->
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Event name </th>
+        <td mat-cell *matCellDef="let event">
+          <div>
+            <i class="material-icons">map</i>
+            <span class="event-name-column">{{event.name}}</span>
+          </div>
+        </td>
+      </ng-container>
+
+      <!-- Event team size Column -->
+      <ng-container matColumnDef="teamSize">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Team Limit </th>
+        <td mat-cell *matCellDef="let event"> {{event.teamSize}} </td>
+      </ng-container>
+
+      <!-- Checkpoints count Column -->
+      <ng-container matColumnDef="checkpointCount">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Checkpoints </th>
+        <td mat-cell *matCellDef="let event"> {{event.checkpointCount}} </td>
+      </ng-container>
+
+      <!-- Date Column -->
+      <ng-container matColumnDef="created">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Created </th>
+        <td mat-cell *matCellDef="let event"> {{event.created}} </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr class="item" mat-row *matRowDef="let row; columns: displayedColumns;" (click)="showEventDetails(row)"></tr>
+    </table>
+  </div>
+  <div class="paginator-div">
+    <mat-paginator class="paginator" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+  </div>
+</div>
