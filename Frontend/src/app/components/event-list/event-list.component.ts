@@ -25,13 +25,16 @@ export class EventListComponent implements OnInit {
     this.dataSource.sort = this.sort;
   }
 
+  /**
+   * Gets all events data
+   */
   getEvents(): void {
     this.eventService.getEvents().subscribe(events => this.events = events);
   }
 
   /**
-   *
-   * @param filterValue
+   * Event search
+   * @param filterValue search word
    */
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -47,6 +50,10 @@ export class EventListComponent implements OnInit {
     }
   }
 
+  /**
+   * Shows alert with selected table row name
+   * @param row selected table row
+   */
   showEventDetails(row): void {
     alert(row['name']);
     this.router.navigateByUrl("/test");

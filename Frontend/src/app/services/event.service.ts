@@ -10,6 +10,9 @@ export class EventService {
 
   constructor() { }
 
+  /**
+   * Returns all mocked events
+   */
   getEvents(): Observable<Event[]> {
     return of(EVENTS);
   }

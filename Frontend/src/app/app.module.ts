@@ -7,9 +7,10 @@ import { AppComponent } from './components/app/app.component';
 import { EventListComponent } from './components/event-list/event-list.component';
 
 import { MatButtonModule, MatIconModule, MatListModule, MatTableModule, MatPaginatorModule, MatSortModule, MatFormFieldModule, MatInputModule } from "@angular/material";
+import { EventScreenComponent } from './components/event-screen/event-screen.component';
 
 @NgModule({
-  declarations: [AppComponent, EventListComponent],
+  declarations: [AppComponent, EventListComponent, EventScreenComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
