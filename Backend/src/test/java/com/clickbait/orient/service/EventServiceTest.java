@@ -1,25 +1,24 @@
 package com.clickbait.orient.service;
 
+import com.clickbait.orient.TestDataFactory;
 import com.clickbait.orient.database.EventRepository;
-import com.clickbait.orient.dto.UserDTO;
-import com.clickbait.orient.model.Checkpoint;
 import com.clickbait.orient.model.Event;
-import com.clickbait.orient.model.Team;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Optional;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 
 @RunWith(SpringRunner.class)
@@ -49,19 +48,7 @@ public class EventServiceTest {
     @Test
     public void testGetEventById_shouldReturnEvent() {
         // setup
-        Event event = new Event(
-                "1",
-                "Le Event 1",
-                2,
-                Arrays.asList(
-                        new Checkpoint("1", "First", new BigDecimal(10), new BigDecimal(10)),
-                        new Checkpoint("2", "Second", new BigDecimal(20), new BigDecimal(20))),
-                2,
-                Arrays.asList(
-                        new Team("team1", "Team One", Arrays.asList(new UserDTO("id1", "le_email@email.com", "QWERTY", "ASDFGH"), new UserDTO("id2", "karpis@gmail.com", "Karpis", "Karsis"))),
-                        new Team("team2", "Team Two", Arrays.asList(new UserDTO("id3", "stotele@inbox.lt", "Stoteles", "Darbininke"), new UserDTO("id4", "bulka@ktu.edu", "Flex", "Tape")))
-                )
-        );
+        Event event = TestDataFactory.getEvent();
 
         given(repository.findById(event.getId())).willReturn(Optional.of(event));
 
@@ -72,8 +59,12 @@ public class EventServiceTest {
         assertNotNull(returned);
         assertEquals(returned.getId(), event.getId());
         assertEquals(returned.getName(), event.getName());
+        assertEquals(returned.getDescription(), event.getDescription());
         assertEquals(returned.getCheckpointCount(), event.getCheckpointCount());
         assertEquals(returned.getTeamSize(), event.getTeamSize());
+        assertEquals(returned.getCreated().toString(), event.getCreated().toString());
+        assertEquals(returned.getStarting().toString(), event.getStarting().toString());
+        assertEquals(returned.getStatus(), event.getStatus());
 
         // added cast for to long because two methods are available to be called here
         // (one with params (Object, Object) and one with (long, long)
@@ -84,56 +75,49 @@ public class EventServiceTest {
     }
 
     @Test
-    public void testGetAllEvents_shouldReturnEmptyList() {
+    public void testGetAllEvents_shouldReturnNull() {
         // setup
-        List<Event> events = new ArrayList<>();
+        Page<Event> page = new PageImpl<>(new ArrayList<>(), PageRequest.of(0, 1), 0);
 
-        given(repository.findAll()).willReturn(events);
+        given(repository.findAll(any(Pageable.class))).willReturn(page);
 
         // execute
-        List<Event> returned = service.getAllEvents();
+        Page<Event> returned = service.getAllEvents(0, 1);
 
         // assert
-        assertNotNull(returned);
-        assertEquals(0, returned.size());
+        assertNull(returned);
     }
 
     @Test
-    public void testGetAllEvents_shouldReturnFilledList() {
+    public void testGetAllEvents_shouldReturnFilledPage() {
         // setup
-        List<Event> events = Arrays.asList(new Event(
-                "1",
-                "Le Event 1",
-                2,
-                Arrays.asList(
-                        new Checkpoint("1", "First", new BigDecimal(10), new BigDecimal(10)),
-                        new Checkpoint("2", "Second", new BigDecimal(20), new BigDecimal(20))),
-                2,
-                Arrays.asList(
-                        new Team("team1", "Team One", Arrays.asList(new UserDTO("id1", "le_email@email.com", "QWERTY", "ASDFGH"), new UserDTO("id2", "karpis@gmail.com", "Karpis", "Karsis"))),
-                        new Team("team2", "Team Two", Arrays.asList(new UserDTO("id3", "stotele@inbox.lt", "Stoteles", "Darbininke"), new UserDTO("id4", "bulka@ktu.edu", "Flex", "Tape")))
-                )
-        ));
+        Page<Event> events = TestDataFactory.getEventPage();
 
-        given(repository.findAll()).willReturn(events);
+        given(repository.findAll(any(Pageable.class))).willReturn(events);
 
         // execute
-        List<Event> returned = service.getAllEvents();
+        Page<Event> page = service.getAllEvents(0, 1);
 
         // assert
-        assertNotNull(returned);
-        assertEquals(1, returned.size());
-        assertNotNull(returned.get(0));
-        assertEquals(returned.get(0).getId(), events.get(0).getId());
-        assertEquals(returned.get(0).getName(), events.get(0).getName());
-        assertEquals(returned.get(0).getCheckpointCount(), events.get(0).getCheckpointCount());
-        assertEquals(returned.get(0).getTeamSize(), events.get(0).getTeamSize());
+        assertNotNull(page);
+
+        assertNotNull(page.getContent());
+        assertEquals(1, page.getContent().size());
+        assertNotNull(page.getContent().get(0));
+        assertEquals(page.getContent().get(0).getId(), events.getContent().get(0).getId());
+        assertEquals(page.getContent().get(0).getName(), events.getContent().get(0).getName());
+        assertEquals(page.getContent().get(0).getDescription(), events.getContent().get(0).getDescription());
+        assertEquals(page.getContent().get(0).getCheckpointCount(), events.getContent().get(0).getCheckpointCount());
+        assertEquals(page.getContent().get(0).getTeamSize(), events.getContent().get(0).getTeamSize());
+        assertEquals(page.getContent().get(0).getCreated().toString(), events.getContent().get(0).getCreated().toString());
+        assertEquals(page.getContent().get(0).getStarting().toString(), events.getContent().get(0).getStarting().toString());
+        assertEquals(page.getContent().get(0).getStatus(), events.getContent().get(0).getStatus());
 
         // added cast for to long because two methods are available to be called here
         // (one with params (Object, Object) and one with (long, long)
         // since checkpoint count and team size can be an object or an number the
         // compiler doesn't know which to use
-        assertEquals((long) returned.get(0).getCheckpointCount(), (long) returned.get(0).getCheckpoints().size());
-        assertEquals((long) returned.get(0).getTeamSize(), (long) returned.get(0).getTeams().size());
+        assertEquals((long) page.getContent().get(0).getCheckpointCount(), (long) page.getContent().get(0).getCheckpoints().size());
+        assertEquals((long) page.getContent().get(0).getTeamSize(), (long) page.getContent().get(0).getTeams().size());
     }
 }
