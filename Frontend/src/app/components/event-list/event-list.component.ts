@@ -1,9 +1,8 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import { Event } from "../event";
-import { EventService } from "../../services/event.service";
-import { MatPaginator, MatTableDataSource, MatSort } from "@angular/material";
-import {EVENTS} from "../mock-events";
-import {Router} from "@angular/router";
+import { Event } from '../event';
+import { EventService } from '../../services/event.service';
+import { MatPaginator, MatTableDataSource, MatSort } from '@angular/material';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-event-list',
@@ -13,7 +12,7 @@ import {Router} from "@angular/router";
 export class EventListComponent implements OnInit {
   events: Event[];
   displayedColumns: string[] = ['name', 'teamSize', 'checkpointCount', 'created'];
-  dataSource = new MatTableDataSource<Event>(EVENTS);
+  dataSource: MatTableDataSource<Event>;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -21,6 +20,7 @@ export class EventListComponent implements OnInit {
 
   ngOnInit() {
     this.getEvents();
+    this.dataSource = new MatTableDataSource<Event>(this.events);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
@@ -38,12 +38,10 @@ export class EventListComponent implements OnInit {
    */
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
-    this.dataSource.filterPredicate = function(data, filter: string): boolean {
-      return (data.name.toLowerCase().includes(filter) ||
-        data.teamSize.toString().includes(filter) ||
-        data.checkpointCount.toString().includes(filter) ||
-        data.created.includes(filter));
-    };
+    this.dataSource.filterPredicate = (data, filter: string): boolean => (data.name.toLowerCase().includes(filter) ||
+      data.teamSize.toString().includes(filter) ||
+      data.checkpointCount.toString().includes(filter) ||
+      data.created.includes(filter));
 
     if(this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
@@ -56,7 +54,7 @@ export class EventListComponent implements OnInit {
    */
   showEventDetails(row): void {
     alert(row['name']);
-    this.router.navigateByUrl("/test");
+    this.router.navigateByUrl('/test');
   }
 }
 
