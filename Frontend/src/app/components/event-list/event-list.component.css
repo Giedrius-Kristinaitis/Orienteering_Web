@@ -32,7 +32,7 @@ td, th {
   margin-bottom: 1%;
   margin-top: 1%;
   background: white;
-  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+  box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
   transition: all 0.3s cubic-bezier(.25,.8,.25,1);
 }
 
@@ -52,12 +52,13 @@ td, th {
   font-size: 36px;
   position: relative;
   top: 10px;
+  left: 10px;
 
 }
 
 .search-input {
-  display: inline-block;
-  width: 70vw;
+  width: 68vw;
+  left: 1vw;
 }
 
 .event-list-table {

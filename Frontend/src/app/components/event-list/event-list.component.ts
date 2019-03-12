@@ -11,8 +11,8 @@ import {Router} from '@angular/router';
 })
 export class EventListComponent implements OnInit {
   events: Event[];
-  displayedColumns: string[] = ['name', 'teamSize', 'checkpointCount', 'created'];
   dataSource: MatTableDataSource<Event>;
+  displayedColumns: string[] = ['name', 'teamSize', 'checkpointCount', 'created'];
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
