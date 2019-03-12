@@ -59,9 +59,11 @@ public class EventServiceTest {
         assertNotNull(returned);
         assertEquals(returned.getId(), event.getId());
         assertEquals(returned.getName(), event.getName());
+        assertEquals(returned.getDescription(), event.getDescription());
         assertEquals(returned.getCheckpointCount(), event.getCheckpointCount());
         assertEquals(returned.getTeamSize(), event.getTeamSize());
         assertEquals(returned.getCreated().toString(), event.getCreated().toString());
+        assertEquals(returned.getStarting().toString(), event.getStarting().toString());
         assertEquals(returned.getStatus(), event.getStatus());
 
         // added cast for to long because two methods are available to be called here
@@ -104,9 +106,11 @@ public class EventServiceTest {
         assertNotNull(page.getContent().get(0));
         assertEquals(page.getContent().get(0).getId(), events.getContent().get(0).getId());
         assertEquals(page.getContent().get(0).getName(), events.getContent().get(0).getName());
+        assertEquals(page.getContent().get(0).getDescription(), events.getContent().get(0).getDescription());
         assertEquals(page.getContent().get(0).getCheckpointCount(), events.getContent().get(0).getCheckpointCount());
         assertEquals(page.getContent().get(0).getTeamSize(), events.getContent().get(0).getTeamSize());
         assertEquals(page.getContent().get(0).getCreated().toString(), events.getContent().get(0).getCreated().toString());
+        assertEquals(page.getContent().get(0).getStarting().toString(), events.getContent().get(0).getStarting().toString());
         assertEquals(page.getContent().get(0).getStatus(), events.getContent().get(0).getStatus());
 
         // added cast for to long because two methods are available to be called here

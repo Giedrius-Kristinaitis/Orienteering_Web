@@ -27,6 +27,7 @@ public class TestDataFactory {
         return new Event(
                 "1",
                 "Le Event 1",
+                "This is just an event",
                 2,
                 Arrays.asList(
                         new Checkpoint("1", "First", new BigDecimal(10), new BigDecimal(10)),
@@ -36,6 +37,7 @@ public class TestDataFactory {
                         new Team("team1", "Team One", Arrays.asList(new UserDTO("id1", "le_email@email.com", "QWERTY", "ASDFGH"), new UserDTO("id2", "karpis@gmail.com", "Karpis", "Karsis"))),
                         new Team("team2", "Team Two", Arrays.asList(new UserDTO("id3", "stotele@inbox.lt", "Stoteles", "Darbininke"), new UserDTO("id4", "bulka@ktu.edu", "Flex", "Tape")))
                 ),
+                new Date(),
                 new Date(),
                 EventStatus.OPEN
         );
@@ -49,6 +51,7 @@ public class TestDataFactory {
         return Arrays.asList(new Event(
                 "1",
                 "Le Event 1",
+                "This is just an event",
                 2,
                 Arrays.asList(
                         new Checkpoint("1", "First", new BigDecimal(10), new BigDecimal(10)),
@@ -58,6 +61,7 @@ public class TestDataFactory {
                         new Team("team1", "Team One", Arrays.asList(new UserDTO("id1", "le_email@email.com", "QWERTY", "ASDFGH"), new UserDTO("id2", "karpis@gmail.com", "Karpis", "Karsis"))),
                         new Team("team2", "Team Two", Arrays.asList(new UserDTO("id3", "stotele@inbox.lt", "Stoteles", "Darbininke"), new UserDTO("id4", "bulka@ktu.edu", "Flex", "Tape")))
                 ),
+                new Date(),
                 new Date(),
                 EventStatus.OPEN
         ));

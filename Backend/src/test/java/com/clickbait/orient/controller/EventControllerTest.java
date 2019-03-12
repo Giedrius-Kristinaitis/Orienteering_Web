@@ -54,12 +54,14 @@ public class EventControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id", is(event.getId())))
                 .andExpect(jsonPath("$.name", is(event.getName())))
+                .andExpect(jsonPath("$.description", is(event.getDescription())))
                 .andExpect(jsonPath("$.checkpointCount", is(event.getCheckpointCount())))
                 .andExpect(jsonPath("$.teamSize", is(event.getTeamSize())))
                 .andExpect(jsonPath("$.checkpoints", hasSize(2)))
                 .andExpect(jsonPath("$.teams", hasSize(2)))
                 .andExpect(jsonPath("$.status", is("Open")))
-                .andExpect(jsonPath("$.created", anything()));
+                .andExpect(jsonPath("$.created", anything()))
+                .andExpect(jsonPath("$.starting", anything()));
     }
 
     @Test
@@ -85,12 +87,14 @@ public class EventControllerTest {
                 .andExpect(jsonPath("$.events", hasSize(1)))
                 .andExpect(jsonPath("$.events[0].id", is(events.getContent().get(0).getId())))
                 .andExpect(jsonPath("$.events[0].name", is(events.getContent().get(0).getName())))
+                .andExpect(jsonPath("$.events[0].description", is(events.getContent().get(0).getDescription())))
                 .andExpect(jsonPath("$.events[0].checkpointCount", is(events.getContent().get(0).getCheckpointCount())))
                 .andExpect(jsonPath("$.events[0].teamSize", is(events.getContent().get(0).getTeamSize())))
                 .andExpect(jsonPath("$.events[0].checkpoints", hasSize(2)))
                 .andExpect(jsonPath("$.events[0].teams", hasSize(2)))
                 .andExpect(jsonPath("$.events[0].status", is("Open")))
                 .andExpect(jsonPath("$.events[0].created", anything()))
+                .andExpect(jsonPath("$.events[0].starting", anything()))
                 .andExpect(jsonPath("$.totalElements", is(1)))
                 .andExpect(jsonPath("$.pageSize", is(1)))
                 .andExpect(jsonPath("$.totalPages", is(1)));
