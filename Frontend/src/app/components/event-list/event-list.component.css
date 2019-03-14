@@ -51,7 +51,7 @@ td, th {
 .search-icon {
   font-size: 36px;
   position: relative;
-  top: 10px;
+  top: 15px;
   left: 10px;
 
 }
@@ -59,6 +59,7 @@ td, th {
 .search-input {
   width: 68vw;
   left: 1vw;
+  margin-top: 1vh;
 }
 
 .event-list-table {

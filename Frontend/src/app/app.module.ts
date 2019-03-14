@@ -8,6 +8,7 @@ import { EventListComponent } from './components/event-list/event-list.component
 
 import { MatButtonModule, MatIconModule, MatListModule, MatTableModule, MatPaginatorModule, MatSortModule, MatFormFieldModule, MatInputModule } from "@angular/material";
 import { EventScreenComponent } from './components/event-screen/event-screen.component';
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   declarations: [AppComponent, EventListComponent, EventScreenComponent],
@@ -22,7 +23,8 @@ import { EventScreenComponent } from './components/event-screen/event-screen.com
     MatPaginatorModule,
     MatSortModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
