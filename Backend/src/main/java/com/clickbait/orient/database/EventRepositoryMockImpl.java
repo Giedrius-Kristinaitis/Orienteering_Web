@@ -3,16 +3,12 @@ package com.clickbait.orient.database;
 import com.clickbait.orient.dto.UserDTO;
 import com.clickbait.orient.model.Checkpoint;
 import com.clickbait.orient.model.Event;
+import com.clickbait.orient.model.EventStatus;
 import com.clickbait.orient.model.Team;
-import org.springframework.data.domain.Example;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.*;
 
 import java.math.BigDecimal;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 /**
  * Mock implementation for the event repository. Will be deleted later
@@ -24,6 +20,7 @@ public class EventRepositoryMockImpl implements EventRepository {
             new Event(
                     "1",
                     "Le Event 1",
+                    "This is just an event",
                     2,
                     Arrays.asList(
                             new Checkpoint("1", "First", new BigDecimal(10), new BigDecimal(10)),
@@ -32,7 +29,10 @@ public class EventRepositoryMockImpl implements EventRepository {
                     Arrays.asList(
                             new Team("team1", "Team One", Arrays.asList(new UserDTO("id1", "le_email@email.com", "QWERTY", "ASDFGH"), new UserDTO("id2", "karpis@gmail.com", "Karpis", "Karsis"))),
                             new Team("team2", "Team Two", Arrays.asList(new UserDTO("id3", "stotele@inbox.lt", "Stoteles", "Darbininke"), new UserDTO("id4", "bulka@ktu.edu", "Flex", "Tape")))
-                    )
+                    ),
+                    new Date(),
+                    new Date(),
+                    EventStatus.OPEN
             )
     );
 
@@ -45,6 +45,29 @@ public class EventRepositoryMockImpl implements EventRepository {
         }
 
         return Optional.ofNullable(null);
+    }
+
+    @Override
+    public Page<Event> findAll(Pageable pageable) {
+        int offset = pageable.getPageNumber() * pageable.getPageSize();
+
+        if (offset >= events.size()) {
+            return null;
+        }
+
+        List<Event> pagedEvents = new ArrayList<>();
+
+        for (int i = offset; i < offset + pageable.getPageSize(); i++) {
+            if (i > events.size() - 1) {
+                break;
+            }
+
+            pagedEvents.add(events.get(i));
+        }
+
+        Page<Event> page = new PageImpl<Event>(pagedEvents, pageable, events.size());
+
+        return page;
     }
 
     @Override
@@ -99,11 +122,6 @@ public class EventRepositoryMockImpl implements EventRepository {
 
     @Override
     public List<Event> findAll(Sort sort) {
-        return null;
-    }
-
-    @Override
-    public Page<Event> findAll(Pageable pageable) {
         return null;
     }
 

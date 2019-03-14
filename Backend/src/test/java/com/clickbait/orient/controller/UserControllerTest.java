@@ -38,6 +38,7 @@ public class UserControllerTest {
         // execute and assert
         mvc.perform(post("/user/login")
             .contentType("application/json")
+            .accept("application/json")
             .characterEncoding("utf-8")
             .content("{\"email\": \"email@email.com\", \"password\": \"password\"}"))
             .andExpect(status().isOk())
@@ -48,12 +49,27 @@ public class UserControllerTest {
     }
 
     @Test
-    public void testLoginInvalidValues_shouldReturnBadRequest() throws Exception {
+    public void testLoginFailedValidation_shouldReturnBadRequest() throws Exception {
         // execute and assert
         mvc.perform(post("/user/login")
             .contentType("application/json")
+            .accept("application/json")
             .characterEncoding("utf-8")
             .content("{\"email\": \"ee\", \"password\": \"1234\"}"))
             .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void testLoginWrongUserInfo_shouldReturnUnauthorized() throws Exception {
+        // setup
+        given(service.authenticateUser(any(User.class))).willReturn(null);
+
+        // execute and assert
+        mvc.perform(post("/user/login")
+                .contentType("application/json")
+                .accept("application/json")
+                .characterEncoding("utf-8")
+                .content("{\"email\": \"email@email.com\", \"password\": \"password\"}"))
+                .andExpect(status().isUnauthorized());
     }
 }
