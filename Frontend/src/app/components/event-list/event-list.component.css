@@ -94,7 +94,10 @@ td, th {
   margin-top: 2.5vh;
   margin-left: 5vw;
   display: flex;
-  justify-content: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+  /*justify-content: center;*/
+  width: 60%;
 }
 
 mat-checkbox {
