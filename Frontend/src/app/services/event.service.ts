@@ -15,7 +15,7 @@ export class EventService {
    * Returns all mocked events
    */
   getEvents(): Observable<Event[]> {
-    return this.http.get<Event[]>("http://localhost:8080/api/event").pipe(
+    return this.http.get<Event[]>("http://localhost:8080/api/event/page/0/10").pipe(
       tap(_ => console.log(`trying to get events`)),
       catchError(this.handleError('getEvents', [])));
   }

@@ -42,7 +42,7 @@ td, th {
 
 .sub-div {
   padding: 1%;
-  max-height: 76vh;
+  max-height: 67vh;
   overflow: auto;
   transition: none !important;
   box-shadow: none !important;
@@ -57,7 +57,7 @@ td, th {
 }
 
 .search-input {
-  width: 68vw;
+  width: 40vw;
   left: 1vw;
   margin-top: 1vh;
 }
@@ -84,4 +84,19 @@ td, th {
 .item:hover {
   cursor: pointer;
   background: lightgray;
+}
+
+.top-div {
+  display: flex;
+}
+
+.checkbox-div {
+  margin-top: 2.5vh;
+  margin-left: 5vw;
+  display: flex;
+  justify-content: center;
+}
+
+mat-checkbox {
+  margin-left: 3vw;
 }

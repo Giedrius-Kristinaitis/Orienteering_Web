@@ -6,12 +6,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './components/app/app.component';
 import { EventListComponent } from './components/event-list/event-list.component';
 
-import { MatButtonModule, MatIconModule, MatListModule, MatTableModule, MatPaginatorModule, MatSortModule, MatFormFieldModule, MatInputModule } from "@angular/material";
+import { MatButtonModule, MatIconModule, MatListModule, MatTableModule, MatPaginatorModule, MatSortModule,
+  MatFormFieldModule, MatInputModule, MatToolbarModule, MatCheckboxModule } from "@angular/material";
 import { EventScreenComponent } from './components/event-screen/event-screen.component';
 import {HttpClientModule} from "@angular/common/http";
+import { NavigationBarComponent } from './components/navigation-bar/navigation-bar.component';
 
 @NgModule({
-  declarations: [AppComponent, EventListComponent, EventScreenComponent],
+  declarations: [AppComponent, EventListComponent, EventScreenComponent, NavigationBarComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -24,7 +26,9 @@ import {HttpClientModule} from "@angular/common/http";
     MatSortModule,
     MatFormFieldModule,
     MatInputModule,
-    HttpClientModule
+    HttpClientModule,
+    MatToolbarModule,
+    MatCheckboxModule
   ],
   providers: [],
   bootstrap: [AppComponent]

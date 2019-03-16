@@ -1,8 +1,9 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import { Event } from '../event';
 import { EventService } from '../../services/event.service';
-import { MatPaginator, MatTableDataSource, MatSort } from '@angular/material';
+import {MatPaginator, MatTableDataSource, MatSort, PageEvent} from '@angular/material';
 import {Router} from '@angular/router';
+import {EVENTS} from "../mock-events";
 
 @Component({
   selector: 'app-event-list',
@@ -10,6 +11,7 @@ import {Router} from '@angular/router';
   styleUrls: ['./event-list.component.css']
 })
 export class EventListComponent implements OnInit {
+
   events: Event[];
   dataSource: MatTableDataSource<Event>;
   displayedColumns: string[] = ['name', 'teamSize', 'checkpointCount', 'created'];
@@ -19,7 +21,8 @@ export class EventListComponent implements OnInit {
   constructor(private eventService: EventService, private router: Router) { }
 
   ngOnInit() {
-    this.getEvents();
+    // this.getEvents();
+    this.events = EVENTS;
     this.dataSource = new MatTableDataSource<Event>(this.events);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
@@ -55,6 +58,10 @@ export class EventListComponent implements OnInit {
   showEventDetails(row): void {
     alert(row['name']);
     this.router.navigateByUrl('/test');
+  }
+
+  onPaginateChange(event: PageEvent) {
+    console.log(event);
   }
 }
 
