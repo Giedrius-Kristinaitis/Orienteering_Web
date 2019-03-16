@@ -3,7 +3,7 @@ import { Event } from '../event';
 import { EventService } from '../../services/event.service';
 import {MatPaginator, MatTableDataSource, MatSort, PageEvent} from '@angular/material';
 import {Router} from '@angular/router';
-import {EVENTS} from "../mock-events";
+import {EventResponse} from "../eventResponse";
 
 @Component({
   selector: 'app-event-list',
@@ -12,7 +12,7 @@ import {EVENTS} from "../mock-events";
 })
 export class EventListComponent implements OnInit {
 
-  events: Event[];
+  // events: Event[];
   dataSource: MatTableDataSource<Event>;
   displayedColumns: string[] = ['name', 'teamSize', 'checkpointCount', 'created'];
 
@@ -21,9 +21,8 @@ export class EventListComponent implements OnInit {
   constructor(private eventService: EventService, private router: Router) { }
 
   ngOnInit() {
-    // this.getEvents();
-    this.events = EVENTS;
-    this.dataSource = new MatTableDataSource<Event>(this.events);
+    this.getEvents();
+    // this.events = EVENTS;
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
@@ -32,7 +31,9 @@ export class EventListComponent implements OnInit {
    * Gets all events data
    */
   getEvents(): void {
-    this.eventService.getEvents().subscribe(events => this.events = events);
+    this.eventService.getEvents().subscribe(eventRes => {
+      this.dataSource = new MatTableDataSource<Event>(eventRes.events);
+    });
   }
 
   /**
