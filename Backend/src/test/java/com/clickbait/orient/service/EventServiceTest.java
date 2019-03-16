@@ -65,6 +65,8 @@ public class EventServiceTest {
         assertEquals(returned.getCreated().toString(), event.getCreated().toString());
         assertEquals(returned.getStarting().toString(), event.getStarting().toString());
         assertEquals(returned.getStatus(), event.getStatus());
+        assertEquals(returned.getEstimatedDistanceMetres(), event.getEstimatedDistanceMetres());
+        assertEquals(returned.getEstimatedTimeMillis(), event.getEstimatedTimeMillis());
 
         // added cast for to long because two methods are available to be called here
         // (one with params (Object, Object) and one with (long, long)
@@ -112,6 +114,8 @@ public class EventServiceTest {
         assertEquals(page.getContent().get(0).getCreated().toString(), events.getContent().get(0).getCreated().toString());
         assertEquals(page.getContent().get(0).getStarting().toString(), events.getContent().get(0).getStarting().toString());
         assertEquals(page.getContent().get(0).getStatus(), events.getContent().get(0).getStatus());
+        assertEquals(page.getContent().get(0).getEstimatedDistanceMetres(), events.getContent().get(0).getEstimatedDistanceMetres());
+        assertEquals(page.getContent().get(0).getEstimatedTimeMillis(), events.getContent().get(0).getEstimatedTimeMillis());
 
         // added cast for to long because two methods are available to be called here
         // (one with params (Object, Object) and one with (long, long)

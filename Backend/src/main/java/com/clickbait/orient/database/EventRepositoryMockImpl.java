@@ -32,7 +32,9 @@ public class EventRepositoryMockImpl implements EventRepository {
                     ),
                     new Date(),
                     new Date(),
-                    EventStatus.OPEN
+                    EventStatus.OPEN,
+                    (long) 2*60*60*1000, // 2 hours * 60 minutes * 60 seconds * 1000 milliseconds
+                    2500
             )
     );
 

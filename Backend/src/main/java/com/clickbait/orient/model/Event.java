@@ -5,6 +5,7 @@ import org.springframework.data.annotation.Id;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 import java.util.Date;
 import java.util.List;
 
@@ -45,12 +46,35 @@ public class Event {
 
     private EventStatus status;
 
+    @NotNull
+    @Positive
+    private Long estimatedTimeMillis;
+
+    @NotNull
+    @Positive
+    private Integer estimatedDistanceMetres;
+
     /**
      * Default no-args constructor
      */
     public Event() {}
 
-    public Event(String id, String name, String description, Integer checkpointCount, List<Checkpoint> checkpoints, Integer teamSize, List<Team> teams, Date created, Date starting, EventStatus status) {
+    /**
+     * Constructor with arguments
+     * @param id
+     * @param name
+     * @param description
+     * @param checkpointCount
+     * @param checkpoints
+     * @param teamSize
+     * @param teams
+     * @param created
+     * @param starting
+     * @param status
+     * @param estimatedTimeMillis
+     * @param estimatedDistanceMetres
+     */
+    public Event(String id, String name, String description, Integer checkpointCount, List<Checkpoint> checkpoints, Integer teamSize, List<Team> teams, Date created, Date starting, EventStatus status, Long estimatedTimeMillis, Integer estimatedDistanceMetres) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -61,6 +85,8 @@ public class Event {
         this.created = created;
         this.starting = starting;
         this.status = status;
+        this.estimatedTimeMillis = estimatedTimeMillis;
+        this.estimatedDistanceMetres = estimatedDistanceMetres;
     }
 
     // GETTERS
@@ -74,6 +100,8 @@ public class Event {
     public Date getCreated() { return created; }
     public Date getStarting() { return starting; }
     public EventStatus getStatus() { return status; }
+    public Long getEstimatedTimeMillis() { return estimatedTimeMillis; }
+    public Integer getEstimatedDistanceMetres() { return estimatedDistanceMetres; }
 
     // SETTERS
     public void setId(String id) { this.id = id; }
@@ -86,4 +114,6 @@ public class Event {
     public void setCreated(Date created) { this.created = created; }
     public void setStarting(Date starting) { this.starting = starting; }
     public void setStatus(EventStatus status) { this.status = status; }
+    public void setEstimatedTimeMillis(Long estimatedTimeMillis) { this.estimatedTimeMillis = estimatedTimeMillis; }
+    public void setEstimatedDistanceMetres(Integer estimatedDistanceMetres) { this.estimatedDistanceMetres = estimatedDistanceMetres; }
 }
