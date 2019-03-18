@@ -59,6 +59,10 @@ export class EventListComponent implements OnInit {
     }
   }
 
+  /**
+   * Shows or hides completed events
+   * @param show true to show, false to hide
+   */
   showCompletedEvents(show: boolean) {
     if(this.dataSource == undefined)
       return;
@@ -87,8 +91,5 @@ export class EventListComponent implements OnInit {
   onPaginateChange(event: PageEvent) {
     console.log(event);
   }
-  
-  
-  
 }
 
