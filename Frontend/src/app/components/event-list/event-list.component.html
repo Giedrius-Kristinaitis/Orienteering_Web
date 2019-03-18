@@ -7,7 +7,7 @@
       </mat-form-field>
     </div>
     <div class="checkbox-div">
-      <mat-checkbox class="checkbox" color="primary">Show completed</mat-checkbox>
+      <mat-checkbox (change)="$event.checked == true ? showCompletedEvents(true) : showCompletedEvents(false)" class="checkbox" color="primary">Show completed</mat-checkbox>
       <mat-checkbox class="checkbox" color="primary">Show mine</mat-checkbox>
     </div>
   </div>

@@ -41,7 +41,6 @@ td, th {
 }
 
 .sub-div {
-  padding: 1%;
   max-height: 67vh;
   overflow: auto;
   transition: none !important;

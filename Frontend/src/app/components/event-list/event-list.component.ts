@@ -4,6 +4,7 @@ import { EventService } from '../../services/event.service';
 import {MatPaginator, MatTableDataSource, MatSort, PageEvent} from '@angular/material';
 import {Router} from '@angular/router';
 import {EventResponse} from "../eventResponse";
+import {EVENTS} from "../mock-events";
 
 @Component({
   selector: 'app-event-list',
@@ -12,7 +13,7 @@ import {EventResponse} from "../eventResponse";
 })
 export class EventListComponent implements OnInit {
 
-  // events: Event[];
+  events: Event[];
   dataSource: MatTableDataSource<Event>;
   displayedColumns: string[] = ['name', 'teamSize', 'checkpointCount', 'created'];
 
@@ -21,8 +22,10 @@ export class EventListComponent implements OnInit {
   constructor(private eventService: EventService, private router: Router) { }
 
   ngOnInit() {
-    this.getEvents();
-    // this.events = EVENTS;
+    // this.getEvents();
+    this.events = EVENTS;
+    this.dataSource = new MatTableDataSource<Event>(EVENTS);
+    this.showCompletedEvents(false);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
@@ -41,15 +44,35 @@ export class EventListComponent implements OnInit {
    * @param filterValue search word
    */
   applyFilter(filterValue: string) {
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+    if(this.dataSource == undefined)
+      return;
+
     this.dataSource.filterPredicate = (data, filter: string): boolean => (data.name.toLowerCase().includes(filter) ||
       data.teamSize.toString().includes(filter) ||
       data.checkpointCount.toString().includes(filter) ||
       data.created.includes(filter));
 
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+
     if(this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+  }
+
+  showCompletedEvents(show: boolean) {
+    if(this.dataSource == undefined)
+      return;
+
+    this.dataSource.filterPredicate = (data, filter: string): boolean => (show ? data.status.includes('') : data.status != filter);
+    this.dataSource.filter = 'Closed';
+
+    if(this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+  }
+
+  test(evens: any): void {
+    console.log(evens);
   }
 
   /**
@@ -64,5 +87,8 @@ export class EventListComponent implements OnInit {
   onPaginateChange(event: PageEvent) {
     console.log(event);
   }
+  
+  
+  
 }
 
