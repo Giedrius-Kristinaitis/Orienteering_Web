@@ -5,6 +5,7 @@ import {MatPaginator, MatTableDataSource, MatSort, PageEvent} from '@angular/mat
 import {Router} from '@angular/router';
 import {EventResponse} from "../eventResponse";
 import {EVENTS} from "../mock-events";
+import {ifTrue} from "codelyzer/util/function";
 
 @Component({
   selector: 'app-event-list',
@@ -12,8 +13,10 @@ import {EVENTS} from "../mock-events";
   styleUrls: ['./event-list.component.css']
 })
 export class EventListComponent implements OnInit {
-
+  searchInput: string;
+  showCompleted: boolean = false;
   events: Event[];
+
   dataSource: MatTableDataSource<Event>;
   displayedColumns: string[] = ['name', 'teamSize', 'checkpointCount', 'created'];
 
@@ -25,9 +28,9 @@ export class EventListComponent implements OnInit {
     // this.getEvents();
     this.events = EVENTS;
     this.dataSource = new MatTableDataSource<Event>(EVENTS);
-    this.showCompletedEvents(false);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+    this.applyFilter(this.searchInput, false);
   }
 
   /**
@@ -43,32 +46,15 @@ export class EventListComponent implements OnInit {
    * Event search
    * @param filterValue search word
    */
-  applyFilter(filterValue: string) {
+  applyFilter(filterValue: string = ' ', showCompleted: boolean) {
     if(this.dataSource == undefined)
       return;
 
-    this.dataSource.filterPredicate = (data, filter: string): boolean => (data.name.toLowerCase().includes(filter) ||
-      data.teamSize.toString().includes(filter) ||
-      data.checkpointCount.toString().includes(filter) ||
-      data.created.includes(filter));
-
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-
-    if(this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
+    //Filters each event by a name and based on showCompleted value shows closed events
+    this.dataSource.filterPredicate = (data, filter) => {
+      return (showCompleted ? true : data.status.includes('Closed') == false) && (filter == ' ' || data.name.includes(filter));
     }
-  }
-
-  /**
-   * Shows or hides completed events
-   * @param show true to show, false to hide
-   */
-  showCompletedEvents(show: boolean) {
-    if(this.dataSource == undefined)
-      return;
-
-    this.dataSource.filterPredicate = (data, filter: string): boolean => (show ? data.status.includes('') : data.status != filter);
-    this.dataSource.filter = 'Closed';
+    this.dataSource.filter = filterValue;
 
     if(this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();

@@ -11,12 +11,14 @@ import { MatButtonModule, MatIconModule, MatListModule, MatTableModule, MatPagin
 import { EventScreenComponent } from './components/event-screen/event-screen.component';
 import {HttpClientModule} from "@angular/common/http";
 import { NavigationBarComponent } from './components/navigation-bar/navigation-bar.component';
+import {FormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [AppComponent, EventListComponent, EventScreenComponent, NavigationBarComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    FormsModule,
     MatButtonModule,
     BrowserAnimationsModule,
     MatIconModule,
