@@ -8,7 +8,7 @@
 }
 
 .navbar-icon {
-  padding: 0 14px;
+  padding: 14px;
   font-size: 32px;
   position: relative;
   bottom: 5px;
@@ -16,4 +16,8 @@
 
 .navbar-icon:hover {
   cursor: pointer;
+}
+
+.first-icon {
+  padding-left: 0px;
 }

@@ -8,7 +8,7 @@ import { EventListComponent } from './components/event-list/event-list.component
 
 import {
   MatButtonModule, MatIconModule, MatListModule, MatTableModule, MatPaginatorModule, MatSortModule,
-  MatFormFieldModule, MatInputModule, MatToolbarModule, MatCheckboxModule, MatCardModule
+  MatFormFieldModule, MatInputModule, MatToolbarModule, MatCheckboxModule, MatCardModule, MatGridListModule
 } from "@angular/material";
 import { EventScreenComponent } from './components/event-screen/event-screen.component';
 import {HttpClientModule} from "@angular/common/http";
@@ -17,6 +17,7 @@ import {FormsModule} from "@angular/forms";
 import { EventDetailComponent } from './components/event-detail/event-detail.component';
 import { EventDetailScreenComponent } from './components/event-detail-screen/event-detail-screen.component';
 import { MapComponent } from './components/map/map.component';
+import { AgmCoreModule } from '@agm/core';
 
 @NgModule({
   declarations: [AppComponent, EventListComponent, EventScreenComponent, NavigationBarComponent, EventDetailComponent, EventDetailScreenComponent, MapComponent],
@@ -37,6 +38,10 @@ import { MapComponent } from './components/map/map.component';
     MatToolbarModule,
     MatCheckboxModule,
     MatCardModule,
+    MatGridListModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyBPxPFR9Pe5KDXNXX3RTXkWqE0zYhqF1uA'
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]

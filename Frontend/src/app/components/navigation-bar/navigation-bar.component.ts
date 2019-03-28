@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import { MatToolbar } from "@angular/material";
+import { Location } from "@angular/common";
 
 @Component({
   selector: 'app-navigation-bar',
@@ -8,11 +8,15 @@ import { MatToolbar } from "@angular/material";
 })
 export class NavigationBarComponent implements OnInit {
 
+  @Input() showGoBackButton: boolean;
   @Input() title: string;
 
-  constructor() { }
+  constructor(private location: Location) { }
 
   ngOnInit() {
   }
 
+  goBack(event): void {
+    this.location.back();
+  }
 }
