@@ -3,7 +3,7 @@
     <div class="search-div">
       <i class="material-icons search-icon">search</i>
       <mat-form-field class="search-input">
-        <input #inpt [(ngModel)]="searchInput" matInput (keyup)="applyFilter($event.target.value,showCompleted)" placeholder="Search">
+        <input [(ngModel)]="searchInput" matInput (keyup)="applyFilter($event.target.value,showCompleted)" placeholder="Search">
       </mat-form-field>
     </div>
     <div class="checkbox-div">

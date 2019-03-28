@@ -40,7 +40,7 @@ td, th {
 }
 
 .sub-div {
-  max-height: 71vh;
+  max-height: 75vh;
   overflow: auto;
   transition: none !important;
   box-shadow: none !important;

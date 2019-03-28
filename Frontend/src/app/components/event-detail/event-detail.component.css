@@ -18,3 +18,33 @@
 .event-info {
   width: 25%;
 }
+
+.event-name-status {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-left: 4%;
+  margin-right: 4%;
+  margin-bottom: 6%;
+}
+
+.event-properties {
+  text-align: left
+}
+
+.event-name-card {
+  height: 95%;
+}
+
+.description {
+  /*width: 25%;*/
+  word-wrap: break-spaces;
+  text-align: left;
+  margin-left: 5%;
+  margin-right: 5%;
+  width: 90%;
+  height: 21vh;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
