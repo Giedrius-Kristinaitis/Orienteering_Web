@@ -8,4 +8,8 @@
   background-repeat: no-repeat;
   height: 100vh;
   overflow: hidden;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 }
