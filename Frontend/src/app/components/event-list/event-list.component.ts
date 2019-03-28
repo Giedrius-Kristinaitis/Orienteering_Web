@@ -70,7 +70,6 @@ export class EventListComponent implements OnInit {
    * @param row selected table row
    */
   showEventDetails(row): void {
-    alert(row['name']);
     this.router.navigateByUrl(`/event/detail/${row['id']}`);
   }
 

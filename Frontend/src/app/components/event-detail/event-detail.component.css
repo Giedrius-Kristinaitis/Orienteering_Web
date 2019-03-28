@@ -1,23 +1,23 @@
 .main-div {
-  margin-top: 100px;
-  width: 75%;
+  /*width: 75%;*/
   padding: 0px;
   margin-top: 1%;
-  height: 87vh;
+  margin-bottom: 1%;
+  justify-content: center;
 }
 
 .map-and-info {
   display: flex;
   flex-direction: row;
-  flex-wrap: revert;
+  /*display: flex;*/
+  /*flex-direction: row;*/
+  /*flex-wrap: revert;*/
 }
 
 .map {
   width: 75%;
-  flex-grow: 3;
 }
 
 .event-info {
   width: 25%;
-  flex-grow: 1;
 }

@@ -1,7 +1,10 @@
-.container {
+.content {
+  width: 75%;
+  height: 100%;
+}
+
+.background {
   background-image: url("../../../assets/images/city_from_above.jpg");
   background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
   height: 100vh;
 }
