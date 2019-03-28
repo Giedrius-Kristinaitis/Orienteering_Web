@@ -5,7 +5,6 @@ import {MatPaginator, MatTableDataSource, MatSort, PageEvent} from '@angular/mat
 import {Router} from '@angular/router';
 import {EventResponse} from "../eventResponse";
 import {EVENTS} from "../mock-events";
-import {ifTrue} from "codelyzer/util/function";
 
 @Component({
   selector: 'app-event-list',
@@ -18,7 +17,7 @@ export class EventListComponent implements OnInit {
   events: Event[];
 
   dataSource: MatTableDataSource<Event>;
-  displayedColumns: string[] = ['name', 'teamSize', 'checkpointCount', 'created'];
+  displayedColumns: string[] = ['name', 'teamSize', 'checkpointCount', 'created', 'status'];
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;

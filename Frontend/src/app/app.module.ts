@@ -7,8 +7,19 @@ import { AppComponent } from './components/app/app.component';
 import { EventListComponent } from './components/event-list/event-list.component';
 
 import {
-  MatButtonModule, MatIconModule, MatListModule, MatTableModule, MatPaginatorModule, MatSortModule,
-  MatFormFieldModule, MatInputModule, MatToolbarModule, MatCheckboxModule, MatCardModule, MatGridListModule
+  MatButtonModule,
+  MatIconModule,
+  MatListModule,
+  MatTableModule,
+  MatPaginatorModule,
+  MatSortModule,
+  MatFormFieldModule,
+  MatInputModule,
+  MatToolbarModule,
+  MatCheckboxModule,
+  MatCardModule,
+  MatGridListModule,
+  MatChipsModule
 } from "@angular/material";
 import { EventScreenComponent } from './components/event-screen/event-screen.component';
 import {HttpClientModule} from "@angular/common/http";
@@ -39,6 +50,7 @@ import { AgmCoreModule } from '@agm/core';
     MatCheckboxModule,
     MatCardModule,
     MatGridListModule,
+    MatChipsModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyBPxPFR9Pe5KDXNXX3RTXkWqE0zYhqF1uA'
     })

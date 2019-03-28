@@ -43,6 +43,18 @@
         <td mat-cell *matCellDef="let event"> {{event.created}} </td>
       </ng-container>
 
+      <!-- Status Column -->
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
+        <td mat-cell *matCellDef="let event">
+          <mat-chip-list [ngSwitch]="this.event.status.toLocaleLowerCase()">
+            <mat-chip *ngSwitchCase="'active'" color="accent" selected="true">{{event.status}}</mat-chip>
+            <mat-chip *ngSwitchCase="'closed'" color="warn" selected="true">{{event.status}}</mat-chip>
+            <mat-chip *ngSwitchDefault color="primary" selected="true">{{event.status}}</mat-chip>
+          </mat-chip-list>
+        </td>
+      </ng-container>
+
       <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
       <tr class="item" mat-row *matRowDef="let row; columns: displayedColumns;" (click)="showEventDetails(row)"></tr>
     </table>
