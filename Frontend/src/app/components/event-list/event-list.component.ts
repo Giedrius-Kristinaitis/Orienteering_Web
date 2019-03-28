@@ -71,7 +71,7 @@ export class EventListComponent implements OnInit {
    */
   showEventDetails(row): void {
     alert(row['name']);
-    this.router.navigateByUrl('/test');
+    this.router.navigateByUrl(`/event/detail/${row['id']}`);
   }
 
   onPaginateChange(event: PageEvent) {

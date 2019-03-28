@@ -1,0 +1,18 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>{{event.name.charAt(0).toLocaleUpperCase() + event.name.slice(1)}} map</mat-card-title>
+    <mat-card-subtitle>{{event.description}}</mat-card-subtitle>
+  </mat-card-header>
+  <!--Zemelapio vieta-->
+
+  <mat-card-content>
+    <div class="eventInfo">
+      <p>Checkpoints count: {{event.checkpointCount}}</p>
+      <p>Team size limit: {{event.teamSize}}</p>
+      <p>Created: {{event.created}}</p>
+      <p>Starting at: {{event.starting}}</p>
+      <p>Current status: {{event.status}}</p>
+      <p>Estimated event distance: {{event.estimatedDistance}}</p>
+    </div>
+  </mat-card-content>
+</mat-card>

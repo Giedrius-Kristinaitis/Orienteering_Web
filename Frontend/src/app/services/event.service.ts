@@ -4,6 +4,7 @@ import { Event } from "../components/event";
 import {HttpClient} from "@angular/common/http";
 import {catchError, map, tap} from "rxjs/operators";
 import {EventResponse} from "../components/eventResponse";
+import {EVENTS} from "../components/mock-events";
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,12 @@ export class EventService {
    * Returns all mocked events
    */
   getEvents(): Observable<EventResponse> {
-    return this.http.get<EventResponse>("http://localhost:8080/api/event/page/0/10");
+    return this.http.get<EventResponse>('http://localhost:8080/api/event/page/0/10');
+  }
+
+  getEvent(id: number): Observable<Event> {
+    return of(EVENTS.find(event => event.id === id));
+   // return this.http.get<Event>(`http://localhost:8080/api/event/${id}`);
   }
 
   private handleError<T>(operation = 'operation', result?: T) {
