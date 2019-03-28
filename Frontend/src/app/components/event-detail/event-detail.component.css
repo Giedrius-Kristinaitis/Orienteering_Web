@@ -1,7 +1,6 @@
 .main-div {
-  /*width: 75%;*/
   padding: 0px;
-  margin-top: 1%;
+  margin-top: 1.5%;
   margin-bottom: 1%;
   justify-content: center;
 }
@@ -9,9 +8,7 @@
 .map-and-info {
   display: flex;
   flex-direction: row;
-  /*display: flex;*/
-  /*flex-direction: row;*/
-  /*flex-wrap: revert;*/
+  flex-wrap: nowrap;
 }
 
 .map {
