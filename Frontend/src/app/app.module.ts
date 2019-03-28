@@ -16,9 +16,10 @@ import { NavigationBarComponent } from './components/navigation-bar/navigation-b
 import {FormsModule} from "@angular/forms";
 import { EventDetailComponent } from './components/event-detail/event-detail.component';
 import { EventDetailScreenComponent } from './components/event-detail-screen/event-detail-screen.component';
+import { MapComponent } from './components/map/map.component';
 
 @NgModule({
-  declarations: [AppComponent, EventListComponent, EventScreenComponent, NavigationBarComponent, EventDetailComponent, EventDetailScreenComponent],
+  declarations: [AppComponent, EventListComponent, EventScreenComponent, NavigationBarComponent, EventDetailComponent, EventDetailScreenComponent, MapComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -35,7 +36,7 @@ import { EventDetailScreenComponent } from './components/event-detail-screen/eve
     HttpClientModule,
     MatToolbarModule,
     MatCheckboxModule,
-    MatCardModule
+    MatCardModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -4,9 +4,11 @@
     <mat-card-subtitle>{{event.description}}</mat-card-subtitle>
   </mat-card-header>
   <!--Zemelapio vieta-->
-
+  <div class="map-component-div">
+    <app-map></app-map>
+  </div>
   <mat-card-content>
-    <div class="eventInfo">
+    <div class="event-info-div">
       <p>Checkpoints count: {{event.checkpointCount}}</p>
       <p>Team size limit: {{event.teamSize}}</p>
       <p>Created: {{event.created}}</p>
