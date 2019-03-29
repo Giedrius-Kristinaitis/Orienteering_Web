@@ -52,7 +52,7 @@ export class EventListComponent implements OnInit {
 
     //Filters each event by a name and based on showCompleted value shows closed events
     this.dataSource.filterPredicate = (data, filter) => {
-      return (showCompleted ? true : data.status.includes('Closed') == false) && (filter == ' ' || data.name.includes(filter));
+      return (showCompleted ? true : data.status.includes('Closed') == false) && (filter == ' ' || data.name.toLocaleLowerCase().includes(filter.toLocaleLowerCase()));
     }
     this.dataSource.filter = filterValue;
 
