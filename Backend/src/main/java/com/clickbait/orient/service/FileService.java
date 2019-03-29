@@ -11,18 +11,20 @@ import org.springframework.web.multipart.MultipartFile;
 public interface FileService {
 
     /**
-     * Saves a multipart file to the specified directory
+     * Saves a multipart photo file to the specified directory
      *
      * @param file file to save
      * @param dir name of the directory
+     *
+     * @return file download url
      */
-    void saveFile(MultipartFile file, String dir);
+    String savePhoto(MultipartFile file, String dir);
 
     /**
-     * Loads a file with the given name
+     * Loads a photo with the given name
      *
      * @param fileName name of the file
      * @return file as resource object
      */
-    Resource getFile(String fileName);
+    Resource getPhoto(String fileName);
 }
