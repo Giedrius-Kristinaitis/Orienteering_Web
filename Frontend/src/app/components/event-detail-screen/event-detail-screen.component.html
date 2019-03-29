@@ -4,7 +4,7 @@
       <app-navigation-bar showGoBackButton="true" title="{{eventName}}"></app-navigation-bar>
     </div>
     <div class="content">
-      <app-event-detail></app-event-detail>
+      <app-event-detail (eventName)="getEventName($event)"></app-event-detail>
     </div>
   </div>
 </div>

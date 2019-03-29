@@ -1,8 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {EventService} from "../../services/event.service";
 import {Event} from "../event";
-import {async} from "rxjs/internal/scheduler/async";
 
 @Component({
   selector: 'app-event-detail',
@@ -10,6 +9,7 @@ import {async} from "rxjs/internal/scheduler/async";
   styleUrls: ['./event-detail.component.css']
 })
 export class EventDetailComponent implements OnInit {
+  @Output() public eventName: EventEmitter<string> = new EventEmitter();
   event: Event;
 
   constructor(
@@ -25,6 +25,7 @@ export class EventDetailComponent implements OnInit {
   getEvent(id: number): void {
     this.eventService.getEvent(id).subscribe(event => {
       this.event = event;
+      this.eventName.emit(event.name);
       console.log(`Event name: ${this.event.name}`);
     });
   }

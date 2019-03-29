@@ -1,7 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
-import {EventService} from "../../services/event.service";
-
+import {Component, Input, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-event-detail-screen',
@@ -9,16 +6,16 @@ import {EventService} from "../../services/event.service";
   styleUrls: ['./event-detail-screen.component.css']
 })
 export class EventDetailScreenComponent implements OnInit {
-  private eventName: string;
+  eventName: string;
 
-  constructor(
-    private route: ActivatedRoute,
-    private eventService: EventService
-  ) { }
+  constructor() { }
 
   ngOnInit() {
-    const id = +this.route.snapshot.paramMap.get('id');
-    this.eventService.getEvent(id).subscribe(event => this.eventName = event.name);
+  }
+
+  getEventName(name: string) : void {
+    this.eventName = name;
+    // console.log(`Name: ${name}`);
   }
 
 
