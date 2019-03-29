@@ -39,12 +39,11 @@ public class FileServiceImpl implements FileService {
      * Saves a multipart photo file to the specified directory
      *
      * @param file file to save
-     * @param dir  name of the directory
      *
      * @return file download url
      */
     @Override
-    public String savePhoto(MultipartFile file, String dir) {
+    public String savePhoto(MultipartFile file) {
         File uploadDir = new File(fileConfig.getPhotoUploadDir());
 
         // validate file name
