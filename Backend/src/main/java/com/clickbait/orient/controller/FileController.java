@@ -41,17 +41,12 @@ public class FileController {
     public ResponseEntity<PhotoResponse> uploadPhoto(@RequestParam("file") MultipartFile file, @PathVariable String eventId) {
         String downloadURL = service.savePhoto(file);
 
-        PhotoResponse response = new PhotoResponse();
 
         if (downloadURL == null) {
-            response.setSuccess(false);
-            return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
-        response.setDownloadURL(downloadURL);
-        response.setFileName(file.getName());
-        response.setFileType(file.getContentType());
-        response.setFileSize(file.getSize());
+        PhotoResponse response = new PhotoResponse(downloadURL, file.getContentType(), file.getSize());
 
         return new ResponseEntity<>(response, HttpStatus.OK);
     }

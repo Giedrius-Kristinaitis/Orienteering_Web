@@ -10,6 +10,9 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 
 /**
  * Handles files
@@ -44,25 +47,27 @@ public class FileServiceImpl implements FileService {
      */
     @Override
     public String savePhoto(MultipartFile file) {
-        File uploadDir = new File(fileConfig.getPhotoUploadDir());
-
         // validate file name
-        String regex = "[^@#\\$%\\^&\\*=\\+]";
-
-        if (!file.getName().matches(regex)) {
+        if (file.getOriginalFilename().matches("[#@$%^&*+]")) {
             return null;
         }
 
+        File photoFile = new File(fileConfig.getPhotoUploadDir() + "/" + System.currentTimeMillis() + "_" + file.getOriginalFilename());
+
         try {
-            file.transferTo(uploadDir);
+            if (!photoFile.exists()) {
+                photoFile.createNewFile();
+            }
+
+            Files.copy(file.getInputStream(), Paths.get(photoFile.getAbsolutePath()), StandardCopyOption.REPLACE_EXISTING);
         } catch (IOException ex) {
             return null;
         }
 
         // return the download url
         return ServletUriComponentsBuilder.fromCurrentContextPath()
-                .path("/api/file/photo")
-                .path(file.getName())
+                .path("/api/file/photo/")
+                .path(photoFile.getName())
                 .toUriString();
     }
 
@@ -75,7 +80,7 @@ public class FileServiceImpl implements FileService {
     @Override
     public Resource getPhoto(String fileName) {
         try {
-            Resource resource = new UrlResource(fileConfig.getPhotoUploadDir() + fileName);
+            Resource resource = new UrlResource(Paths.get(fileConfig.getPhotoUploadDir()).resolve(fileName).normalize().toUri());
 
             if (resource.exists()) {
                 return resource;
