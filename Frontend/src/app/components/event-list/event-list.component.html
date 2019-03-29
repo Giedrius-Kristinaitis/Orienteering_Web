@@ -40,7 +40,7 @@
       <!-- Date Column -->
       <ng-container matColumnDef="created">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Created </th>
-        <td mat-cell *matCellDef="let event"> {{event.created}} </td>
+        <td mat-cell *matCellDef="let event"> {{event.created | date: 'yyyy-MM-dd hh:mm'}} </td>
       </ng-container>
 
       <!-- Status Column -->

@@ -12,6 +12,6 @@ export class Event {
   created: string;
   starting: string;
   status: string;
-  estimatedTime: number;
-  estimatedDistance: number;
+  estimatedTimeMillis: number;
+  estimatedDistanceMetres: number;
 }

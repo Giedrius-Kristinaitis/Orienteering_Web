@@ -14,10 +14,10 @@
           <mat-list>
             <mat-list-item>Team size: {{event.teamSize}}</mat-list-item>
             <mat-list-item>Checkpoints count: {{event.checkpointCount}}</mat-list-item>
-            <mat-list-item>Created: {{event.created}}</mat-list-item>
-            <mat-list-item>Starting: {{event.starting}}</mat-list-item>
-            <mat-list-item>Estimated time: {{event.estimatedTime}}</mat-list-item>
-            <mat-list-item>Estimated distance: {{event.estimatedDistance}}</mat-list-item>
+            <mat-list-item>Created: {{event.created | date: 'yyyy-MM-dd hh:mm:ss'}}</mat-list-item>
+            <mat-list-item>Starting: {{event.starting | date: 'yyyy-MM-dd hh:mm:ss'}}</mat-list-item>
+            <mat-list-item>Estimated time: {{event.estimatedTimeMillis | date: 'hh:mm:ss'}}</mat-list-item>
+            <mat-list-item>Estimated distance: {{event.estimatedDistanceMetres}}m</mat-list-item>
           </mat-list>
           <mat-divider></mat-divider>
           <p class="description">{{event.description}}</p>

@@ -17,7 +17,4 @@ export class EventDetailScreenComponent implements OnInit {
     this.eventName = name;
     // console.log(`Name: ${name}`);
   }
-
-
-
 }

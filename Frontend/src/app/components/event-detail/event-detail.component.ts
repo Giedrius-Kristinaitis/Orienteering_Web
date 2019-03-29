@@ -26,7 +26,8 @@ export class EventDetailComponent implements OnInit {
     this.eventService.getEvent(id).subscribe(event => {
       this.event = event;
       this.eventName.emit(event.name);
-      console.log(`Event name: ${this.event.name}`);
+      console.log(this.event.estimatedDistanceMetres);
+      // console.log(`Event name: ${this.event.name}`);
     });
   }
 
