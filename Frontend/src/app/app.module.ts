@@ -29,9 +29,11 @@ import { EventDetailComponent } from './components/event-detail/event-detail.com
 import { EventDetailScreenComponent } from './components/event-detail-screen/event-detail-screen.component';
 import { MapComponent } from './components/map/map.component';
 import { AgmCoreModule } from '@agm/core';
+import { CreateEventScreenComponent } from './create-event-screen/create-event-screen.component';
+import { EventCreateScreenComponent } from './components/event-create-screen/event-create-screen.component';
 
 @NgModule({
-  declarations: [AppComponent, EventListComponent, EventScreenComponent, NavigationBarComponent, EventDetailComponent, EventDetailScreenComponent, MapComponent],
+  declarations: [AppComponent, EventListComponent, EventScreenComponent, NavigationBarComponent, EventDetailComponent, EventDetailScreenComponent, MapComponent, CreateEventScreenComponent, EventCreateScreenComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
