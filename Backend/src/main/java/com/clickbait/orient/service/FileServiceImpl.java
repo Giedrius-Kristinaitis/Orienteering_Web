@@ -47,9 +47,18 @@ public class FileServiceImpl implements FileService {
     public String savePhoto(MultipartFile file, String dir) {
         File uploadDir = new File(fileConfig.getPhotoUploadDir());
 
+        // validate file name
+        String regex = "[^@#\\$%\\^&\\*=\\+]";
+
+        if (!file.getName().matches(regex)) {
+            return null;
+        }
+
         try {
             file.transferTo(uploadDir);
-        } catch (IOException ex) {}
+        } catch (IOException ex) {
+            return null;
+        }
 
         // return the download url
         return ServletUriComponentsBuilder.fromCurrentContextPath()
