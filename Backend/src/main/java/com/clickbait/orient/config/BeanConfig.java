@@ -2,10 +2,7 @@ package com.clickbait.orient.config;
 
 import com.clickbait.orient.database.EventRepository;
 import com.clickbait.orient.database.UserRepository;
-import com.clickbait.orient.service.EventService;
-import com.clickbait.orient.service.EventServiceImpl;
-import com.clickbait.orient.service.UserService;
-import com.clickbait.orient.service.UserServiceImpl;
+import com.clickbait.orient.service.*;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
@@ -50,6 +47,15 @@ public class BeanConfig {
     @Bean
     public EventService eventService() {
         return new EventServiceImpl(context.getBean(EventRepository.class));
+    }
+
+    /**
+     * Gets file service implementation
+     * @return
+     */
+    @Bean
+    public FileService fileService() {
+        return new FileServiceImpl();
     }
 
     /**
