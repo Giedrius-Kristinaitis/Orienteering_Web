@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {EventService} from "../../services/event.service";
 import {Event} from "../event";
+import {async} from "rxjs/internal/scheduler/async";
 
 @Component({
   selector: 'app-event-detail',
@@ -17,13 +18,15 @@ export class EventDetailComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.getEvent();
-    console.log(`Event name: ${this.event.name}`);
+    const eventId = +this.route.snapshot.paramMap.get('id');
+    this.getEvent(eventId);
   }
 
-  getEvent(): void {
-    const eventId = +this.route.snapshot.paramMap.get('id');
-    this.eventService.getEvent(eventId).subscribe(event => this.event = event);
+  getEvent(id: number): void {
+    this.eventService.getEvent(id).subscribe(event => {
+      this.event = event;
+      console.log(`Event name: ${this.event.name}`);
+    });
   }
 
 }

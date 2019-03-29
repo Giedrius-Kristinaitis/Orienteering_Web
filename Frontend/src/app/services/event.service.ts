@@ -21,8 +21,8 @@ export class EventService {
   }
 
   getEvent(id: number): Observable<Event> {
-    return of(EVENTS.find(event => event.id === id));
-   // return this.http.get<Event>(`http://localhost:8080/api/event/${id}`);
+    //return of(EVENTS.find(event => event.id === id));
+    return this.http.get<Event>(`http://localhost:8080/api/event/${id}`);
   }
 
   private handleError<T>(operation = 'operation', result?: T) {

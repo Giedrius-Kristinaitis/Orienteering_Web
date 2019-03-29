@@ -1,5 +1,5 @@
 <mat-card class="main-div">
-    <div class="map-and-info">
+    <div *ngIf="event!=undefined; else spinner" class="map-and-info">
       <div class="event-info">
         <mat-card class="event-name-card">
           <mat-card-title class="event-name-status">
@@ -26,5 +26,10 @@
       <div class="map">
         <app-map [checkpoints]="event.checkpoints"></app-map>
       </div>
+    </div>
+    <div class="loading-spinner">
+      <ng-template #spinner>
+        <mat-spinner class="spn"></mat-spinner>
+      </ng-template>
     </div>
 </mat-card>
