@@ -25,4 +25,12 @@ public interface EventService {
      * @return event page
      */
     Page<Event> getAllEvents(Integer pageNumber, Integer pageSize);
+
+    /**
+     * Adds or updates an event
+     *
+     * @param event event to add/update
+     * @return added/updated event
+     */
+    Event saveEvent(Event event);
 }
