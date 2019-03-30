@@ -15,6 +15,14 @@ import java.util.*;
  */
 public class EventRepositoryMockImpl implements EventRepository {
 
+    // used to generate ids
+    private final Random random = new Random();
+
+    // id characters
+    private final char[] idCharacters = new char[] {
+            '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'r', 'p', 'o', 'n', 'm', 'l', 'k', 'j', 'i', 'h', 'g', 'f', 'e', 'd', 'c', 'b', 'a'
+    };
+
     // mock some events
     private final List<Event> events = Arrays.asList(
             new Event(
@@ -284,6 +292,47 @@ public class EventRepositoryMockImpl implements EventRepository {
     }
 
     @Override
+    public <S extends Event> S save(S s) {
+        if (s.getId() == null) {
+            s.setId(generateId(10));
+            events.add(s);
+        } else {
+            Optional<Event> optional = findById(s.getId());
+
+            if (optional.isPresent()) {
+                Event event = optional.get();
+
+                event.setName(s.getName());
+                event.setDescription(s.getDescription());
+                event.setCheckpointCount(s.getCheckpointCount());
+                event.setCheckpoints(s.getCheckpoints());
+                event.setTeamSize(s.getTeamSize());
+                event.setTeams(s.getTeams());
+                event.setCreated(s.getCreated());
+                event.setStarting(s.getStarting());
+                event.setEstimatedTimeMillis(s.getEstimatedTimeMillis());
+                event.setEstimatedDistanceMetres(s.getEstimatedDistanceMetres());
+                event.setPhotos(s.getPhotos());
+                event.setStatus(s.getStatus());
+            } else {
+                events.add(s);
+            }
+        }
+
+        return s;
+    }
+
+    private String generateId(int length) {
+        StringBuilder builder = new StringBuilder();
+
+        for (int i = 0; i < length; i++) {
+            builder.append(idCharacters[random.nextInt(idCharacters.length)]);
+        }
+
+        return builder.toString();
+    }
+
+    @Override
     public boolean existsById(String s) {
         return false;
     }
@@ -291,11 +340,6 @@ public class EventRepositoryMockImpl implements EventRepository {
     @Override
     public List<Event> findAll() {
         return events;
-    }
-
-    @Override
-    public <S extends Event> S save(S s) {
-        return null;
     }
 
     @Override
