@@ -1,6 +1,8 @@
 package com.clickbait.orient.service;
 
 import com.clickbait.orient.config.FileConfig;
+import com.clickbait.orient.database.EventRepository;
+import com.clickbait.orient.model.Event;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
@@ -13,6 +15,7 @@ import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.Optional;
 
 /**
  * Handles files
@@ -22,13 +25,17 @@ public class FileServiceImpl implements FileService {
     // file configuration to get properties
     private FileConfig fileConfig;
 
+    // used to find and update event when a new photo is uploaded
+    private EventRepository events;
+
     /**
      * Class constructor
      * @param fileConfig automatically injected file configuration
      */
     @Autowired
-    public FileServiceImpl(FileConfig fileConfig) {
+    public FileServiceImpl(FileConfig fileConfig, EventRepository events) {
         this.fileConfig = fileConfig;
+        this.events = events;
 
         // create file upload directory(-ies)
         File photoDir = new File(fileConfig.getPhotoUploadDir());
@@ -42,11 +49,19 @@ public class FileServiceImpl implements FileService {
      * Saves a multipart photo file to the specified directory
      *
      * @param file file to save
+     * @param eventId to which event the photo belongs
      *
      * @return file download url
      */
     @Override
-    public String savePhoto(MultipartFile file) {
+    public String savePhoto(MultipartFile file, String eventId) {
+        // validate event id
+        Optional<Event> event = events.findById(eventId);
+
+        if (!event.isPresent()) {
+            return null;
+        }
+
         // validate file name
         if (file.getOriginalFilename().matches("[#@$%^&*+]")) {
             return null;
@@ -64,11 +79,16 @@ public class FileServiceImpl implements FileService {
             return null;
         }
 
-        // return the download url
-        return ServletUriComponentsBuilder.fromCurrentContextPath()
+        // get the download url
+        String downloadURL = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path("/api/file/photo/")
                 .path(photoFile.getName())
                 .toUriString();
+
+        // add the photo to the event
+        event.get().getPhotos().add(downloadURL);
+
+        return downloadURL;
     }
 
     /**

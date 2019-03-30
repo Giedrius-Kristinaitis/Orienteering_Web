@@ -39,8 +39,7 @@ public class FileController {
      */
     @PostMapping("/photo/{eventId}")
     public ResponseEntity<PhotoResponse> uploadPhoto(@RequestParam("file") MultipartFile file, @PathVariable String eventId) {
-        String downloadURL = service.savePhoto(file);
-
+        String downloadURL = service.savePhoto(file, eventId);
 
         if (downloadURL == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);

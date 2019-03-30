@@ -14,10 +14,11 @@ public interface FileService {
      * Saves a multipart photo file to the specified directory
      *
      * @param file file to save
+     * @param eventId to which event the photo belongs
      *
      * @return file download url
      */
-    String savePhoto(MultipartFile file);
+    String savePhoto(MultipartFile file, String eventId);
 
     /**
      * Loads a photo with the given name
