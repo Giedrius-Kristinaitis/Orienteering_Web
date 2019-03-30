@@ -63,7 +63,8 @@ public class EventControllerTest {
                 .andExpect(jsonPath("$.created", anything()))
                 .andExpect(jsonPath("$.starting", anything()))
                 .andExpect(jsonPath("$.estimatedTimeMillis", is(7200000)))
-                .andExpect(jsonPath("$.estimatedDistanceMetres", is(2500)));
+                .andExpect(jsonPath("$.estimatedDistanceMetres", is(2500)))
+                .andExpect(jsonPath("$.photos", hasSize(2)));
     }
 
     @Test
@@ -79,7 +80,7 @@ public class EventControllerTest {
     @Test
     public void testGetEventPage_shouldReturnEventPage() throws Exception {
         // setup
-        Page<Event> events = TestDataFactory.getEventPage();
+        Page<Event> events = TestDataFactory.getEventPage(1);
 
         given(service.getAllEvents(0, 1)).willReturn(events);
 
@@ -99,9 +100,26 @@ public class EventControllerTest {
                 .andExpect(jsonPath("$.events[0].starting", anything()))
                 .andExpect(jsonPath("$.events[0].estimatedTimeMillis", is(7200000)))
                 .andExpect(jsonPath("$.events[0].estimatedDistanceMetres", is(2500)))
+                .andExpect(jsonPath("$.events[0].photos", hasSize(2)))
                 .andExpect(jsonPath("$.totalElements", is(1)))
                 .andExpect(jsonPath("$.pageSize", is(1)))
                 .andExpect(jsonPath("$.totalPages", is(1)));
+    }
+
+    @Test
+    public void testGetEventPage_shouldReturnPageWith5Events() throws Exception {
+        // setup
+        Page<Event> events = TestDataFactory.getEventPage(5);
+
+        given(service.getAllEvents(0, 5)).willReturn(events);
+
+        // execute and assert
+        mvc.perform(get("/api/event/page/0/5").accept("application/json"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.events", hasSize(5)))
+                .andExpect(jsonPath("$.totalElements", is(5)))
+                .andExpect(jsonPath("$.pageSize", is(5)))
+                .andExpect(jsonPath("$.totalPages", anything()));
     }
 
     @Test

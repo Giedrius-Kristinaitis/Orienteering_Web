@@ -10,6 +10,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -48,18 +49,27 @@ public class TestDataFactory {
 
     /**
      * Creates an event list
+     *
+     * @param size number of events
+     *
      * @return event list
      */
-    public static List<Event> getEventList() {
-        return Arrays.asList(getEvent());
+    public static List<Event> getEventList(int size) {
+        List<Event> events = new ArrayList<>();
+
+        for (int i = 0; i < size; i++) {
+            events.add(getEvent());
+        }
+
+        return events;
     }
 
     /**
      * Creates a page of events
      * @return event page
      */
-    public static Page<Event> getEventPage() {
-        List<Event> eventList = getEventList();
+    public static Page<Event> getEventPage(int size) {
+        List<Event> eventList = getEventList(size);
         Page<Event> page = new PageImpl<Event>(eventList, PageRequest.of(0, eventList.size()), eventList.size());
 
         return page;

@@ -91,9 +91,9 @@ public class EventServiceTest {
     }
 
     @Test
-    public void testGetAllEvents_shouldReturnFilledPage() {
+    public void testGetAllEvents_shouldReturnPageWith1Element() {
         // setup
-        Page<Event> events = TestDataFactory.getEventPage();
+        Page<Event> events = TestDataFactory.getEventPage(1);
 
         given(repository.findAll(any(Pageable.class))).willReturn(events);
 
@@ -123,5 +123,22 @@ public class EventServiceTest {
         // compiler doesn't know which to use
         assertEquals((long) page.getContent().get(0).getCheckpointCount(), (long) page.getContent().get(0).getCheckpoints().size());
         assertEquals((long) page.getContent().get(0).getTeamSize(), (long) page.getContent().get(0).getTeams().size());
+    }
+
+    @Test
+    public void testGetAllEvents_shouldReturnPageWith5Elements() {
+        // setup
+        Page<Event> events = TestDataFactory.getEventPage(5);
+
+        given(repository.findAll(any(Pageable.class))).willReturn(events);
+
+        // execute
+        Page<Event> page = service.getAllEvents(0, 5);
+
+        // assert
+        assertNotNull(page);
+
+        assertNotNull(page.getContent());
+        assertEquals(5, page.getContent().size());
     }
 }
