@@ -41,7 +41,8 @@ public class TestDataFactory {
                 new Date(),
                 EventStatus.OPEN,
                 (long) 2*60*60*1000, // 2 hours * 60 minutes * 60 seconds * 1000 milliseconds
-                2500
+                2500,
+                Arrays.asList("http://blahblahblah.net/asasdad.jpg", "http://thisisparta.com/asd.png")
         );
     }
 
@@ -50,25 +51,7 @@ public class TestDataFactory {
      * @return event list
      */
     public static List<Event> getEventList() {
-        return Arrays.asList(new Event(
-                "1",
-                "Le Event 1",
-                "This is just an event",
-                2,
-                Arrays.asList(
-                        new Checkpoint("1", "First", new BigDecimal(10), new BigDecimal(10)),
-                        new Checkpoint("2", "Second", new BigDecimal(20), new BigDecimal(20))),
-                2,
-                Arrays.asList(
-                        new Team("team1", "Team One", Arrays.asList(new UserDTO("id1", "le_email@email.com", "QWERTY", "ASDFGH"), new UserDTO("id2", "karpis@gmail.com", "Karpis", "Karsis"))),
-                        new Team("team2", "Team Two", Arrays.asList(new UserDTO("id3", "stotele@inbox.lt", "Stoteles", "Darbininke"), new UserDTO("id4", "bulka@ktu.edu", "Flex", "Tape")))
-                ),
-                new Date(),
-                new Date(),
-                EventStatus.OPEN,
-                (long) 2*60*60*1000, // 2 hours * 60 minutes * 60 seconds * 1000 milliseconds
-                2500
-        ));
+        return Arrays.asList(getEvent());
     }
 
     /**
