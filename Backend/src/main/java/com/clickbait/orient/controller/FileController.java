@@ -45,7 +45,7 @@ public class FileController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
-        PhotoResponse response = new PhotoResponse(downloadURL, file.getContentType(), file.getSize());
+        PhotoResponse response = new PhotoResponse(eventId, downloadURL, file.getContentType(), file.getSize());
 
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
