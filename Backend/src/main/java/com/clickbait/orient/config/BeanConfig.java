@@ -55,7 +55,7 @@ public class BeanConfig {
      */
     @Bean
     public FileService fileService() {
-        return new FileServiceImpl(context.getBean(FileConfig.class));
+        return new FileServiceImpl(context.getBean(FileConfig.class), context.getBean(EventRepository.class));
     }
 
     /**
