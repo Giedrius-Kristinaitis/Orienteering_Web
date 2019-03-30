@@ -52,7 +52,7 @@ import { AgmCoreModule } from '@agm/core';
     MatGridListModule,
     MatChipsModule,
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyBPxPFR9Pe5KDXNXX3RTXkWqE0zYhqF1uA'
+      apiKey: ''
     })
   ],
   providers: [],
