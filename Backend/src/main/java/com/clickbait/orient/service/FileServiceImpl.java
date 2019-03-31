@@ -10,7 +10,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.io.File;
-import java.io.IOException;
 import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -36,13 +35,6 @@ public class FileServiceImpl implements FileService {
     public FileServiceImpl(FileConfig fileConfig, EventRepository events) {
         this.fileConfig = fileConfig;
         this.events = events;
-
-        // create file upload directory(-ies)
-        File photoDir = new File(fileConfig.getPhotoUploadDir());
-
-        if (!photoDir.exists()) {
-            photoDir.mkdir();
-        }
     }
 
     /**
@@ -62,9 +54,11 @@ public class FileServiceImpl implements FileService {
             return null;
         }
 
-        // validate file name
-        if (file.getOriginalFilename().matches("[#@$%^&*+]")) {
-            return null;
+        // create file upload directory if it doesn't exist
+        File photoDir = new File(fileConfig.getPhotoUploadDir());
+
+        if (!photoDir.exists()) {
+            photoDir.mkdir();
         }
 
         File photoFile = new File(fileConfig.getPhotoUploadDir() + "/" + System.currentTimeMillis() + "_" + file.getOriginalFilename());
@@ -75,7 +69,7 @@ public class FileServiceImpl implements FileService {
             }
 
             Files.copy(file.getInputStream(), Paths.get(photoFile.getAbsolutePath()), StandardCopyOption.REPLACE_EXISTING);
-        } catch (IOException ex) {
+        } catch (Exception ex) {
             return null;
         }
 
