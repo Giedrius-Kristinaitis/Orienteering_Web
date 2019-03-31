@@ -35,6 +35,15 @@ public class FileServiceImpl implements FileService {
     public FileServiceImpl(FileConfig fileConfig, EventRepository events) {
         this.fileConfig = fileConfig;
         this.events = events;
+
+        // create file upload directory if it doesn't exist
+        if (fileConfig.getPhotoUploadDir() != null) {
+            File photoDir = new File(fileConfig.getPhotoUploadDir());
+
+            if (!photoDir.exists()) {
+                photoDir.mkdir();
+            }
+        }
     }
 
     /**
@@ -52,13 +61,6 @@ public class FileServiceImpl implements FileService {
 
         if (!event.isPresent()) {
             return null;
-        }
-
-        // create file upload directory if it doesn't exist
-        File photoDir = new File(fileConfig.getPhotoUploadDir());
-
-        if (!photoDir.exists()) {
-            photoDir.mkdir();
         }
 
         File photoFile = new File(fileConfig.getPhotoUploadDir() + "/" + System.currentTimeMillis() + "_" + file.getOriginalFilename());
