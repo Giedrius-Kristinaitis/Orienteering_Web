@@ -1,16 +1,18 @@
 package com.clickbait.orient.service;
 
 import com.clickbait.orient.TestDataFactory;
-import com.clickbait.orient.config.FileConfig;
 import com.clickbait.orient.database.EventRepository;
 import com.clickbait.orient.model.Event;
-import org.junit.*;
+import org.junit.AfterClass;
+import org.junit.Before;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.core.io.Resource;
 import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.io.File;
@@ -19,14 +21,11 @@ import java.util.Optional;
 import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.when;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
+@TestPropertySource(properties = "file.photo-upload-dir=./test_photos")
 public class FileServiceTest {
-
-    @MockBean
-    private FileConfig config;
 
     @MockBean
     private EventRepository events;
@@ -36,8 +35,6 @@ public class FileServiceTest {
 
     @Before
     public void setup() {
-        when(config.getPhotoUploadDir()).thenReturn("./test_photos");
-
         File testFile = new File("./test_photos/picture.png");
 
         try {
@@ -47,22 +44,12 @@ public class FileServiceTest {
         } catch (Exception ex) {}
     }
 
-    @BeforeClass
-    public static void setupBeforeAll() {
-        File dir = new File("./test_photos");
-
-        if (!dir.exists()) {
-            dir.mkdirs();
-        }
-    }
-
     @AfterClass
     public static void cleanup() {
         File dir = new File("./test_photos");
 
         if (dir.exists()) {
             emptyDirectory(dir);
-            dir.delete();
         }
     }
 
@@ -72,11 +59,12 @@ public class FileServiceTest {
         for (File file: files) {
             if (file.isDirectory()) {
                 emptyDirectory(file);
-                file.delete();
             } else {
                 file.delete();
             }
         }
+
+        dir.delete();
     }
 
     @Test
@@ -113,20 +101,20 @@ public class FileServiceTest {
     }
 
     @Test
-    public void testGetPhoto_shouldReturnNull() {
-        // execute
-        Resource resource = service.getPhoto("not existing photo.png");
-
-        // assert
-        assertNull(resource);
-    }
-
-    @Test
     public void testGetPhoto_shouldReturnResource() {
         // execute
         Resource resource = service.getPhoto("picture.png");
 
         // assert
         assertNotNull(resource);
+    }
+
+    @Test
+    public void testGetPhoto_shouldReturnNull() {
+        // execute
+        Resource resource = service.getPhoto("not existing photo.png");
+
+        // assert
+        assertNull(resource);
     }
 }
