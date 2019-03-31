@@ -47,6 +47,15 @@ public class FileServiceTest {
         } catch (Exception ex) {}
     }
 
+    @BeforeClass
+    public static void setupBeforeAll() {
+        File dir = new File("./test_photos");
+
+        if (!dir.exists()) {
+            dir.mkdirs();
+        }
+    }
+
     @AfterClass
     public static void cleanup() {
         File dir = new File("./test_photos");
