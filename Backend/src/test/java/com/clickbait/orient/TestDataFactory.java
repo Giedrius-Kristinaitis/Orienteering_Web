@@ -25,6 +25,9 @@ public class TestDataFactory {
      * @return event
      */
     public static Event getEvent() {
+        List<String> photos = new ArrayList<>();
+        photos.addAll(Arrays.asList("http://blahblahblah.net/asasdad.jpg", "http://thisisparta.com/asd.png"));
+
         return new Event(
                 "1",
                 "Le Event 1",
@@ -43,7 +46,7 @@ public class TestDataFactory {
                 EventStatus.OPEN,
                 (long) 2*60*60*1000, // 2 hours * 60 minutes * 60 seconds * 1000 milliseconds
                 2500,
-                Arrays.asList("http://blahblahblah.net/asasdad.jpg", "http://thisisparta.com/asd.png")
+                photos
         );
     }
 
