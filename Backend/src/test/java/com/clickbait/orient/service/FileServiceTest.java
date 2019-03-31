@@ -49,16 +49,16 @@ public class FileServiceTest {
         File dir = new File("./test_photos");
 
         if (dir.exists()) {
-            emptyDirectory(dir);
+            deleteDirectory(dir);
         }
     }
 
-    private static void emptyDirectory(File dir) {
+    private static void deleteDirectory(File dir) {
         File[] files = dir.listFiles();
 
         for (File file: files) {
             if (file.isDirectory()) {
-                emptyDirectory(file);
+                deleteDirectory(file);
             } else {
                 file.delete();
             }
