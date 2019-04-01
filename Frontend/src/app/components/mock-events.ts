@@ -1,3 +1,4 @@
+/*
 import { Event} from "./event";
 
 export const EVENTS: Event[] = [
@@ -27,3 +28,4 @@ export const EVENTS: Event[] = [
   { id: 18, name: 'ketvirtas', checkpointCount: 6, checkpoints: [{ id: "1", latitude: 10, longitude: 11, name: "geras"}], teams: [{ id: "pirma", name: "teamas", members: [{id: "pir", firstName: "vardas", lastName: "pavarde", password: "pass"}]}], teamSize: 8, created: "2003-01-01", starting: "asdasdasd", status: "Active", estimatedTimeMillis: 10564, estimatedDistanceMetres: 999, description: "asdasdasd" },
   { id: 51, name: 'penktas', checkpointCount: 8, checkpoints: [{ id: "1", latitude: 10, longitude: 11, name: "geras"}], teams: [{ id: "pirma", name: "teamas", members: [{id: "pir", firstName: "vardas", lastName: "pavarde", password: "pass"}]}], teamSize: 3, created: "2019-01-01", starting: "asdasdasd", status: "Closed", estimatedTimeMillis: 10564, estimatedDistanceMetres: 999, description: "asdasdasd" }
 ];
+*/

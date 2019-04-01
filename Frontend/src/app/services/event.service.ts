@@ -2,9 +2,7 @@ import { Injectable } from '@angular/core';
 import {Observable, of} from "rxjs";
 import { Event } from "../components/event";
 import {HttpClient} from "@angular/common/http";
-import {catchError, map, tap} from "rxjs/operators";
 import {EventResponse} from "../components/eventResponse";
-import {EVENTS} from "../components/mock-events";
 
 @Injectable({
   providedIn: 'root'

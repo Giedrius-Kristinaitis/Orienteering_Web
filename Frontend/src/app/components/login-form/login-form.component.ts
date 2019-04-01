@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl, Validators} from "@angular/forms";
+import {AuthenticationService} from "../../services/authentication.service";
 
 @Component({
   selector: 'app-login-form',
@@ -10,9 +11,15 @@ export class LoginFormComponent implements OnInit {
   email = new FormControl('', [Validators.required, Validators.minLength(6),  Validators.pattern('[a-zA-Z0-9_.]+@[a-zZ-z0-9_]+(\\.[a-zA-Z]+)+')]);
   password = new FormControl('', [Validators.required, Validators.minLength(5)]);
 
-  constructor() { }
+  constructor( private authService: AuthenticationService) { }
 
   ngOnInit() {
+  }
+
+  login(email: string, password: string) {
+    if(!this.email.invalid && !this.password.invalid) {
+      this.authService.login(email, password);
+    }
   }
 
   getErrorMessage(form: FormControl): string {
