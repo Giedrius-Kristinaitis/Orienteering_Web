@@ -19,12 +19,12 @@ import {
   MatCheckboxModule,
   MatCardModule,
   MatGridListModule,
-  MatChipsModule, MatProgressSpinnerModule
+  MatChipsModule, MatProgressSpinnerModule, MatError, MatDatepickerModule, MatNativeDateModule
 } from "@angular/material";
 import { EventScreenComponent } from './components/event-screen/event-screen.component';
 import {HttpClientModule} from "@angular/common/http";
 import { NavigationBarComponent } from './components/navigation-bar/navigation-bar.component';
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { EventDetailComponent } from './components/event-detail/event-detail.component';
 import { EventDetailScreenComponent } from './components/event-detail-screen/event-detail-screen.component';
 import { MapComponent } from './components/map/map.component';
@@ -32,9 +32,12 @@ import { AgmCoreModule } from '@agm/core';
 import { EventCreateScreenComponent } from './components/event-create-screen/event-create-screen.component';
 import { EventCreateComponent } from './components/event-create/event-create.component';
 import { EventCreateMapComponent } from './components/event-create-map/event-create-map.component';
+import {key} from "./mapApiKey";
+import { LoginFormComponent } from './components/login-form/login-form.component';
+import { LoginFormScreenComponent } from './components/login-form-screen/login-form-screen.component';
 
 @NgModule({
-  declarations: [AppComponent, EventListComponent, EventScreenComponent, NavigationBarComponent, EventDetailComponent, EventDetailScreenComponent, MapComponent, EventCreateScreenComponent, EventCreateComponent, EventCreateMapComponent],
+  declarations: [AppComponent, EventListComponent, EventScreenComponent, NavigationBarComponent, EventDetailComponent, EventDetailScreenComponent, MapComponent, EventCreateScreenComponent, EventCreateComponent, EventCreateMapComponent, LoginFormComponent, LoginFormScreenComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -55,8 +58,12 @@ import { EventCreateMapComponent } from './components/event-create-map/event-cre
     MatGridListModule,
     MatChipsModule,
     MatProgressSpinnerModule,
+    MatFormFieldModule,
+    ReactiveFormsModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyBPxPFR9Pe5KDXNXX3RTXkWqE0zYhqF1uA'
+      apiKey: key
     })
   ],
   providers: [],

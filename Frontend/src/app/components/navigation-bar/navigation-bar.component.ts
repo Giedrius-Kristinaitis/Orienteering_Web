@@ -9,6 +9,7 @@ import { Location } from "@angular/common";
 export class NavigationBarComponent implements OnInit {
 
   @Input() showGoBackButton: boolean;
+  @Input() showUserIcons: boolean;
   @Input() title: string;
 
   constructor(private location: Location) { }

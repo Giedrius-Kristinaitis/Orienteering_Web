@@ -1,0 +1,18 @@
+.content {
+  width: 20%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.background {
+  background-image: url("../../../assets/images/city_from_above.jpg");
+  background-repeat: no-repeat;
+  height: 100vh;
+  overflow: hidden;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}

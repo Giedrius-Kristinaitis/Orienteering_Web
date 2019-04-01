@@ -1,3 +1,26 @@
-<p>
-  event-create works!
-</p>
+<mat-card class="main">
+  <div class="form-and-map">
+    <div class="form">
+      <mat-form-field>
+        <input matInput placeholder="Event Name" [formControl]="name" required>
+        <mat-error *ngIf="name.invalid">{{getErrorMessage(name)}}</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Team size limit" type="number" min="0" [formControl]="teamSize" required>
+        <mat-error *ngIf="teamSize.invalid">{{getErrorMessage(teamSize)}}</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput [formControl]="date" [matDatepicker]="picker" placeholder="Starting date" [(ngModel)]="dateInput" required>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        <mat-error *ngIf="date.invalid">{{getErrorMessage(date)}}</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <textarea matInput placeholder="Event Description"></textarea>
+      </mat-form-field>
+    </div>
+    <div class="map">
+      <agm-map [latitude]="0" [longitude]="0" style="height: 87vh"></agm-map>
+    </div>
+  </div>
+</mat-card>
