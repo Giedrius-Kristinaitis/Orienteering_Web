@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import { Location } from "@angular/common";
+import {UserService} from "../../services/user.service";
 
 @Component({
   selector: 'app-navigation-bar',
@@ -12,12 +13,16 @@ export class NavigationBarComponent implements OnInit {
   @Input() showUserIcons: boolean;
   @Input() title: string;
 
-  constructor(private location: Location) { }
+  constructor(private location: Location, private userService: UserService) { }
 
   ngOnInit() {
   }
 
   goBack(event): void {
     this.location.back();
+  }
+
+  logout(): void {
+    this.userService.logout();
   }
 }
