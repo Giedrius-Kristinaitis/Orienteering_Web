@@ -28,7 +28,6 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { EventDetailComponent } from './components/event-detail/event-detail.component';
 import { MapComponent } from './components/map/map.component';
 import { AgmCoreModule } from '@agm/core';
-import { EventCreateScreenComponent } from './components/event-create-screen/event-create-screen.component';
 import { EventCreateComponent } from './components/event-create/event-create.component';
 import { EventCreateMapComponent } from './components/event-create-map/event-create-map.component';
 import {key} from "./mapApiKey";
@@ -36,7 +35,7 @@ import { LoginFormComponent } from './components/login-form/login-form.component
 import { LoginFormScreenComponent } from './components/login-register-screen/login-form-screen.component';
 
 @NgModule({
-  declarations: [AppComponent, EventListComponent, EventScreenComponent, NavigationBarComponent, EventDetailComponent, MapComponent, EventCreateScreenComponent, EventCreateComponent, EventCreateMapComponent, LoginFormComponent, LoginFormScreenComponent],
+  declarations: [AppComponent, EventListComponent, EventScreenComponent, NavigationBarComponent, EventDetailComponent, MapComponent, EventCreateComponent, EventCreateMapComponent, LoginFormComponent, LoginFormScreenComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
