@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-event-screen',
@@ -6,10 +7,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./event-screen.component.css']
 })
 export class EventScreenComponent implements OnInit {
+  @Input() eventName: string;
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
+    console.log(this.router.url);
   }
 
+  getEventName(name: string) : void {
+    this.eventName = name;
+  }
 }

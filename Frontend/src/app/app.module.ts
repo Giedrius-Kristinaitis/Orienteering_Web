@@ -26,7 +26,6 @@ import {HttpClientModule} from "@angular/common/http";
 import { NavigationBarComponent } from './components/navigation-bar/navigation-bar.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { EventDetailComponent } from './components/event-detail/event-detail.component';
-import { EventDetailScreenComponent } from './components/event-detail-screen/event-detail-screen.component';
 import { MapComponent } from './components/map/map.component';
 import { AgmCoreModule } from '@agm/core';
 import { EventCreateScreenComponent } from './components/event-create-screen/event-create-screen.component';
@@ -37,7 +36,7 @@ import { LoginFormComponent } from './components/login-form/login-form.component
 import { LoginFormScreenComponent } from './components/login-register-screen/login-form-screen.component';
 
 @NgModule({
-  declarations: [AppComponent, EventListComponent, EventScreenComponent, NavigationBarComponent, EventDetailComponent, EventDetailScreenComponent, MapComponent, EventCreateScreenComponent, EventCreateComponent, EventCreateMapComponent, LoginFormComponent, LoginFormScreenComponent],
+  declarations: [AppComponent, EventListComponent, EventScreenComponent, NavigationBarComponent, EventDetailComponent, MapComponent, EventCreateScreenComponent, EventCreateComponent, EventCreateMapComponent, LoginFormComponent, LoginFormScreenComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
