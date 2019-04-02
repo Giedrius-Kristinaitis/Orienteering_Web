@@ -7,12 +7,11 @@ import {Router} from "@angular/router";
   styleUrls: ['./event-screen.component.css']
 })
 export class EventScreenComponent implements OnInit {
-  @Input() eventName: string;
+  eventName: string = '';
 
   constructor(private router: Router) { }
 
   ngOnInit() {
-    console.log(this.router.url);
   }
 
   getEventName(name: string) : void {

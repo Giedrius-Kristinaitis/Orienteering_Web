@@ -8,7 +8,7 @@
     </div>
     <div class="content">
       <app-event-list *ngIf="router.url=='/events'; else eventDetails"></app-event-list>
-      <ng-template #eventDetails><app-event-detail (eventName)="getEventName($event).name"></app-event-detail></ng-template>
+      <ng-template #eventDetails><app-event-detail (eventName)="getEventName($event)"></app-event-detail></ng-template>
     </div>
   </div>
 </div>
