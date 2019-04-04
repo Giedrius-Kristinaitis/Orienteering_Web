@@ -141,4 +141,49 @@ public class EventServiceTest {
         assertNotNull(page.getContent());
         assertEquals(5, page.getContent().size());
     }
+
+    @Test
+    public void testSaveEvent_shouldReturnNull() {
+        // execute
+        Event saved = service.saveEvent(null);
+
+        // assert
+        assertNull(saved);
+    }
+
+    @Test
+    public void testSaveEvent_shouldAddNewEvent() {
+        // setup
+        Event event = TestDataFactory.getEvent();
+        event.setId("generated_id");
+
+        given(repository.save(any(Event.class))).willReturn(event);
+
+        Event passedToService = TestDataFactory.getEvent();
+        passedToService.setId(null);
+
+        // execute
+        Event returned = service.saveEvent(passedToService);
+
+        // assert
+        assertNotNull(returned);
+        assertEquals(event.getId(), returned.getId());
+    }
+
+    @Test
+    public void testSaveEvent_shouldUpdateEvent() {
+        // setup
+        Event event = TestDataFactory.getEvent();
+        event.setName("New name");
+
+        given(repository.save(any(Event.class))).willReturn(event);
+
+        // execute
+        Event returned = service.saveEvent(event);
+
+        // assert
+        assertNotNull(returned);
+        assertEquals(event.getId(), returned.getId());
+        assertEquals(event.getName(), returned.getName());
+    }
 }

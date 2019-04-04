@@ -7,10 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 /**
  * Handles requests related to events
@@ -67,5 +66,23 @@ public class EventController {
         EventsResponse response = new EventsResponse(events.getContent(), events.getTotalElements(), events.getSize(), events.getTotalPages());
 
         return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    /**
+     * Adds an event to the event list
+     *
+     * @param event event to add
+     * @return added event
+     */
+    @PostMapping
+    public ResponseEntity<Event> addEvent(@Valid @RequestBody Event event) {
+        if (service.getEventById(event.getId()) != null) {
+            // event already exists, return conflict
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
+        }
+
+        Event addedEvent = service.saveEvent(event);
+
+        return new ResponseEntity<>(addedEvent, HttpStatus.CREATED);
     }
 }

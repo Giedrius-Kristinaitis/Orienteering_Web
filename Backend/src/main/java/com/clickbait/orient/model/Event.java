@@ -35,10 +35,8 @@ public class Event {
     @NotNull
     private Integer teamSize;
 
-    @NotNull
     private List<Team> teams;
 
-    @NotNull
     private Date created;
 
     @NotNull

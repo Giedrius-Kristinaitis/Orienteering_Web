@@ -32,6 +32,10 @@ public class EventServiceImpl implements EventService {
      * @return event with the specified id
      */
     public Event getEventById(String id) {
+        if (id == null) {
+            return null;
+        }
+
         Optional<Event> event = repository.findById(id);
 
         // check if the event was found
@@ -58,5 +62,20 @@ public class EventServiceImpl implements EventService {
         }
 
         return page;
+    }
+
+    /**
+     * Adds or updates an event
+     *
+     * @param event event to add/update
+     * @return added/updated event
+     */
+    @Override
+    public Event saveEvent(Event event) {
+        if (event == null) {
+            return null;
+        }
+
+        return repository.save(event);
     }
 }

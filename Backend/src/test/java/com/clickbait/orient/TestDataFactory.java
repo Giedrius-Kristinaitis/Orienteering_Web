@@ -77,4 +77,20 @@ public class TestDataFactory {
 
         return page;
     }
+
+    /**
+     * Gets a single valid event in JSON format
+     * @return event in JSON
+     */
+    public static String getValidEventAsJson() {
+        return "{\"id\": \"1\", \"name\": \"Le Event 1\", \"description\": \"This is just an event\", \"checkpointCount\": 2, \"checkpoints\": [], \"teamSize\": 2, \"teams\": [], \"created\": \"2019-09-28\", \"starting\": \"2019-11-12\", \"status\": \"Open\", \"estimatedTimeMillis\": 7200000, \"estimatedDistanceMetres\": 2500, \"photos\": []}";
+    }
+
+    /**
+     * Gets a single invalid event in JSON format
+     * @return invalid event in JSON
+     */
+    public static String getInvalidEventAsJson() {
+        return "{\"id\": \"1\", \"name\": \"\", \"description\": \"\", \"checkpointCount\": 0, \"teamSize\": 1, \"teams\": [], \"created\": \"2019-09-28\", \"starting\": \"\", \"status\": \"Open\", \"estimatedTimeMillis\": -1, \"estimatedDistanceMetres\": -1, \"photos\": []}";
+    }
 }
