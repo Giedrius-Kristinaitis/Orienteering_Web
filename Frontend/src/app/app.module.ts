@@ -33,6 +33,7 @@ import { EventCreateMapComponent } from './components/event-create-map/event-cre
 import {key} from "./mapApiKey";
 import { LoginFormComponent } from './components/login-form/login-form.component';
 import { LoginFormScreenComponent } from './components/login-register-screen/login-form-screen.component';
+import {AuthGuard} from "./auth.guard";
 
 @NgModule({
   declarations: [AppComponent, EventListComponent, EventScreenComponent, NavigationBarComponent, EventDetailComponent, MapComponent, EventCreateComponent, EventCreateMapComponent, LoginFormComponent, LoginFormScreenComponent],
@@ -64,7 +65,7 @@ import { LoginFormScreenComponent } from './components/login-register-screen/log
       apiKey: key
     })
   ],
-  providers: [],
+  providers: [AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
