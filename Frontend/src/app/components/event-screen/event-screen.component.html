@@ -1,0 +1,14 @@
+<div class="background">
+  <div class="container">
+    <div class="toolbar">
+      <app-navigation-bar *ngIf="router.url=='/events'" title="Events" showUserIcons="true"></app-navigation-bar>
+      <app-navigation-bar *ngIf="router.url=='/event/create'" showGoBackButton="true" title="Create Event"></app-navigation-bar>
+      <app-navigation-bar *ngIf="router.url.includes('/event/detail')" showGoBackButton="true" title="{{eventName}}"></app-navigation-bar>
+    </div>
+    <div class="content">
+      <app-event-list *ngIf="router.url=='/events'"></app-event-list>
+      <app-event-create *ngIf="router.url=='/event/create'"></app-event-create>
+      <app-event-detail *ngIf="router.url.includes('/event/detail/')" (eventName)="getEventName($event)"></app-event-detail>
+    </div>
+  </div>
+</div>

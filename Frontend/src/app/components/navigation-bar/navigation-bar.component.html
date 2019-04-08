@@ -1,0 +1,11 @@
+<mat-toolbar class="nav-bar" color="primary">
+  <mat-toolbar-row>
+    <mat-icon *ngIf="showGoBackButton=='true'" title="Go Back" class="navbar-icon first-icon" (click)="goBack($event)">arrow_back</mat-icon>
+      {{title}}
+    <span class="spacer"></span>
+    <div *ngIf="showUserIcons=='true'">
+      <mat-icon class="navbar-icon" title="Account Settings" alt="Account Settings">account_circle</mat-icon>
+      <mat-icon class="navbar-icon" title="Logout" alt="Logout">exit_to_app</mat-icon>
+    </div>
+  </mat-toolbar-row>
+</mat-toolbar>
