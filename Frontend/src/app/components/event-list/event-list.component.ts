@@ -4,7 +4,6 @@ import { EventService } from '../../services/event.service';
 import {MatPaginator, MatTableDataSource, MatSort, PageEvent} from '@angular/material';
 import {Router} from '@angular/router';
 import {EventResponse} from "../eventResponse";
-import {EVENTS} from "../mock-events";
 
 @Component({
   selector: 'app-event-list',
@@ -24,9 +23,10 @@ export class EventListComponent implements OnInit {
   constructor(private eventService: EventService, private router: Router) { }
 
   ngOnInit() {
-    // this.getEvents();
-    this.events = EVENTS;
-    this.dataSource = new MatTableDataSource<Event>(EVENTS);
+    this.getEvents();
+
+    // EventResponse eventResponse = this.eventService.getEvents();
+    this.dataSource = new MatTableDataSource<Event>(this.events);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
     this.applyFilter(this.searchInput, false);
@@ -38,6 +38,7 @@ export class EventListComponent implements OnInit {
   getEvents(): void {
     this.eventService.getEvents().subscribe(eventRes => {
       this.dataSource = new MatTableDataSource<Event>(eventRes.events);
+      this.events = eventRes.events;
     });
   }
 
@@ -51,7 +52,7 @@ export class EventListComponent implements OnInit {
 
     //Filters each event by a name and based on showCompleted value shows closed events
     this.dataSource.filterPredicate = (data, filter) => {
-      return (showCompleted ? true : data.status.includes('Closed') == false) && (filter == ' ' || data.name.includes(filter));
+      return (showCompleted ? true : data.status.includes('Closed') == false) && (filter == ' ' || data.name.toLocaleLowerCase().includes(filter.toLocaleLowerCase()));
     }
     this.dataSource.filter = filterValue;
 

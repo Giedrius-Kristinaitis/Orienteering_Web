@@ -35,10 +35,8 @@ public class Event {
     @NotNull
     private Integer teamSize;
 
-    @NotNull
     private List<Team> teams;
 
-    @NotNull
     private Date created;
 
     @NotNull
@@ -53,6 +51,8 @@ public class Event {
     @NotNull
     @Positive
     private Integer estimatedDistanceMetres;
+
+    private List<String> photos;
 
     /**
      * Default no-args constructor
@@ -73,8 +73,9 @@ public class Event {
      * @param status
      * @param estimatedTimeMillis
      * @param estimatedDistanceMetres
+     * @param photos
      */
-    public Event(String id, String name, String description, Integer checkpointCount, List<Checkpoint> checkpoints, Integer teamSize, List<Team> teams, Date created, Date starting, EventStatus status, Long estimatedTimeMillis, Integer estimatedDistanceMetres) {
+    public Event(String id, String name, String description, Integer checkpointCount, List<Checkpoint> checkpoints, Integer teamSize, List<Team> teams, Date created, Date starting, EventStatus status, Long estimatedTimeMillis, Integer estimatedDistanceMetres, List<String> photos) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -87,6 +88,7 @@ public class Event {
         this.status = status;
         this.estimatedTimeMillis = estimatedTimeMillis;
         this.estimatedDistanceMetres = estimatedDistanceMetres;
+        this.photos = photos;
     }
 
     // GETTERS
@@ -102,6 +104,7 @@ public class Event {
     public EventStatus getStatus() { return status; }
     public Long getEstimatedTimeMillis() { return estimatedTimeMillis; }
     public Integer getEstimatedDistanceMetres() { return estimatedDistanceMetres; }
+    public List<String> getPhotos() { return photos; }
 
     // SETTERS
     public void setId(String id) { this.id = id; }
@@ -116,4 +119,5 @@ public class Event {
     public void setStatus(EventStatus status) { this.status = status; }
     public void setEstimatedTimeMillis(Long estimatedTimeMillis) { this.estimatedTimeMillis = estimatedTimeMillis; }
     public void setEstimatedDistanceMetres(Integer estimatedDistanceMetres) { this.estimatedDistanceMetres = estimatedDistanceMetres; }
+    public void setPhotos(List<String> photos) { this.photos = photos; }
 }

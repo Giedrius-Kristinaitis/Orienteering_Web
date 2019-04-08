@@ -2,9 +2,7 @@ import { Injectable } from '@angular/core';
 import {Observable, of} from "rxjs";
 import { Event } from "../components/event";
 import {HttpClient} from "@angular/common/http";
-import {catchError, map, tap} from "rxjs/operators";
 import {EventResponse} from "../components/eventResponse";
-import {EVENTS} from "../components/mock-events";
 
 @Injectable({
   providedIn: 'root'
@@ -21,8 +19,8 @@ export class EventService {
   }
 
   getEvent(id: number): Observable<Event> {
-    return of(EVENTS.find(event => event.id === id));
-   // return this.http.get<Event>(`http://localhost:8080/api/event/${id}`);
+    //return of(EVENTS.find(event => event.id === id));
+    return this.http.get<Event>(`http://localhost:8080/api/event/${id}`);
   }
 
   private handleError<T>(operation = 'operation', result?: T) {

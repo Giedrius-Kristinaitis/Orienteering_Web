@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { EventDetailScreenComponent } from './event-detail-screen.component';
+import { EventCreateMapComponent } from './event-create-map.component';
 
-describe('EventDetailScreenComponent', () => {
-  let component: EventDetailScreenComponent;
-  let fixture: ComponentFixture<EventDetailScreenComponent>;
+describe('EventCreateMapComponent', () => {
+  let component: EventCreateMapComponent;
+  let fixture: ComponentFixture<EventCreateMapComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ EventDetailScreenComponent ]
+      declarations: [ EventCreateMapComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(EventDetailScreenComponent);
+    fixture = TestBed.createComponent(EventCreateMapComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

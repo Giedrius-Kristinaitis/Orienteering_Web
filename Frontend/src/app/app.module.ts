@@ -19,19 +19,24 @@ import {
   MatCheckboxModule,
   MatCardModule,
   MatGridListModule,
-  MatChipsModule
+  MatChipsModule, MatProgressSpinnerModule, MatError, MatDatepickerModule, MatNativeDateModule
 } from "@angular/material";
 import { EventScreenComponent } from './components/event-screen/event-screen.component';
 import {HttpClientModule} from "@angular/common/http";
 import { NavigationBarComponent } from './components/navigation-bar/navigation-bar.component';
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { EventDetailComponent } from './components/event-detail/event-detail.component';
-import { EventDetailScreenComponent } from './components/event-detail-screen/event-detail-screen.component';
 import { MapComponent } from './components/map/map.component';
 import { AgmCoreModule } from '@agm/core';
+import { EventCreateComponent } from './components/event-create/event-create.component';
+import { EventCreateMapComponent } from './components/event-create-map/event-create-map.component';
+import {key} from "./mapApiKey";
+import { LoginFormComponent } from './components/login-form/login-form.component';
+import { LoginFormScreenComponent } from './components/login-register-screen/login-form-screen.component';
+import {AuthGuard} from "./auth.guard";
 
 @NgModule({
-  declarations: [AppComponent, EventListComponent, EventScreenComponent, NavigationBarComponent, EventDetailComponent, EventDetailScreenComponent, MapComponent],
+  declarations: [AppComponent, EventListComponent, EventScreenComponent, NavigationBarComponent, EventDetailComponent, MapComponent, EventCreateComponent, EventCreateMapComponent, LoginFormComponent, LoginFormScreenComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -51,11 +56,16 @@ import { AgmCoreModule } from '@agm/core';
     MatCardModule,
     MatGridListModule,
     MatChipsModule,
+    MatProgressSpinnerModule,
+    MatFormFieldModule,
+    ReactiveFormsModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     AgmCoreModule.forRoot({
-      apiKey: ''
+      apiKey: key
     })
   ],
-  providers: [],
+  providers: [AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

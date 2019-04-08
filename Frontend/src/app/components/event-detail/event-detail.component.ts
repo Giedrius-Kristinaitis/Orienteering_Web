@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {EventService} from "../../services/event.service";
 import {Event} from "../event";
@@ -9,6 +9,7 @@ import {Event} from "../event";
   styleUrls: ['./event-detail.component.css']
 })
 export class EventDetailComponent implements OnInit {
+  @Output() public eventName: EventEmitter<string> = new EventEmitter();
   event: Event;
 
   constructor(
@@ -17,13 +18,17 @@ export class EventDetailComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.getEvent();
-    console.log(`Event name: ${this.event.name}`);
+    const eventId = +this.route.snapshot.paramMap.get('id');
+    this.getEvent(eventId);
   }
 
-  getEvent(): void {
-    const eventId = +this.route.snapshot.paramMap.get('id');
-    this.eventService.getEvent(eventId).subscribe(event => this.event = event);
+  getEvent(id: number): void {
+    this.eventService.getEvent(id).subscribe(event => {
+      this.event = event;
+      this.eventName.emit(event.name);
+      // console.log(this.event.estimatedDistanceMetres);
+      // console.log(`Event name: ${this.event.name}`);
+    });
   }
 
 }

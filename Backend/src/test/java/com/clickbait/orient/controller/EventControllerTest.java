@@ -15,8 +15,10 @@ import org.springframework.test.web.servlet.MockMvc;
 import static org.hamcrest.CoreMatchers.anything;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -63,7 +65,8 @@ public class EventControllerTest {
                 .andExpect(jsonPath("$.created", anything()))
                 .andExpect(jsonPath("$.starting", anything()))
                 .andExpect(jsonPath("$.estimatedTimeMillis", is(7200000)))
-                .andExpect(jsonPath("$.estimatedDistanceMetres", is(2500)));
+                .andExpect(jsonPath("$.estimatedDistanceMetres", is(2500)))
+                .andExpect(jsonPath("$.photos", hasSize(2)));
     }
 
     @Test
@@ -79,7 +82,7 @@ public class EventControllerTest {
     @Test
     public void testGetEventPage_shouldReturnEventPage() throws Exception {
         // setup
-        Page<Event> events = TestDataFactory.getEventPage();
+        Page<Event> events = TestDataFactory.getEventPage(1);
 
         given(service.getAllEvents(0, 1)).willReturn(events);
 
@@ -99,9 +102,26 @@ public class EventControllerTest {
                 .andExpect(jsonPath("$.events[0].starting", anything()))
                 .andExpect(jsonPath("$.events[0].estimatedTimeMillis", is(7200000)))
                 .andExpect(jsonPath("$.events[0].estimatedDistanceMetres", is(2500)))
+                .andExpect(jsonPath("$.events[0].photos", hasSize(2)))
                 .andExpect(jsonPath("$.totalElements", is(1)))
                 .andExpect(jsonPath("$.pageSize", is(1)))
                 .andExpect(jsonPath("$.totalPages", is(1)));
+    }
+
+    @Test
+    public void testGetEventPage_shouldReturnPageWith5Events() throws Exception {
+        // setup
+        Page<Event> events = TestDataFactory.getEventPage(5);
+
+        given(service.getAllEvents(0, 5)).willReturn(events);
+
+        // execute and assert
+        mvc.perform(get("/api/event/page/0/5").accept("application/json"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.events", hasSize(5)))
+                .andExpect(jsonPath("$.totalElements", is(5)))
+                .andExpect(jsonPath("$.pageSize", is(5)))
+                .andExpect(jsonPath("$.totalPages", anything()));
     }
 
     @Test
@@ -109,5 +129,59 @@ public class EventControllerTest {
         // execute and assert
         mvc.perform(get("/api/event/page/-1/1").accept("application/json"))
                 .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void testAddEvent_shouldReturnConflict() throws Exception {
+        // setup
+        Event event = TestDataFactory.getEvent();
+
+        given(service.getEventById(event.getId())).willReturn(event);
+
+        // execute and assert
+        mvc.perform(post("/api/event").accept("application/json")
+                .contentType("application/json")
+                .characterEncoding("utf-8")
+                .content(TestDataFactory.getValidEventAsJson()))
+                .andExpect(status().isConflict());
+    }
+
+    @Test
+    public void testAddEvent_shouldFailValidation() throws Exception {
+        // execute and assert
+        mvc.perform(post("/api/event").accept("application/json")
+                .contentType("application/json")
+                .characterEncoding("utf-8")
+                .content(TestDataFactory.getInvalidEventAsJson()))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void testAddEvent_shouldReturnInsertedEvent() throws Exception {
+        // setup
+        Event event = TestDataFactory.getEvent();
+
+        given(service.getEventById(event.getId())).willReturn(null);
+        given(service.saveEvent(any(Event.class))).willReturn(event);
+
+        // execute and assert
+        mvc.perform(post("/api/event").accept("application/json")
+                .contentType("application/json")
+                .characterEncoding("utf-8")
+                .content(TestDataFactory.getValidEventAsJson()))
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.id", is(event.getId())))
+                .andExpect(jsonPath("$.name", is(event.getName())))
+                .andExpect(jsonPath("$.description", is(event.getDescription())))
+                .andExpect(jsonPath("$.checkpointCount", is(event.getCheckpointCount())))
+                .andExpect(jsonPath("$.teamSize", is(event.getTeamSize())))
+                .andExpect(jsonPath("$.checkpoints", hasSize(2)))
+                .andExpect(jsonPath("$.teams", hasSize(2)))
+                .andExpect(jsonPath("$.status", is("Open")))
+                .andExpect(jsonPath("$.created", anything()))
+                .andExpect(jsonPath("$.starting", anything()))
+                .andExpect(jsonPath("$.estimatedTimeMillis", is(7200000)))
+                .andExpect(jsonPath("$.estimatedDistanceMetres", is(2500)))
+                .andExpect(jsonPath("$.photos", hasSize(2)));
     }
 }

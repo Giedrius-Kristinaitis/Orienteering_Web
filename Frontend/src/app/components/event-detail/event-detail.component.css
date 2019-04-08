@@ -3,6 +3,7 @@
   margin-top: 1.5%;
   margin-bottom: 1%;
   justify-content: center;
+  height: 87%;
 }
 
 .map-and-info {
@@ -47,4 +48,12 @@
   height: 22vh;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.spn {
+  position: fixed !important;
+  margin-top: 19% !important;
+  margin-bottom: 19% !important;
+  margin-left: 35% !important;
+  margin-right: 35% !important;
 }
