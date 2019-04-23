@@ -1,10 +1,15 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import {EventListComponent} from "./components/event-list/event-list.component";
+import {EventScreenComponent} from "./components/event-screen/event-screen.component";
+import {LoginFormScreenComponent} from "./components/login-register-screen/login-form-screen.component";
+import {AuthGuard} from "./auth.guard";
 
 const routes: Routes = [
-  { path: '', redirectTo: '/events', pathMatch: 'full' },
-  { path: 'events', component: EventListComponent }
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: 'events', component: EventScreenComponent, canActivate: [AuthGuard] },
+  { path: 'event/detail/:id', component: EventScreenComponent, canActivate: [AuthGuard] },
+  { path: 'event/create', component: EventScreenComponent, canActivate: [AuthGuard] },
+  { path: 'login', component: LoginFormScreenComponent }
 ];
 
 @NgModule({
