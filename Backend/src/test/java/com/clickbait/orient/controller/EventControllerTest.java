@@ -12,14 +12,12 @@ import org.springframework.data.domain.Page;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
-import static org.mockito.ArgumentMatchers.any;
 import static org.hamcrest.CoreMatchers.anything;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -207,6 +205,58 @@ public class EventControllerTest {
                 .characterEncoding("utf-8")
                 .content(TestDataFactory.getValidEventAsJson()))
                 .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.id", is(event.getId())))
+                .andExpect(jsonPath("$.name", is(event.getName())))
+                .andExpect(jsonPath("$.description", is(event.getDescription())))
+                .andExpect(jsonPath("$.checkpointCount", is(event.getCheckpointCount())))
+                .andExpect(jsonPath("$.teamSize", is(event.getTeamSize())))
+                .andExpect(jsonPath("$.checkpoints", hasSize(2)))
+                .andExpect(jsonPath("$.teams", hasSize(2)))
+                .andExpect(jsonPath("$.status", is("Open")))
+                .andExpect(jsonPath("$.created", anything()))
+                .andExpect(jsonPath("$.starting", anything()))
+                .andExpect(jsonPath("$.estimatedTimeMillis", is(7200000)))
+                .andExpect(jsonPath("$.estimatedDistanceMetres", is(2500)))
+                .andExpect(jsonPath("$.photos", hasSize(1)));
+    }
+
+    @Test
+    public void testUpdateEvent_shouldReturnBadRequestBecauseFailedValidation() throws Exception {
+        // execute and assert
+        mvc.perform(put("/api/event/1").accept("application/json")
+                .contentType("application/json")
+                .characterEncoding("utf-8")
+                .content(TestDataFactory.getInvalidEventAsJson()))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void testUpdateEvent_shouldReturnNotFound() throws Exception {
+        // setup
+        given(service.getEventById(any(String.class))).willReturn(null);
+
+        // execute and assert
+        mvc.perform(put("/api/event/1").accept("application/json")
+                .contentType("application/json")
+                .characterEncoding("utf-8")
+                .content(TestDataFactory.getValidEventAsJson()))
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
+    public void testUpdateEvent_shouldReturnUpdatedEvent() throws Exception {
+        // setup
+        Event event = TestDataFactory.getEvent();
+
+        given(service.getEventById(any(String.class))).willReturn(event);
+        given(service.saveEvent(any(Event.class))).willReturn(event);
+
+        // execute and assert
+        mvc.perform(put("/api/event/1").accept("application/json")
+                .contentType("application/json")
+                .characterEncoding("utf-8")
+                .content(TestDataFactory.getValidEventAsJson()))
+                .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id", is(event.getId())))
                 .andExpect(jsonPath("$.name", is(event.getName())))
                 .andExpect(jsonPath("$.description", is(event.getDescription())))
