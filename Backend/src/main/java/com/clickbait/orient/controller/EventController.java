@@ -2,7 +2,9 @@ package com.clickbait.orient.controller;
 
 import com.clickbait.orient.model.Event;
 import com.clickbait.orient.model.EventsResponse;
+import com.clickbait.orient.model.Photo;
 import com.clickbait.orient.service.EventService;
+import com.clickbait.orient.service.EventServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -11,6 +13,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 /**
  * Handles requests related to events
@@ -67,5 +71,29 @@ public class EventController {
         EventsResponse response = new EventsResponse(events.getContent(), events.getTotalElements(), events.getSize(), events.getTotalPages());
 
         return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    /**
+     * Gets all event team's photos
+     *
+     * @param eventId
+     * @param teamId
+     * @return
+     */
+    @GetMapping("/photos/{eventId}/{teamId}")
+    public ResponseEntity<List<Photo>> getEventTeamPhotos(@PathVariable String eventId, @PathVariable String teamId) {
+        Event event = service.getEventById(eventId);
+
+        if (event == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        if (!EventServiceImpl.validateTeamId(event, teamId)) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+        List<Photo> photos = service.getEventTeamPhotos(eventId, teamId);
+
+        return new ResponseEntity<>(photos, HttpStatus.OK);
     }
 }

@@ -3,6 +3,7 @@ package com.clickbait.orient.service;
 import com.clickbait.orient.TestDataFactory;
 import com.clickbait.orient.database.EventRepository;
 import com.clickbait.orient.model.Event;
+import com.clickbait.orient.model.Photo;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.Assert.*;
@@ -142,5 +144,69 @@ public class EventServiceTest {
 
         assertNotNull(page.getContent());
         assertEquals(5, page.getContent().size());
+    }
+
+    @Test
+    public void testGetEventTeamPhotos_shouldReturnNullBecauseEventNotFound() {
+        // setup
+        given(repository.findById(any(String.class))).willReturn(Optional.ofNullable(null));
+
+        // execute
+        List<Photo> photos = service.getEventTeamPhotos("1", "1");
+
+        // assert
+        assertNull(photos);
+    }
+
+    @Test
+    public void testGetEventTeamPhotos_shouldReturnNullBecauseInvalidTeamId() {
+        // setup
+        Optional<Event> event = Optional.of(TestDataFactory.getEvent());
+
+        given(repository.findById(any(String.class))).willReturn(event);
+
+        // execute
+        List<Photo> photos = service.getEventTeamPhotos("1", "non-existing team id");
+
+        // assert
+        assertNull(photos);
+    }
+
+    @Test
+    public void testGetEventTeamPhotos_shouldReturnEventTeamPhotos() {
+        // setup
+        Optional<Event> event = Optional.of(TestDataFactory.getEvent());
+
+        given(repository.findById(any(String.class))).willReturn(event);
+
+        // execute
+        List<Photo> photos = service.getEventTeamPhotos("1", "team1");
+
+        // assert
+        assertNotNull(photos);
+    }
+
+    @Test
+    public void testValidateTeamId_shouldReturnFalse() {
+        // setup
+        Event event = TestDataFactory.getEvent();
+
+        // execute
+        boolean valid = EventServiceImpl.validateTeamId(event, "non-existing team id");
+
+        // assert
+        assertFalse(valid);
+    }
+
+    @Test
+    public void testValidateTeamId_shouldReturnTrue() {
+        // setup
+        Event event = TestDataFactory.getEvent();
+
+        // execute
+        boolean valid = EventServiceImpl.validateTeamId(event, event.getTeams().get(0).getId());
+
+        // assert
+        assertTrue(valid);
     }
 }

@@ -65,7 +65,7 @@ public class FileServiceImpl implements FileService {
         }
 
         // validate team id
-        if (!validateTeamId(event.get(), teamId)) {
+        if (!EventServiceImpl.validateTeamId(event.get(), teamId)) {
             return null;
         }
 
@@ -97,23 +97,6 @@ public class FileServiceImpl implements FileService {
         ));
 
         return downloadURL;
-    }
-
-    /**
-     * Checks if the team id exists in the given event
-     *
-     * @param event
-     * @param teamId
-     * @return
-     */
-    private boolean validateTeamId(Event event, String teamId) {
-        for (Team team: event.getTeams()) {
-            if (team.getId().equals(teamId)) {
-                return true;
-            }
-        }
-
-        return false;
     }
 
     /**

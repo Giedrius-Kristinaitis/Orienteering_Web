@@ -2,11 +2,14 @@ package com.clickbait.orient.service;
 
 import com.clickbait.orient.database.EventRepository;
 import com.clickbait.orient.model.Event;
+import com.clickbait.orient.model.Photo;
+import com.clickbait.orient.model.Team;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -58,5 +61,44 @@ public class EventServiceImpl implements EventService {
         }
 
         return page;
+    }
+
+    /**
+     * Gets all photos of a single team
+     *
+     * @param eventId id of the event
+     * @param teamId  id of the team
+     * @return team photos
+     */
+    @Override
+    public List<Photo> getEventTeamPhotos(String eventId, String teamId) {
+        Event event = getEventById(eventId);
+
+        if (event == null) {
+            return null;
+        }
+
+        if (!validateTeamId(event, teamId)) {
+            return null;
+        }
+
+        return event.getPhotos();
+    }
+
+    /**
+     * Checks if the team id exists in the given event
+     *
+     * @param event
+     * @param teamId
+     * @return
+     */
+    public static boolean validateTeamId(Event event, String teamId) {
+        for (Team team: event.getTeams()) {
+            if (team.getId().equals(teamId)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

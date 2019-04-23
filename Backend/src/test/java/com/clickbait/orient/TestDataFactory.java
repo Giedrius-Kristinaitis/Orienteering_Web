@@ -26,7 +26,7 @@ public class TestDataFactory {
 
         photos.add(new Photo(
                 "1",
-                "1",
+                "team1",
                 "http://blahblah.com/alksjdlkad.jpg",
                 "image/png",
                 100L
