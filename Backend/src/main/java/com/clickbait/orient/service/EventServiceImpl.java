@@ -120,4 +120,23 @@ public class EventServiceImpl implements EventService {
 
         return false;
     }
+
+    /**
+     * Deletes an event
+     *
+     * @param id id of the event
+     * @return deleted event
+     */
+    @Override
+    public Event deleteEvent(String id) {
+        Optional<Event> existing = repository.findById(id);
+
+        if (!existing.isPresent()) {
+            return null;
+        }
+
+        repository.deleteById(id);
+
+        return existing.get();
+    }
 }

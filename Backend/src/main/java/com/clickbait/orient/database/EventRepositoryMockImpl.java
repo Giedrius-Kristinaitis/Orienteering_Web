@@ -352,6 +352,18 @@ public class EventRepositoryMockImpl implements EventRepository {
     }
 
     @Override
+    public void deleteById(String id) {
+        for (int i = 0; i < events.size(); i++) {
+            Event event = events.get(i);
+
+            if (event.getId().equals(id)) {
+                events.remove(i);
+                break;
+            }
+        }
+    }
+
+    @Override
     public boolean existsById(String s) {
         return false;
     }
@@ -374,11 +386,6 @@ public class EventRepositoryMockImpl implements EventRepository {
     @Override
     public long count() {
         return 0;
-    }
-
-    @Override
-    public void deleteById(String s) {
-
     }
 
     @Override

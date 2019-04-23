@@ -45,4 +45,12 @@ public interface EventService {
      * @return added/updated event
      */
     Event saveEvent(Event event);
+
+    /**
+     * Deletes an event
+     *
+     * @param id id of the event
+     * @return deleted event
+     */
+    Event deleteEvent(String id);
 }

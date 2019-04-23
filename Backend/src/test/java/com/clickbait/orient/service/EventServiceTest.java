@@ -254,4 +254,31 @@ public class EventServiceTest {
         // assert
         assertTrue(valid);
     }
+
+    @Test
+    public void testDeleteEvent_shouldReturnNullBecauseEventNotFound() {
+        // setup
+        given(repository.findById(any(String.class))).willReturn(Optional.ofNullable(null));
+
+        // execute
+        Event deleted = service.deleteEvent("1");
+
+        // assert
+        assertNull(deleted);
+    }
+
+    @Test
+    public void testDeleteEvent_shouldReturnDeletedEvent() {
+        // setup
+        Event event = TestDataFactory.getEvent();
+
+        given(repository.findById(any(String.class))).willReturn(Optional.of(event));
+
+        // execute
+        Event deleted = service.deleteEvent(event.getId());
+
+        // assert
+        assertNotNull(deleted);
+        assertEquals(event.getId(), deleted.getId());
+    }
 }
