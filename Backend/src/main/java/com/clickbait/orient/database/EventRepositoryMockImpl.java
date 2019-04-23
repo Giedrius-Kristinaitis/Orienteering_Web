@@ -1,10 +1,7 @@
 package com.clickbait.orient.database;
 
 import com.clickbait.orient.dto.UserDTO;
-import com.clickbait.orient.model.Checkpoint;
-import com.clickbait.orient.model.Event;
-import com.clickbait.orient.model.EventStatus;
-import com.clickbait.orient.model.Team;
+import com.clickbait.orient.model.*;
 import org.springframework.data.domain.*;
 
 import java.math.BigDecimal;
@@ -27,8 +24,23 @@ public class EventRepositoryMockImpl implements EventRepository {
     private final List<Event> events = new ArrayList<>();
 
     public EventRepositoryMockImpl() {
-        List<String> photos = new ArrayList<>();
-        photos.addAll(Arrays.asList("http://blahblahblah.net/asasdad.jpg", "http://thisisparta.com/asd.png"));
+        List<Photo> photos = new ArrayList<>();
+
+        photos.add(new Photo(
+                "1",
+                "team1",
+                "http://blahblah.com/alksjdlkad.jpg",
+                "image/png",
+                100L
+        ));
+
+        photos.add(new Photo(
+                "1",
+                "team2",
+                "http://jadsahdsc.net/aljsdcjadc.png",
+                "image/png",
+                100L
+        ));
 
         // add all events
         events.addAll(Arrays.asList(
@@ -50,7 +62,7 @@ public class EventRepositoryMockImpl implements EventRepository {
                         EventStatus.OPEN,
                         (long) 2*60*60*1000, // 2 hours * 60 minutes * 60 seconds * 1000 milliseconds
                         2500,
-                        (List<String>) ((ArrayList<String>) photos).clone()
+                        (List<Photo>) ((ArrayList<Photo>) photos).clone()
                 ),
 
                 new Event(
@@ -71,7 +83,7 @@ public class EventRepositoryMockImpl implements EventRepository {
                         EventStatus.OPEN,
                         (long) 2*60*60*1000, // 2 hours * 60 minutes * 60 seconds * 1000 milliseconds
                         2500,
-                        (List<String>) ((ArrayList<String>) photos).clone()
+                        (List<Photo>) ((ArrayList<Photo>) photos).clone()
                 ),
 
                 new Event(
@@ -92,7 +104,7 @@ public class EventRepositoryMockImpl implements EventRepository {
                         EventStatus.OPEN,
                         (long) 2*60*60*1000, // 2 hours * 60 minutes * 60 seconds * 1000 milliseconds
                         2500,
-                        (List<String>) ((ArrayList<String>) photos).clone()
+                        (List<Photo>) ((ArrayList<Photo>) photos).clone()
                 ),
 
                 new Event(
@@ -113,7 +125,7 @@ public class EventRepositoryMockImpl implements EventRepository {
                         EventStatus.OPEN,
                         (long) 2*60*60*1000, // 2 hours * 60 minutes * 60 seconds * 1000 milliseconds
                         2500,
-                        (List<String>) ((ArrayList<String>) photos).clone()
+                        (List<Photo>) ((ArrayList<Photo>) photos).clone()
                 ),
 
                 new Event(
@@ -134,7 +146,7 @@ public class EventRepositoryMockImpl implements EventRepository {
                         EventStatus.OPEN,
                         (long) 2*60*60*1000, // 2 hours * 60 minutes * 60 seconds * 1000 milliseconds
                         2500,
-                        (List<String>) ((ArrayList<String>) photos).clone()
+                        (List<Photo>) ((ArrayList<Photo>) photos).clone()
                 ),
 
                 new Event(
@@ -155,7 +167,7 @@ public class EventRepositoryMockImpl implements EventRepository {
                         EventStatus.OPEN,
                         (long) 2*60*60*1000, // 2 hours * 60 minutes * 60 seconds * 1000 milliseconds
                         2500,
-                        (List<String>) ((ArrayList<String>) photos).clone()
+                        (List<Photo>) ((ArrayList<Photo>) photos).clone()
                 ),
 
                 new Event(
@@ -176,7 +188,7 @@ public class EventRepositoryMockImpl implements EventRepository {
                         EventStatus.OPEN,
                         (long) 2*60*60*1000, // 2 hours * 60 minutes * 60 seconds * 1000 milliseconds
                         2500,
-                        (List<String>) ((ArrayList<String>) photos).clone()
+                        (List<Photo>) ((ArrayList<Photo>) photos).clone()
                 ),
 
                 new Event(
@@ -197,7 +209,7 @@ public class EventRepositoryMockImpl implements EventRepository {
                         EventStatus.OPEN,
                         (long) 2*60*60*1000, // 2 hours * 60 minutes * 60 seconds * 1000 milliseconds
                         2500,
-                        (List<String>) ((ArrayList<String>) photos).clone()
+                        (List<Photo>) ((ArrayList<Photo>) photos).clone()
                 ),
 
                 new Event(
@@ -218,7 +230,7 @@ public class EventRepositoryMockImpl implements EventRepository {
                         EventStatus.OPEN,
                         (long) 2*60*60*1000, // 2 hours * 60 minutes * 60 seconds * 1000 milliseconds
                         2500,
-                        (List<String>) ((ArrayList<String>) photos).clone()
+                        (List<Photo>) ((ArrayList<Photo>) photos).clone()
                 ),
 
                 new Event(
@@ -239,7 +251,7 @@ public class EventRepositoryMockImpl implements EventRepository {
                         EventStatus.OPEN,
                         (long) 2*60*60*1000, // 2 hours * 60 minutes * 60 seconds * 1000 milliseconds
                         2500,
-                        (List<String>) ((ArrayList<String>) photos).clone()
+                        (List<Photo>) ((ArrayList<Photo>) photos).clone()
                 ),
 
                 new Event(
@@ -260,7 +272,7 @@ public class EventRepositoryMockImpl implements EventRepository {
                         EventStatus.OPEN,
                         (long) 2*60*60*1000, // 2 hours * 60 minutes * 60 seconds * 1000 milliseconds
                         2500,
-                        (List<String>) ((ArrayList<String>) photos).clone()
+                        (List<Photo>) ((ArrayList<Photo>) photos).clone()
                 )));
     }
 

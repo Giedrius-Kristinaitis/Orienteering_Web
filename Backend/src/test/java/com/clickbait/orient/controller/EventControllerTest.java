@@ -12,6 +12,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.hamcrest.CoreMatchers.anything;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
@@ -66,7 +67,7 @@ public class EventControllerTest {
                 .andExpect(jsonPath("$.starting", anything()))
                 .andExpect(jsonPath("$.estimatedTimeMillis", is(7200000)))
                 .andExpect(jsonPath("$.estimatedDistanceMetres", is(2500)))
-                .andExpect(jsonPath("$.photos", hasSize(2)));
+                .andExpect(jsonPath("$.photos", hasSize(1)));
     }
 
     @Test
@@ -102,7 +103,7 @@ public class EventControllerTest {
                 .andExpect(jsonPath("$.events[0].starting", anything()))
                 .andExpect(jsonPath("$.events[0].estimatedTimeMillis", is(7200000)))
                 .andExpect(jsonPath("$.events[0].estimatedDistanceMetres", is(2500)))
-                .andExpect(jsonPath("$.events[0].photos", hasSize(2)))
+                .andExpect(jsonPath("$.events[0].photos", hasSize(1)))
                 .andExpect(jsonPath("$.totalElements", is(1)))
                 .andExpect(jsonPath("$.pageSize", is(1)))
                 .andExpect(jsonPath("$.totalPages", is(1)));
@@ -132,6 +133,42 @@ public class EventControllerTest {
     }
 
     @Test
+    public void testGetEventTeamPhotos_shouldReturnNotFound() throws Exception {
+        // setup
+        given(service.getEventById(any(String.class))).willReturn(null);
+
+        // execute and assert
+        mvc.perform(get("/api/event/photos/1/1").accept("application/json"))
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
+    public void testGetEventTeamPhotos_shouldReturnBadRequest() throws Exception {
+        // setup
+        Event event = TestDataFactory.getEvent();
+
+        given(service.getEventById(any(String.class))).willReturn(event);
+
+        // execute and assert
+        mvc.perform(get("/api/event/photos/1/non-existing-team-id").accept("application/json"))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void testGetEventTeamPhotos_shouldReturnPhotos() throws Exception {
+        // setup
+        Event event = TestDataFactory.getEvent();
+
+        given(service.getEventById(any(String.class))).willReturn(event);
+        given(service.getEventTeamPhotos(any(String.class), any(String.class))).willReturn(event.getPhotos());
+
+        // execute and assert
+        mvc.perform(get("/api/event/photos/1/team1").accept("application/json"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(1)));
+    }
+  
+    @Test  
     public void testAddEvent_shouldReturnConflict() throws Exception {
         // setup
         Event event = TestDataFactory.getEvent();
@@ -154,9 +191,9 @@ public class EventControllerTest {
                 .characterEncoding("utf-8")
                 .content(TestDataFactory.getInvalidEventAsJson()))
                 .andExpect(status().isBadRequest());
-    }
-
-    @Test
+    } 
+  
+    @Test      
     public void testAddEvent_shouldReturnInsertedEvent() throws Exception {
         // setup
         Event event = TestDataFactory.getEvent();
@@ -182,6 +219,6 @@ public class EventControllerTest {
                 .andExpect(jsonPath("$.starting", anything()))
                 .andExpect(jsonPath("$.estimatedTimeMillis", is(7200000)))
                 .andExpect(jsonPath("$.estimatedDistanceMetres", is(2500)))
-                .andExpect(jsonPath("$.photos", hasSize(2)));
+                .andExpect(jsonPath("$.photos", hasSize(1)));
     }
 }

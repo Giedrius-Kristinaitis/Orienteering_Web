@@ -15,10 +15,11 @@ public interface FileService {
      *
      * @param file file to save
      * @param eventId to which event the photo belongs
+     * @param teamId to which team the photo belongs
      *
      * @return file download url
      */
-    String savePhoto(MultipartFile file, String eventId);
+    String savePhoto(MultipartFile file, String eventId, String teamId);
 
     /**
      * Loads a photo with the given name

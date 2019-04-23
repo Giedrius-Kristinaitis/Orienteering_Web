@@ -34,12 +34,12 @@ public class FileControllerTest {
     @Test
     public void testUploadPhoto_shouldReturnBadRequest() throws Exception {
         // setup
-        given(service.savePhoto(any(MultipartFile.class), any(String.class))).willReturn(null);
+        given(service.savePhoto(any(MultipartFile.class), any(String.class), any(String.class))).willReturn(null);
 
         MockMultipartFile file = new MockMultipartFile("file", "picture.png", "image/png", new byte[100]);
 
         // execute and assert
-        mvc.perform(multipart("/api/file/photo/1").file(file))
+        mvc.perform(multipart("/api/file/photo/1/1").file(file))
                 .andExpect(status().isBadRequest());
     }
 
@@ -48,18 +48,20 @@ public class FileControllerTest {
         // setup
         String downloadURL = "http://localhost:8080/api/file/photo/picture.png";
         String eventId = "1";
+        String teamId = "1";
         int fileSize = 100;
         String fileType = "image/png";
 
-        given(service.savePhoto(any(MultipartFile.class), any(String.class))).willReturn(downloadURL);
+        given(service.savePhoto(any(MultipartFile.class), any(String.class), any(String.class))).willReturn(downloadURL);
 
         MockMultipartFile file = new MockMultipartFile("file", "picture.png", fileType, new byte[fileSize]);
 
         // execute and assert
-        mvc.perform(multipart("/api/file/photo/" + eventId).file(file))
+        mvc.perform(multipart("/api/file/photo/" + eventId + "/1").file(file))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.downloadURL", is(downloadURL)))
                 .andExpect(jsonPath("$.eventId", is(eventId)))
+                .andExpect(jsonPath("$.teamId", is(teamId)))
                 .andExpect(jsonPath("$.fileType", is(fileType)))
                 .andExpect(jsonPath("$.fileSize", is(fileSize)));
     }

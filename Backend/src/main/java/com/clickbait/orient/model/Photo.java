@@ -3,10 +3,11 @@ package com.clickbait.orient.model;
 /**
  * Response when uploading a photo
  */
-public class PhotoResponse {
+public class Photo {
 
     // photo's properties
     private String eventId;
+    private String teamId;
     private String downloadURL;
     private String fileType;
     private Long fileSize;
@@ -14,18 +15,20 @@ public class PhotoResponse {
     /**
      * Default no-args constructor
      */
-    public PhotoResponse() {}
+    public Photo() {}
 
     /**
      * Constructor with arguments
      *
      * @param eventId
+     * @param teamId
      * @param downloadURL
      * @param fileType
      * @param fileSize
      */
-    public PhotoResponse(String eventId, String downloadURL, String fileType, Long fileSize) {
+    public Photo(String eventId, String teamId, String downloadURL, String fileType, Long fileSize) {
         this.eventId = eventId;
+        this.teamId = teamId;
         this.downloadURL = downloadURL;
         this.fileType = fileType;
         this.fileSize = fileSize;
@@ -33,12 +36,14 @@ public class PhotoResponse {
 
     // GETTERS
     public String getEventId() { return eventId; }
+    public String getTeamId() { return teamId; }
     public String getDownloadURL() { return downloadURL; }
     public String getFileType() { return fileType; }
     public Long getFileSize() { return fileSize; }
 
     // SETTERS
     public void setEventId(String eventId) { this.eventId = eventId; }
+    public void setTeamId(String teamId) { this.teamId = teamId; }
     public void setDownloadURL(String downloadURL) { this.downloadURL = downloadURL; }
     public void setFileSize(Long fileSize) { this.fileSize = fileSize; }
     public void setFileType(String fileType) { this.fileType = fileType; }
