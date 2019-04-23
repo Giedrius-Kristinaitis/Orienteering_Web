@@ -96,7 +96,7 @@ public class EventController {
         return new ResponseEntity<>(photos, HttpStatus.OK);
     }
   
-    /*
+    /**
      * Adds an event to the event list
      *
      * @param event event to add
@@ -112,5 +112,23 @@ public class EventController {
         Event addedEvent = service.saveEvent(event);
 
         return new ResponseEntity<>(addedEvent, HttpStatus.CREATED);
+    }
+
+    /**
+     * Updates an event
+     *
+     * @param event new event data
+     * @param id id of the event
+     * @return updated event
+     */
+    @PutMapping("/{id}")
+    public ResponseEntity<Event> updateEvent(@Valid @RequestBody Event event, @PathVariable String id) {
+        if (service.getEventById(id) == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        Event updatedEvent = service.saveEvent(event);
+
+        return new ResponseEntity<>(updatedEvent, HttpStatus.OK);
     }
 }
