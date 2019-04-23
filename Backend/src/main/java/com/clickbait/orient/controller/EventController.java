@@ -131,4 +131,21 @@ public class EventController {
 
         return new ResponseEntity<>(updatedEvent, HttpStatus.OK);
     }
+
+    /**
+     * Deletes an event
+     *
+     * @param id id of the event to delete
+     * @return deleted event
+     */
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Event> deleteEvent(@PathVariable String id) {
+        Event deleted = service.deleteEvent(id);
+
+        if (deleted == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity<>(deleted, HttpStatus.OK);
+    }
 }

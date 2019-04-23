@@ -271,4 +271,39 @@ public class EventControllerTest {
                 .andExpect(jsonPath("$.estimatedDistanceMetres", is(2500)))
                 .andExpect(jsonPath("$.photos", hasSize(1)));
     }
+
+    @Test
+    public void testDeleteEvent_shouldReturnNotFound() throws Exception {
+        // setup
+        given(service.deleteEvent(any(String.class))).willReturn(null);
+
+        // execute and assert
+        mvc.perform(delete("/api/event/1").accept("application/json"))
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
+    public void testDeleteEvent_shouldReturnDeletedEvent() throws Exception {
+        // setup
+        Event event = TestDataFactory.getEvent();
+
+        given(service.deleteEvent(any(String.class))).willReturn(event);
+
+        // execute and assert
+        mvc.perform(delete("/api/event/1").accept("application/json"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id", is(event.getId())))
+                .andExpect(jsonPath("$.name", is(event.getName())))
+                .andExpect(jsonPath("$.description", is(event.getDescription())))
+                .andExpect(jsonPath("$.checkpointCount", is(event.getCheckpointCount())))
+                .andExpect(jsonPath("$.teamSize", is(event.getTeamSize())))
+                .andExpect(jsonPath("$.checkpoints", hasSize(2)))
+                .andExpect(jsonPath("$.teams", hasSize(2)))
+                .andExpect(jsonPath("$.status", is("Open")))
+                .andExpect(jsonPath("$.created", anything()))
+                .andExpect(jsonPath("$.starting", anything()))
+                .andExpect(jsonPath("$.estimatedTimeMillis", is(7200000)))
+                .andExpect(jsonPath("$.estimatedDistanceMetres", is(2500)))
+                .andExpect(jsonPath("$.photos", hasSize(1)));
+    }
 }
