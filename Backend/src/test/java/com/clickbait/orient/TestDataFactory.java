@@ -1,10 +1,7 @@
 package com.clickbait.orient;
 
 import com.clickbait.orient.dto.UserDTO;
-import com.clickbait.orient.model.Checkpoint;
-import com.clickbait.orient.model.Event;
-import com.clickbait.orient.model.EventStatus;
-import com.clickbait.orient.model.Team;
+import com.clickbait.orient.model.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -25,8 +22,14 @@ public class TestDataFactory {
      * @return event
      */
     public static Event getEvent() {
-        List<String> photos = new ArrayList<>();
-        photos.addAll(Arrays.asList("http://blahblahblah.net/asasdad.jpg", "http://thisisparta.com/asd.png"));
+        List<Photo> photos = new ArrayList<>();
+
+        photos.add(new Photo(
+                "1",
+                "http://blahblah.com/alksjdlkad.jpg",
+                "image/png",
+                100L
+        ));
 
         return new Event(
                 "1",

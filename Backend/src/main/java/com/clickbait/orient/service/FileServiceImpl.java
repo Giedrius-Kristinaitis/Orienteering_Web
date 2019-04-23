@@ -3,6 +3,7 @@ package com.clickbait.orient.service;
 import com.clickbait.orient.config.FileConfig;
 import com.clickbait.orient.database.EventRepository;
 import com.clickbait.orient.model.Event;
+import com.clickbait.orient.model.Photo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
@@ -80,7 +81,12 @@ public class FileServiceImpl implements FileService {
                 .toUriString();
 
         // add the photo to the event
-        event.get().getPhotos().add(downloadURL);
+        event.get().getPhotos().add(new Photo(
+                event.get().getId(),
+                downloadURL,
+                file.getContentType(),
+                file.getSize()
+        ));
 
         return downloadURL;
     }

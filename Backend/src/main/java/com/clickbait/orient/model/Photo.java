@@ -3,7 +3,7 @@ package com.clickbait.orient.model;
 /**
  * Response when uploading a photo
  */
-public class PhotoResponse {
+public class Photo {
 
     // photo's properties
     private String eventId;
@@ -14,7 +14,7 @@ public class PhotoResponse {
     /**
      * Default no-args constructor
      */
-    public PhotoResponse() {}
+    public Photo() {}
 
     /**
      * Constructor with arguments
@@ -24,7 +24,7 @@ public class PhotoResponse {
      * @param fileType
      * @param fileSize
      */
-    public PhotoResponse(String eventId, String downloadURL, String fileType, Long fileSize) {
+    public Photo(String eventId, String downloadURL, String fileType, Long fileSize) {
         this.eventId = eventId;
         this.downloadURL = downloadURL;
         this.fileType = fileType;

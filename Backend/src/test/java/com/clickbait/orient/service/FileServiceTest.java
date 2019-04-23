@@ -97,7 +97,7 @@ public class FileServiceTest {
 
         // assert
         assertNotNull(downloadURL);
-        assertEquals(3, actualEvent.getPhotos().size());
+        assertEquals(2, actualEvent.getPhotos().size());
     }
 
     @Test

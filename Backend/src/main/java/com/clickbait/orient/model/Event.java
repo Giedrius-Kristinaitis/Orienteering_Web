@@ -54,7 +54,7 @@ public class Event {
     @Positive
     private Integer estimatedDistanceMetres;
 
-    private List<String> photos;
+    private List<Photo> photos;
 
     /**
      * Default no-args constructor
@@ -77,7 +77,7 @@ public class Event {
      * @param estimatedDistanceMetres
      * @param photos
      */
-    public Event(String id, String name, String description, Integer checkpointCount, List<Checkpoint> checkpoints, Integer teamSize, List<Team> teams, Date created, Date starting, EventStatus status, Long estimatedTimeMillis, Integer estimatedDistanceMetres, List<String> photos) {
+    public Event(String id, String name, String description, Integer checkpointCount, List<Checkpoint> checkpoints, Integer teamSize, List<Team> teams, Date created, Date starting, EventStatus status, Long estimatedTimeMillis, Integer estimatedDistanceMetres, List<Photo> photos) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -106,7 +106,7 @@ public class Event {
     public EventStatus getStatus() { return status; }
     public Long getEstimatedTimeMillis() { return estimatedTimeMillis; }
     public Integer getEstimatedDistanceMetres() { return estimatedDistanceMetres; }
-    public List<String> getPhotos() { return photos; }
+    public List<Photo> getPhotos() { return photos; }
 
     // SETTERS
     public void setId(String id) { this.id = id; }
@@ -121,5 +121,5 @@ public class Event {
     public void setStatus(EventStatus status) { this.status = status; }
     public void setEstimatedTimeMillis(Long estimatedTimeMillis) { this.estimatedTimeMillis = estimatedTimeMillis; }
     public void setEstimatedDistanceMetres(Integer estimatedDistanceMetres) { this.estimatedDistanceMetres = estimatedDistanceMetres; }
-    public void setPhotos(List<String> photos) { this.photos = photos; }
+    public void setPhotos(List<Photo> photos) { this.photos = photos; }
 }

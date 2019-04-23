@@ -64,7 +64,7 @@ public class EventControllerTest {
                 .andExpect(jsonPath("$.starting", anything()))
                 .andExpect(jsonPath("$.estimatedTimeMillis", is(7200000)))
                 .andExpect(jsonPath("$.estimatedDistanceMetres", is(2500)))
-                .andExpect(jsonPath("$.photos", hasSize(2)));
+                .andExpect(jsonPath("$.photos", hasSize(1)));
     }
 
     @Test
@@ -100,7 +100,7 @@ public class EventControllerTest {
                 .andExpect(jsonPath("$.events[0].starting", anything()))
                 .andExpect(jsonPath("$.events[0].estimatedTimeMillis", is(7200000)))
                 .andExpect(jsonPath("$.events[0].estimatedDistanceMetres", is(2500)))
-                .andExpect(jsonPath("$.events[0].photos", hasSize(2)))
+                .andExpect(jsonPath("$.events[0].photos", hasSize(1)))
                 .andExpect(jsonPath("$.totalElements", is(1)))
                 .andExpect(jsonPath("$.pageSize", is(1)))
                 .andExpect(jsonPath("$.totalPages", is(1)));

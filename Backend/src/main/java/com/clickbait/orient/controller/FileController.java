@@ -1,6 +1,6 @@
 package com.clickbait.orient.controller;
 
-import com.clickbait.orient.model.PhotoResponse;
+import com.clickbait.orient.model.Photo;
 import com.clickbait.orient.service.FileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
@@ -38,14 +38,14 @@ public class FileController {
      * @return information about the uploaded photo
      */
     @PostMapping("/photo/{eventId}")
-    public ResponseEntity<PhotoResponse> uploadPhoto(@RequestParam("file") MultipartFile file, @PathVariable String eventId) {
+    public ResponseEntity<Photo> uploadPhoto(@RequestParam("file") MultipartFile file, @PathVariable String eventId) {
         String downloadURL = service.savePhoto(file, eventId);
 
         if (downloadURL == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
-        PhotoResponse response = new PhotoResponse(eventId, downloadURL, file.getContentType(), file.getSize());
+        Photo response = new Photo(eventId, downloadURL, file.getContentType(), file.getSize());
 
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
