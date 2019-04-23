@@ -28,6 +28,7 @@ public class EventRepositoryMockImpl implements EventRepository {
 
         photos.add(new Photo(
                 "1",
+                "team1",
                 "http://blahblah.com/alksjdlkad.jpg",
                 "image/png",
                 100L
@@ -35,6 +36,7 @@ public class EventRepositoryMockImpl implements EventRepository {
 
         photos.add(new Photo(
                 "1",
+                "team2",
                 "http://jadsahdsc.net/aljsdcjadc.png",
                 "image/png",
                 100L

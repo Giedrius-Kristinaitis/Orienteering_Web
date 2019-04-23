@@ -75,7 +75,21 @@ public class FileServiceTest {
         given(events.findById(any(String.class))).willReturn(event);
 
         // execute
-        String downloadURL = service.savePhoto(null, "event_id");
+        String downloadURL = service.savePhoto(null, "event_id", "not important");
+
+        // assert
+        assertNull(downloadURL);
+    }
+
+    @Test
+    public void testSavePhoto_shouldReturnNullBecauseInvalidTeamId() {
+        // setup
+        Optional<Event> event = Optional.of(TestDataFactory.getEvent());
+
+        given(events.findById(any(String.class))).willReturn(event);
+
+        // execute
+        String downloadURL = service.savePhoto(null, "event_id", "important");
 
         // assert
         assertNull(downloadURL);
@@ -93,7 +107,7 @@ public class FileServiceTest {
         Event actualEvent = event.get();
 
         // execute
-        String downloadURL = service.savePhoto(file, "1");
+        String downloadURL = service.savePhoto(file, "1", "team1");
 
         // assert
         assertNotNull(downloadURL);
