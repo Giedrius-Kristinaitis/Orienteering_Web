@@ -96,7 +96,7 @@ public class EventController {
         return new ResponseEntity<>(photos, HttpStatus.OK);
     }
   
-    /*
+    /**
      * Adds an event to the event list
      *
      * @param event event to add

@@ -38,7 +38,7 @@ public interface EventService {
      */
     List<Photo> getEventTeamPhotos(String eventId, String teamId);
 
-    /*
+    /**
      * Adds or updates an event
      *
      * @param event event to add/update

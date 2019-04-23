@@ -89,7 +89,7 @@ public class EventServiceImpl implements EventService {
         return event.getPhotos();
     }
 
-    /*
+    /**
      * Adds or updates an event
      *
      * @param event event to add/update
