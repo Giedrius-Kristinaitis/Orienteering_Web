@@ -52,11 +52,12 @@ public class FileServiceImpl implements FileService {
      * @param file file to save
      * @param eventId to which event the photo belongs
      * @param teamId to which team the photo belongs
+     * @param checkpointId to which checkpoint the photo belongs
      *
      * @return file download url
      */
     @Override
-    public String savePhoto(MultipartFile file, String eventId, String teamId) {
+    public String savePhoto(MultipartFile file, String eventId, String teamId, String checkpointId) {
         // validate event id
         Optional<Event> event = events.findById(eventId);
 
@@ -66,6 +67,11 @@ public class FileServiceImpl implements FileService {
 
         // validate team id
         if (!EventServiceImpl.validateTeamId(event.get(), teamId)) {
+            return null;
+        }
+
+        // validate checkpoint id
+        if (!EventServiceImpl.validateCheckpointId(event.get(), checkpointId)) {
             return null;
         }
 
@@ -91,10 +97,14 @@ public class FileServiceImpl implements FileService {
         event.get().getPhotos().add(new Photo(
                 event.get().getId(),
                 teamId,
+                checkpointId,
                 downloadURL,
                 file.getContentType(),
                 file.getSize()
         ));
+
+        // make the checkpoint checked in
+        EventServiceImpl.checkIn(event.get(), teamId, checkpointId);
 
         return downloadURL;
     }

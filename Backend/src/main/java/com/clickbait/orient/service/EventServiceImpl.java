@@ -1,6 +1,7 @@
 package com.clickbait.orient.service;
 
 import com.clickbait.orient.database.EventRepository;
+import com.clickbait.orient.model.Checkpoint;
 import com.clickbait.orient.model.Event;
 import com.clickbait.orient.model.Photo;
 import com.clickbait.orient.model.Team;
@@ -119,6 +120,44 @@ public class EventServiceImpl implements EventService {
         }
 
         return false;
+    }
+
+    /**
+     * Checks if the checkpoint id exists in the given event
+     *
+     * @param event
+     * @param checkpointId
+     * @return
+     */
+    public static boolean validateCheckpointId(Event event, String checkpointId) {
+        for (Checkpoint checkpoint: event.getCheckpoints()) {
+            if (checkpoint.getId().equals(checkpointId)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Marks a checkpoint as checked-in
+     *
+     * @param event
+     * @param teamId
+     * @param checkpointId
+     */
+    public static void checkIn(Event event, String teamId, String checkpointId) {
+        // get the team object
+        Team team = null;
+
+        for (Team t: event.getTeams()) {
+            if (t.getId().equals(teamId)) {
+                team = t;
+                break;
+            }
+        }
+
+        team.getCheckedCheckpoints().add(checkpointId);
     }
 
     /**

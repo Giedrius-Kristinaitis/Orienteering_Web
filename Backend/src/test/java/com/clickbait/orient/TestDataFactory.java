@@ -27,10 +27,14 @@ public class TestDataFactory {
         photos.add(new Photo(
                 "1",
                 "team1",
+                "1",
                 "http://blahblah.com/alksjdlkad.jpg",
                 "image/png",
                 100L
         ));
+
+        List<String> checkedIn = new ArrayList<>();
+        checkedIn.add("1");
 
         return new Event(
                 "1",
@@ -42,8 +46,8 @@ public class TestDataFactory {
                         new Checkpoint("2", "Second", new BigDecimal(20), new BigDecimal(20))),
                 2,
                 Arrays.asList(
-                        new Team("team1", "Team One", Arrays.asList(new UserDTO("id1", "le_email@email.com", "QWERTY", "ASDFGH"), new UserDTO("id2", "karpis@gmail.com", "Karpis", "Karsis")), Arrays.asList("1")),
-                        new Team("team2", "Team Two", Arrays.asList(new UserDTO("id3", "stotele@inbox.lt", "Stoteles", "Darbininke"), new UserDTO("id4", "bulka@ktu.edu", "Flex", "Tape")), Arrays.asList("1"))
+                        new Team("team1", "Team One", Arrays.asList(new UserDTO("id1", "le_email@email.com", "QWERTY", "ASDFGH"), new UserDTO("id2", "karpis@gmail.com", "Karpis", "Karsis")), checkedIn),
+                        new Team("team2", "Team Two", Arrays.asList(new UserDTO("id3", "stotele@inbox.lt", "Stoteles", "Darbininke"), new UserDTO("id4", "bulka@ktu.edu", "Flex", "Tape")), checkedIn)
                 ),
                 new Date(),
                 new Date(),
