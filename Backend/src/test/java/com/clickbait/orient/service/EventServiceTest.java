@@ -256,6 +256,46 @@ public class EventServiceTest {
     }
 
     @Test
+    public void testValidateCheckpointId_shouldReturnFalse() {
+        // setup
+        Event event = TestDataFactory.getEvent();
+
+        // execute
+        boolean valid = EventServiceImpl.validateCheckpointId(event, "non-existing checkpoint id");
+
+        // assert
+        assertFalse(valid);
+    }
+
+    @Test
+    public void testValidateCheckpointId_shouldReturnTrue() {
+        // setup
+        Event event = TestDataFactory.getEvent();
+
+        // execute
+        boolean valid = EventServiceImpl.validateCheckpointId(event, "1");
+
+        // assert
+        assertTrue(valid);
+    }
+
+    @Test
+    public void testCheckIn_shouldCheckIn() {
+        // setup
+        Event event = TestDataFactory.getEvent();
+
+        int oldCheckedInCheckpointCount = event.getTeams().get(0).getCheckedCheckpoints().size();
+
+        // execute
+        EventServiceImpl.checkIn(event, "team1", "1");
+
+        int newCheckedInCheckpointCount = event.getTeams().get(0).getCheckedCheckpoints().size();
+
+        // assert
+        assertEquals(oldCheckedInCheckpointCount + 1, newCheckedInCheckpointCount);
+    }
+
+    @Test
     public void testDeleteEvent_shouldReturnNullBecauseEventNotFound() {
         // setup
         given(repository.findById(any(String.class))).willReturn(Optional.ofNullable(null));
