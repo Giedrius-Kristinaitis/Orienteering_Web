@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormControl, Validators} from "@angular/forms";
 
 @Component({
@@ -12,12 +12,16 @@ export class EventCreateComponent implements OnInit {
   date = new FormControl('', [Validators.required, Validators.min(new Date().getMilliseconds()), Validators.pattern('^([0-2][0-9]|(3)[0-1])(\\/)(((0)[0-9])|((1)[0-2]))(\\/)\\d{4}$')]);
 
   dateInput = new Date();
-  getErrorMessage(form : FormControl) {
-    switch(form) {
+
+  constructor() {
+  }
+
+  getErrorMessage(form: FormControl) {
+    switch (form) {
       case this.name: {
         return form.hasError('required') ? 'You must enter a name' :
           form.hasError('minlength') ? 'Must be at least 4 characters' :
-          form.hasError('maxlength') ? 'Must not exceed 16 characters' : '';
+            form.hasError('maxlength') ? 'Must not exceed 16 characters' : '';
       }
       case this.teamSize: {
         return form.hasError('required') ? 'You must enter a team size' :
@@ -32,8 +36,6 @@ export class EventCreateComponent implements OnInit {
       }
     }
   }
-
-  constructor() { }
 
   ngOnInit() {
 

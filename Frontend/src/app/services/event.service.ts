@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Observable, of} from "rxjs";
-import { Event } from "../components/event";
+import {Event} from "../components/event";
 import {HttpClient} from "@angular/common/http";
 import {EventResponse} from "../components/eventResponse";
 
@@ -9,7 +9,8 @@ import {EventResponse} from "../components/eventResponse";
 })
 export class EventService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+  }
 
   /**
    * Returns all mocked events

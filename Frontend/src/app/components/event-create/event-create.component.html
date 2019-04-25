@@ -2,16 +2,17 @@
   <div class="form-and-map">
     <div class="form">
       <mat-form-field>
-        <input matInput placeholder="Event Name" [formControl]="name" required>
+        <input [formControl]="name" matInput placeholder="Event Name" required>
         <mat-error *ngIf="name.invalid">{{getErrorMessage(name)}}</mat-error>
       </mat-form-field>
       <mat-form-field>
-        <input matInput placeholder="Team size limit" type="number" min="0" [formControl]="teamSize" required>
+        <input [formControl]="teamSize" matInput min="0" placeholder="Team size limit" required type="number">
         <mat-error *ngIf="teamSize.invalid">{{getErrorMessage(teamSize)}}</mat-error>
       </mat-form-field>
       <mat-form-field>
-        <input matInput [formControl]="date" [matDatepicker]="picker" placeholder="Starting date" [(ngModel)]="dateInput" required>
-        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <input [(ngModel)]="dateInput" [formControl]="date" [matDatepicker]="picker" matInput
+               placeholder="Starting date" required>
+        <mat-datepicker-toggle [for]="picker" matSuffix></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
         <mat-error *ngIf="date.invalid">{{getErrorMessage(date)}}</mat-error>
       </mat-form-field>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-event-create-map',
@@ -7,7 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EventCreateMapComponent implements OnInit {
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() {
   }

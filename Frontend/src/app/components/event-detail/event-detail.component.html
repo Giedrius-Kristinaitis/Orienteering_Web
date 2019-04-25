@@ -1,35 +1,35 @@
 <mat-card class="main-div">
-    <div *ngIf="event!=undefined; else spinner" class="map-and-info">
-      <div class="event-info">
-        <mat-card class="event-name-card">
-          <mat-card-title class="event-name-status">
-            {{event.name}}
-            <mat-chip-list [ngSwitch]="event.status.toLocaleLowerCase()">
-              <mat-chip *ngSwitchCase="'active'" color="accent" selected="true">{{event.status}}</mat-chip>
-              <mat-chip *ngSwitchCase="'closed'" color="warn" selected="true">{{event.status}}</mat-chip>
-              <mat-chip *ngSwitchDefault color="primary" selected="true">{{event.status}}</mat-chip>
-            </mat-chip-list>
-          </mat-card-title>
-          <mat-divider></mat-divider>
-          <mat-list>
-            <mat-list-item>Team size: {{event.teamSize}}</mat-list-item>
-            <mat-list-item>Checkpoints count: {{event.checkpointCount}}</mat-list-item>
-            <mat-list-item>Created: {{event.created | date: 'yyyy-MM-dd hh:mm:ss'}}</mat-list-item>
-            <mat-list-item>Starting: {{event.starting | date: 'yyyy-MM-dd hh:mm:ss'}}</mat-list-item>
-            <mat-list-item>Estimated time: {{event.estimatedTimeMillis | date: 'hh:mm:ss'}}</mat-list-item>
-            <mat-list-item>Estimated distance: {{event.estimatedDistanceMetres}}m</mat-list-item>
-          </mat-list>
-          <mat-divider></mat-divider>
-          <p class="description">{{event.description}}</p>
-        </mat-card>
-      </div>
-      <div class="map">
-        <app-map [checkpoints]="event.checkpoints"></app-map>
-      </div>
+  <div *ngIf="event!=undefined; else spinner" class="map-and-info">
+    <div class="event-info">
+      <mat-card class="event-name-card">
+        <mat-card-title class="event-name-status">
+          {{event.name}}
+          <mat-chip-list [ngSwitch]="event.status.toLocaleLowerCase()">
+            <mat-chip *ngSwitchCase="'active'" color="accent" selected="true">{{event.status}}</mat-chip>
+            <mat-chip *ngSwitchCase="'closed'" color="warn" selected="true">{{event.status}}</mat-chip>
+            <mat-chip *ngSwitchDefault color="primary" selected="true">{{event.status}}</mat-chip>
+          </mat-chip-list>
+        </mat-card-title>
+        <mat-divider></mat-divider>
+        <mat-list>
+          <mat-list-item>Team size: {{event.teamSize}}</mat-list-item>
+          <mat-list-item>Checkpoints count: {{event.checkpointCount}}</mat-list-item>
+          <mat-list-item>Created: {{event.created | date: 'yyyy-MM-dd hh:mm:ss'}}</mat-list-item>
+          <mat-list-item>Starting: {{event.starting | date: 'yyyy-MM-dd hh:mm:ss'}}</mat-list-item>
+          <mat-list-item>Estimated time: {{event.estimatedTimeMillis | date: 'hh:mm:ss'}}</mat-list-item>
+          <mat-list-item>Estimated distance: {{event.estimatedDistanceMetres}}m</mat-list-item>
+        </mat-list>
+        <mat-divider></mat-divider>
+        <p class="description">{{event.description}}</p>
+      </mat-card>
     </div>
-    <div class="loading-spinner">
-      <ng-template #spinner>
-        <mat-spinner class="spn"></mat-spinner>
-      </ng-template>
+    <div class="map">
+      <app-map [checkpoints]="event.checkpoints"></app-map>
     </div>
+  </div>
+  <div class="loading-spinner">
+    <ng-template #spinner>
+      <mat-spinner class="spn"></mat-spinner>
+    </ng-template>
+  </div>
 </mat-card>

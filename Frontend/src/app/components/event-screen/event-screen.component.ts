@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
 
 @Component({
@@ -9,12 +9,13 @@ import {Router} from "@angular/router";
 export class EventScreenComponent implements OnInit {
   eventName: string = '';
 
-  constructor(private router: Router) { }
+  constructor(private router: Router) {
+  }
 
   ngOnInit() {
   }
 
-  getEventName(name: string) : void {
+  getEventName(name: string): void {
     this.eventName = name;
   }
 }

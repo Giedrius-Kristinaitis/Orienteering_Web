@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {User} from "../components/user";
 import {Router} from "@angular/router";
 
@@ -7,7 +7,8 @@ import {Router} from "@angular/router";
 })
 export class UserService {
 
-  constructor(private router: Router) { }
+  constructor(private router: Router) {
+  }
 
   getUser(id: number): User {
     return undefined;

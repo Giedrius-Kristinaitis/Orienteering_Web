@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import { Location } from "@angular/common";
+import {Location} from "@angular/common";
 import {UserService} from "../../services/user.service";
 
 @Component({
@@ -13,7 +13,8 @@ export class NavigationBarComponent implements OnInit {
   @Input() showUserIcons: boolean;
   @Input() title: string;
 
-  constructor(private location: Location, private userService: UserService) { }
+  constructor(private location: Location, private userService: UserService) {
+  }
 
   ngOnInit() {
   }

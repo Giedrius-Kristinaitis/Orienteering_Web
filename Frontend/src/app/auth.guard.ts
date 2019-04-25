@@ -1,5 +1,4 @@
 import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot} from "@angular/router";
-import {Observable} from "rxjs";
 import {Injectable} from "@angular/core";
 import {UserService} from "./services/user.service";
 
@@ -11,10 +10,10 @@ export class AuthGuard implements CanActivate {
 
   canActivate(route: ActivatedRouteSnapshot,
               state: RouterStateSnapshot):
-              boolean {
+    boolean {
     //console.log('Tikrinimas');
     //console.log(this.userService.getCurrentUser());
-    if(this.userService.getCurrentUser() == undefined) {
+    if (this.userService.getCurrentUser() == undefined) {
       //console.log('Neprisijunges');
       this.router.navigate(['login']);
 

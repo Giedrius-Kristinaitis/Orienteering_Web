@@ -1,9 +1,8 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import { Event } from '../event';
-import { EventService } from '../../services/event.service';
-import {MatPaginator, MatTableDataSource, MatSort, PageEvent} from '@angular/material';
+import {Event} from '../event';
+import {EventService} from '../../services/event.service';
+import {MatPaginator, MatSort, MatTableDataSource, PageEvent} from '@angular/material';
 import {Router} from '@angular/router';
-import {EventResponse} from "../eventResponse";
 
 @Component({
   selector: 'app-event-list',
@@ -20,7 +19,9 @@ export class EventListComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
-  constructor(private eventService: EventService, private router: Router) { }
+
+  constructor(private eventService: EventService, private router: Router) {
+  }
 
   ngOnInit() {
     this.getEvents();
@@ -47,16 +48,16 @@ export class EventListComponent implements OnInit {
    * @param filterValue search word
    */
   applyFilter(filterValue: string = ' ', showCompleted: boolean) {
-    if(this.dataSource == undefined)
+    if (this.dataSource == undefined)
       return;
 
     //Filters each event by a name and based on showCompleted value shows closed events
     this.dataSource.filterPredicate = (data, filter) => {
       return (showCompleted ? true : data.status.includes('Closed') == false) && (filter == ' ' || data.name.toLocaleLowerCase().includes(filter.toLocaleLowerCase()));
-    }
+    };
     this.dataSource.filter = filterValue;
 
-    if(this.dataSource.paginator) {
+    if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
   }
