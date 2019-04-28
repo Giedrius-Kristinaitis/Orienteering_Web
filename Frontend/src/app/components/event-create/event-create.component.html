@@ -1,27 +1,47 @@
 <mat-card class="main">
   <div class="form-and-map">
     <div class="form">
-      <mat-form-field>
-        <input [formControl]="name" matInput placeholder="Event Name" required>
-        <mat-error *ngIf="name.invalid">{{getErrorMessage(name)}}</mat-error>
-      </mat-form-field>
-      <mat-form-field>
-        <input [formControl]="teamSize" matInput min="0" placeholder="Team size limit" required type="number">
-        <mat-error *ngIf="teamSize.invalid">{{getErrorMessage(teamSize)}}</mat-error>
-      </mat-form-field>
-      <mat-form-field>
-        <input [(ngModel)]="dateInput" [formControl]="date" [matDatepicker]="picker" matInput
-               placeholder="Starting date" required>
-        <mat-datepicker-toggle [for]="picker" matSuffix></mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
-        <mat-error *ngIf="date.invalid">{{getErrorMessage(date)}}</mat-error>
-      </mat-form-field>
-      <mat-form-field>
-        <textarea matInput placeholder="Event Description"></textarea>
-      </mat-form-field>
+      <form (ngSubmit)="onSubmit()" [formGroup]="eventForm">
+        <mat-form-field>
+          <input formControlName="name" matInput placeholder="Event Name" required>
+          <mat-error *ngIf="this.eventForm.get('name').invalid">{{getErrorMessage(this.eventForm.get('name'))}}</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <input formControlName="teamSize" [min]="this.minTeamLimit" [max]="this.maxTeamLimit" matInput placeholder="Team size limit" required type="number">
+          <mat-error *ngIf="this.eventForm.get('teamSize').invalid">{{getErrorMessage(this.eventForm.get('teamSize'))}}</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <input formControlName="date" [matDatepicker]="picker" matInput
+                 placeholder="Starting date" [min]="this.minDate" [max]="this.maxDate" required>
+          <mat-datepicker-toggle [for]="picker" matSuffix></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+          <mat-error *ngIf="this.eventForm.get('date').invalid">{{getErrorMessage(this.eventForm.get('date'))}}</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <input formControlName="time" matInput type="time" placeholder="Starting time" required>
+          <mat-error *ngIf="this.eventForm.get('time').invalid">{{getErrorMessage(this.eventForm.get('time'))}}</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <input formControlName="duration" [min]="this.minDuration" [max]="this.maxDuration" matInput type="number" placeholder="Estimated duration (h)" required>
+          <mat-error *ngIf="this.eventForm.get('duration').invalid">{{getErrorMessage(this.eventForm.get('duration'))}}</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <input formControlName="distance" [min]="this.minDistance" [max]="this.maxDistance" matInput placeholder="Estimated distance (m)" type="number" required>
+          <mat-error *ngIf="this.eventForm.get('distance').invalid">{{getErrorMessage(this.eventForm.get('distance'))}}</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <textarea class="event-description-input" formControlName="description" matInput required placeholder="Event Description"></textarea>
+          <mat-error *ngIf="this.eventForm.get('description').invalid">{{getErrorMessage(this.eventForm.get('description'))}}</mat-error>
+        </mat-form-field>
+        <mat-chip-list>
+          <mat-chip class="checkpoints-count-chip">Checkpoints count: {{checkpointsCount}}</mat-chip>
+          <mat-error class="checkpoints-count-error" *ngIf="this.submitted && this.eventForm.get('checkpointsCount').invalid">{{getErrorMessage(this.eventForm.get('checkpointsCount'))}}</mat-error>
+        </mat-chip-list>
+        <button class="event-create-button" mat-raised-button color="primary" type="submit">Create</button>
+      </form>
     </div>
     <div class="map">
-      <agm-map [latitude]="0" [longitude]="0" style="height: 87vh"></agm-map>
+      <app-event-create-map   (checkpointsList)="getCheckpoints($event)"></app-event-create-map>
     </div>
   </div>
 </mat-card>
