@@ -8,6 +8,7 @@
                           title="{{eventName}}"></app-navigation-bar>
     </div>
     <div class="content">
+      <app-messages></app-messages>
       <app-event-list *ngIf="router.url=='/events'"></app-event-list>
       <app-event-create *ngIf="router.url=='/event/create'"></app-event-create>
       <app-event-detail (eventName)="getEventName($event)"
