@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
-import {User} from "../components/user";
-import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {map} from "rxjs/operators";
+import {User} from '../components/user';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {map} from 'rxjs/operators';
 
 const httpOptions = {
   headers: new HttpHeaders({
