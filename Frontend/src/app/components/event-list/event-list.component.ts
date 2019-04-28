@@ -3,6 +3,7 @@ import {Event} from '../event';
 import {EventService} from '../../services/event.service';
 import {MatPaginator, MatSort, MatTableDataSource, PageEvent} from '@angular/material';
 import {Router} from '@angular/router';
+import {MessageService} from '../../services/message.service';
 
 @Component({
   selector: 'app-event-list',
@@ -20,7 +21,7 @@ export class EventListComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private eventService: EventService, private router: Router) {
+  constructor(private eventService: EventService, private router: Router, private messageService: MessageService) {
   }
 
   ngOnInit() {
@@ -37,10 +38,15 @@ export class EventListComponent implements OnInit {
    * Gets all events data
    */
   getEvents(): void {
-    this.eventService.getEvents().subscribe(eventRes => {
-      this.dataSource = new MatTableDataSource<Event>(eventRes.events);
-      this.events = eventRes.events;
-    });
+    this.eventService.getEvents().subscribe(
+      data => {
+        this.dataSource = new MatTableDataSource<Event>(data.events);
+        this.events = data.events;
+      },
+      error => this.messageService.add(error.toString())
+    );
+
+    this.messageService.clear();
   }
 
   /**
@@ -48,12 +54,14 @@ export class EventListComponent implements OnInit {
    * @param filterValue search word
    */
   applyFilter(filterValue: string = ' ', showCompleted: boolean) {
-    if (this.dataSource == undefined)
+    if (this.dataSource === undefined) {
       return;
+    }
 
-    //Filters each event by a name and based on showCompleted value shows closed events
+    // Filters each event by a name and based on showCompleted value shows closed events
     this.dataSource.filterPredicate = (data, filter) => {
-      return (showCompleted ? true : data.status.includes('Closed') == false) && (filter == ' ' || data.name.toLocaleLowerCase().includes(filter.toLocaleLowerCase()));
+      return (showCompleted ? true : data.status.includes('Closed') === false) &&
+        (filter === ' ' || data.name.toLowerCase().includes(filter.toLowerCase()));
     };
     this.dataSource.filter = filterValue;
 
@@ -71,7 +79,8 @@ export class EventListComponent implements OnInit {
    * @param row selected table row
    */
   showEventDetails(row): void {
-    this.router.navigateByUrl(`/event/detail/${row['id']}`);
+    console.log(row);
+    this.router.navigateByUrl(`/event/detail/${row.id}`);
   }
 
   onPaginateChange(event: PageEvent) {

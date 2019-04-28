@@ -8,10 +8,15 @@
       </mat-form-field>
     </div>
     <div class="checkbox-div">
-      <mat-checkbox (change)="applyFilter(searchInput, $event.checked)" [(ngModel)]="showCompleted" class="checkbox"
+      <mat-checkbox style="width: 50%" (change)="applyFilter(searchInput, $event.checked)" [(ngModel)]="showCompleted" class="checkbox"
                     color="primary">Show completed
       </mat-checkbox>
-      <mat-checkbox class="checkbox" color="primary">Show mine</mat-checkbox>
+      <mat-checkbox style="width: 50%" class="checkbox" color="primary">Show mine</mat-checkbox>
+    </div>
+    <div class="create-event-button">
+      <a [routerLink]="['/event/create']">
+        <button mat-raised-button color="primary">Create new</button>
+      </a>
     </div>
   </div>
   <div class="mat-elevation-z8 sub-div">
@@ -51,7 +56,7 @@
       <ng-container matColumnDef="status">
         <th *matHeaderCellDef mat-header-cell mat-sort-header> Status</th>
         <td *matCellDef="let event" mat-cell>
-          <mat-chip-list [ngSwitch]="this.event.status.toLocaleLowerCase()">
+          <mat-chip-list *ngIf="this.event.status" [ngSwitch]="this.event.status.toLowerCase()">
             <mat-chip *ngSwitchCase="'active'" color="accent" selected="true">{{event.status}}</mat-chip>
             <mat-chip *ngSwitchCase="'closed'" color="warn" selected="true">{{event.status}}</mat-chip>
             <mat-chip *ngSwitchDefault color="primary" selected="true">{{event.status}}</mat-chip>

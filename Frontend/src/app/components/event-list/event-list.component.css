@@ -36,7 +36,8 @@ td, th {
 }
 
 .search-div {
-  display: flex;
+  display: inline-flex;
+  width: 50%;
 }
 
 .sub-div {
@@ -55,9 +56,13 @@ td, th {
 }
 
 .search-input {
-  width: 40vw;
-  left: 1vw;
-  margin-top: 1vh;
+  /*width: 10vw;*/
+  /*left: 1vw;*/
+  /*margin-top: 1vh;*/
+  /*width: 60%;*/
+  left: 2%;
+  margin-top: 1%;
+  width: 100%;
 }
 
 .event-list-table {
@@ -85,18 +90,28 @@ td, th {
 }
 
 .top-div {
-  display: flex;
+  width: 100%;
+  display: inline-flex;
+  flex-direction: row;
+  justify-content: space-between;
+  /*display: inline-flex;*/
+  flex-wrap: wrap;
 }
 
 .checkbox-div {
-  margin-top: 2.5vh;
-  margin-left: 5vw;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  width: 60%;
+  /*margin-top: 2.5%;*/
+  /*margin-left: 5%;*/
+  /*display: flex;*/
+  /*flex-direction: row;*/
+  /*flex-wrap: wrap;*/
+  margin-top: 2%;
+  width: 30%;
 }
 
 mat-checkbox {
-  margin-left: 3vw;
+  margin-left: 3%;
+}
+
+.create-event-button {
+  margin: 1.5% 2% 0% 2%;
 }
