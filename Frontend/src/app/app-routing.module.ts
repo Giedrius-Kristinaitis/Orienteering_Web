@@ -1,8 +1,8 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {EventScreenComponent} from "./components/event-screen/event-screen.component";
-import {LoginFormScreenComponent} from "./components/login-register-screen/login-form-screen.component";
-import {AuthGuard} from "./auth.guard";
+import {EventScreenComponent} from './components/event-screen/event-screen.component';
+import {LoginFormScreenComponent} from './components/login-register-screen/login-form-screen.component';
+import {AuthGuard} from './auth.guard';
 
 const routes: Routes = [
   {path: '', redirectTo: 'login', pathMatch: 'full'},
