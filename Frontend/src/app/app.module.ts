@@ -11,7 +11,7 @@ import {
   MatCardModule,
   MatCheckboxModule,
   MatChipsModule,
-  MatDatepickerModule,
+  MatDatepickerModule, MatDialogModule,
   MatFormFieldModule,
   MatGridListModule,
   MatIconModule,
@@ -37,9 +37,15 @@ import {key} from './mapApiKey';
 import {LoginFormComponent} from './components/login-form/login-form.component';
 import {LoginFormScreenComponent} from './components/login-register-screen/login-form-screen.component';
 import {AuthGuard} from './auth.guard';
+import {MessagesComponent} from './components/messages/messages.component';
+import {MessageService} from './services/message.service';
+import {EventService} from './services/event.service';
+import { MarkerEditDialogComponent } from './components/marker-edit-dialog/marker-edit-dialog.component';
 
 @NgModule({
-  declarations: [AppComponent, EventListComponent, EventScreenComponent, NavigationBarComponent, EventDetailComponent, MapComponent, EventCreateComponent, EventCreateMapComponent, LoginFormComponent, LoginFormScreenComponent],
+  declarations: [AppComponent, EventListComponent, EventScreenComponent, NavigationBarComponent, EventDetailComponent,
+    MapComponent, EventCreateComponent, EventCreateMapComponent, LoginFormComponent, LoginFormScreenComponent,
+    MessagesComponent, MarkerEditDialogComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -64,11 +70,14 @@ import {AuthGuard} from './auth.guard';
     ReactiveFormsModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatDialogModule,
     AgmCoreModule.forRoot({
       apiKey: key,
     })
   ],
-  providers: [AuthGuard],
+  exports: [MarkerEditDialogComponent],
+  entryComponents: [MarkerEditDialogComponent],
+  providers: [AuthGuard, MessageService, EventService],
   bootstrap: [AppComponent]
 })
 export class AppModule {
