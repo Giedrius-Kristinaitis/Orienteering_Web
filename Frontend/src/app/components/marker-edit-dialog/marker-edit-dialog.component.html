@@ -1,0 +1,16 @@
+<h1 mat-dialog-title>Marker info</h1>
+<div class="marker-info" mat-dialog-content>
+  <p>ID: {{data.id}}</p>
+  <p>Latitude: {{data.latitude.toFixed(3)}}</p>
+  <p>Longitutude: {{data.longitude.toFixed(3)}}</p>
+  <form (ngSubmit)="onSaveClick()">
+    <mat-form-field>
+      <input [formControl]="markerName" matInput [(ngModel)]="data.name" required placeholder="Name" value="{{data.name}}">
+      <mat-error *ngIf="this.markerName.invalid">You must enter a marker name</mat-error>
+    </mat-form-field>
+  </form>
+</div>
+<div class="marker-dialog-buttons" mat-dialog-actions>
+  <button mat-raised-button (click)="onSaveClick()" cdkFocusInitial color="primary">Save</button>
+  <button mat-raised-button (click)="onDeleteClick()" color="warn">Delete</button>
+</div>

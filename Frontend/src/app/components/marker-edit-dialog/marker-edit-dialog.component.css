@@ -1,0 +1,12 @@
+.marker-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  text-align: left;
+}
+
+.marker-dialog-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
