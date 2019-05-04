@@ -5,7 +5,7 @@ steps:
 - name: backend
   image: maven
   commands:
-    - cd backend
+    - cd Backend
     - mvn clean test
   when:
     branch:
