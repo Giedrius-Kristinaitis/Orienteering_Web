@@ -1,0 +1,12 @@
+kind: pipeline
+name: default
+
+steps:
+- name: backend
+  image: maven
+  commands:
+    - cd backend
+    - mvn clean test
+  when:
+    branch:
+      - develop
