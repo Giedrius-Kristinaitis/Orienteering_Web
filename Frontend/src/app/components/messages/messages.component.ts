@@ -9,7 +9,6 @@ import {MessageService} from '../../services/message.service';
 export class MessagesComponent implements OnInit {
 
   constructor(public messageService: MessageService) {
-
   }
 
   ngOnInit() {
