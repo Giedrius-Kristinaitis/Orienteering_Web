@@ -1,5 +1,5 @@
-import {Checkpoint} from "./checkpoint";
-import {Team} from "./team";
+import {Checkpoint} from './checkpoint';
+import {Team} from './team';
 
 export class Event {
   id: number;
