@@ -1,14 +1,18 @@
-table {
-  width: 100%;
-}
-
 .mat-form-field {
   font-size: 14px;
   width: 100%;
 }
 
-td, th {
-  width: 25%;
+table {
+  width: 100%;
+  table-layout: fixed;
+}
+
+th, td {
+  overflow: hidden;
+  width: 20%;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 ::ng-deep .mat-sort-header-sorted {

@@ -26,7 +26,7 @@
            matSortDirection="desc">
       <!-- Event name Column -->
       <ng-container matColumnDef="name">
-        <th *matHeaderCellDef mat-header-cell mat-sort-header> Event name</th>
+        <th *matHeaderCellDef mat-header-cell mat-sort-header>Event name</th>
         <td *matCellDef="let event" mat-cell>
           <div>
             <i class="material-icons">map</i>
@@ -36,27 +36,36 @@
         </td>
       </ng-container>
 
+      <ng-container matColumnDef="description">
+        <th *matHeaderCellDef mat-header-cell mat-sort-header>Description</th>
+        <td *matCellDef="let event" mat-cell>
+          <div>
+            {{event.description}}
+          </div>
+        </td>
+      </ng-container>
+
       <!-- Event team size Column -->
       <ng-container matColumnDef="teamSize">
-        <th *matHeaderCellDef mat-header-cell mat-sort-header> Team Limit</th>
+        <th *matHeaderCellDef mat-header-cell mat-sort-header>Team Limit</th>
         <td *matCellDef="let event" mat-cell> {{event.teamSize}} </td>
       </ng-container>
 
       <!-- Checkpoints count Column -->
       <ng-container matColumnDef="checkpointCount">
-        <th *matHeaderCellDef mat-header-cell mat-sort-header> Checkpoints</th>
+        <th *matHeaderCellDef mat-header-cell mat-sort-header>Checkpoints</th>
         <td *matCellDef="let event" mat-cell> {{event.checkpointCount}} </td>
       </ng-container>
 
       <!-- Date Column -->
       <ng-container matColumnDef="created">
-        <th *matHeaderCellDef mat-header-cell mat-sort-header> Created</th>
+        <th *matHeaderCellDef mat-header-cell mat-sort-header>Created</th>
         <td *matCellDef="let event" mat-cell> {{event.created | date: 'yyyy-MM-dd hh:mm'}} </td>
       </ng-container>
 
       <!-- Status Column -->
       <ng-container matColumnDef="status">
-        <th *matHeaderCellDef mat-header-cell mat-sort-header> Status</th>
+        <th *matHeaderCellDef mat-header-cell mat-sort-header>Status</th>
         <td *matCellDef="let event" mat-cell>
           <mat-chip-list *ngIf="this.event.status" [ngSwitch]="this.event.status.toLowerCase()">
             <mat-chip *ngSwitchCase="'active'" color="accent" selected="true">{{event.status}}</mat-chip>
@@ -66,12 +75,25 @@
         </td>
       </ng-container>
 
+      <ng-container matColumnDef="delete">
+        <th *matHeaderCellDef mat-header-cell></th>
+        <td *matCellDef="let event" mat-cell style="text-align: right">
+          <i class="material-icons" (click)="deleteEvent(event)">delete_forever</i>
+        </td>
+      </ng-container>
+
       <tr *matHeaderRowDef="displayedColumns; sticky: true" mat-header-row></tr>
       <tr (click)="showEventDetails(row)" *matRowDef="let row; columns: displayedColumns;" class="item" mat-row></tr>
     </table>
   </div>
   <div class="paginator-div">
-    <mat-paginator (page)="pageEvent = $event; onPaginateChange($event)" [pageSizeOptions]="[10, 20, 100]"
-                   class="paginator" showFirstLastButtons></mat-paginator>
+    <mat-paginator #paginator
+                   [length]="length"
+                   [pageIndex]="pageIndex"
+                   [pageSize]="pageSize"
+                   [pageSizeOptions]="[10, 25, 50, 100]"
+                   (page)="pageEvent = getServerData($event)"
+                   class="paginator" showFirstLastButtons>
+    </mat-paginator>
   </div>
 </div>

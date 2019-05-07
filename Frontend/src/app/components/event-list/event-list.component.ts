@@ -11,12 +11,19 @@ import {MessageService} from '../../services/message.service';
   styleUrls: ['./event-list.component.css']
 })
 export class EventListComponent implements OnInit {
+  // Paginator's variables
+  pageEvent: PageEvent;
+  pageIndex: number;
+  pageSize: number;
+  length: number;
+
   searchInput: string;
-  showCompleted: boolean = false;
+  showCompleted = false;
+  deletingEvent = false;
   events: Event[];
 
   dataSource: MatTableDataSource<Event>;
-  displayedColumns: string[] = ['name', 'teamSize', 'checkpointCount', 'created', 'status'];
+  displayedColumns: string[] = ['name', 'description', 'teamSize', 'checkpointCount', 'created', 'status', 'delete'];
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -25,28 +32,25 @@ export class EventListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getEvents();
-
-    // EventResponse eventResponse = this.eventService.getEvents();
-    this.dataSource = new MatTableDataSource<Event>(this.events);
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
-    this.applyFilter(this.searchInput, false);
+    this.getServerData(null);
+    // this.dataSource.paginator = this.paginator;
   }
 
   /**
-   * Gets all events data
+   * Deletes event after delete button click
+   * @param event Click event
    */
-  getEvents(): void {
-    this.eventService.getEvents().subscribe(
+  deleteEvent(event): void {
+    this.deletingEvent = true;
+    this.eventService.deleteEvent(event.id).subscribe(
       data => {
-        this.dataSource = new MatTableDataSource<Event>(data.events);
-        this.events = data.events;
+        this.dataSource.data.filter(x => x.id !== event.id);
       },
-      error => this.messageService.add(error.toString())
+      error => {
+        this.messageService.add(error.toString());
+      }
     );
 
-    this.messageService.clear();
   }
 
   /**
@@ -70,8 +74,23 @@ export class EventListComponent implements OnInit {
     }
   }
 
-  test(evens: any): void {
-    console.log(evens);
+  /**
+   * Events data loading for paginator
+   * @param event Page event
+   */
+  public getServerData(event?: PageEvent) {
+    this.eventService.getEvents((event === null ? 0 : event.pageIndex), (event === null ? 10 : event.pageSize)).subscribe(
+      data => {
+        this.dataSource = new MatTableDataSource<Event>(data.events);
+        this.pageIndex = (event === null ? 0 : event.pageIndex);
+        this.pageSize = data.pageSize;
+        this.length = data.totalElements;
+
+        // this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+        this.applyFilter(this.searchInput, false);
+      });
+    return event;
   }
 
   /**
@@ -79,12 +98,9 @@ export class EventListComponent implements OnInit {
    * @param row selected table row
    */
   showEventDetails(row): void {
-    console.log(row);
-    this.router.navigateByUrl(`/event/detail/${row.id}`);
-  }
-
-  onPaginateChange(event: PageEvent) {
-    console.log(event);
+    if (!this.deletingEvent) {
+      this.router.navigateByUrl(`/event/detail/${row.id}`);
+    }
   }
 }
 
