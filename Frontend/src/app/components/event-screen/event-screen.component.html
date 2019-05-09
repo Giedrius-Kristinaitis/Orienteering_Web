@@ -2,15 +2,18 @@
   <div class="container">
     <div class="toolbar">
       <app-navigation-bar *ngIf="router.url=='/events'" showUserIcons="true" title="Events"></app-navigation-bar>
-      <app-navigation-bar *ngIf="router.url=='/event/create'" showGoBackButton="true"
+      <app-navigation-bar *ngIf="router.url=='/event/create'" showGoBackButton="true" showUserIcons="true"
                           title="Create Event"></app-navigation-bar>
       <app-navigation-bar *ngIf="router.url.includes('/event/detail')" showGoBackButton="true"
                           title="{{eventName}}"></app-navigation-bar>
+      <app-navigation-bar *ngIf="router.url.includes('/event/edit')" showGoBackButton="true"
+                          title="Edit event"></app-navigation-bar>
     </div>
     <div class="content">
       <app-messages></app-messages>
       <app-event-list *ngIf="router.url=='/events'"></app-event-list>
       <app-event-create *ngIf="router.url=='/event/create'"></app-event-create>
+      <app-event-edit *ngIf="router.url.includes('/event/edit')"></app-event-edit>
       <app-event-detail (eventName)="getEventName($event)"
                         *ngIf="router.url.includes('/event/detail/')"></app-event-detail>
     </div>
