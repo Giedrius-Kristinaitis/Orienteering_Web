@@ -1,0 +1,58 @@
+<mat-card class="main">
+  <div class="form-and-map">
+    <div class="form">
+      <form (ngSubmit)="onSubmit()" [formGroup]="eventForm">
+        <mat-form-field>
+          <input formControlName="name" matInput placeholder="Event Name" required [(ngModel)]="this.event.name">
+          <mat-error *ngIf="this.eventForm.get('name').invalid">{{getErrorMessage(this.eventForm.get('name'))}}</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <input formControlName="teamSize" [min]="this.minTeamLimit" [max]="this.maxTeamLimit" matInput placeholder="Team size limit" required type="number" [(ngModel)]="this.event.teamSize">
+          <mat-error *ngIf="this.eventForm.get('teamSize').invalid">{{getErrorMessage(this.eventForm.get('teamSize'))}}</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <input formControlName="date" [matDatepicker]="picker" matInput
+                 placeholder="Starting date" [min]="this.minDate" [max]="this.maxDate" required [(ngModel)]="this.startingDate">
+          <mat-datepicker-toggle [for]="picker" matSuffix></mat-datepicker-toggle>
+          <mat-datepicker [startAt]="startingDate" #picker></mat-datepicker>
+          <mat-error *ngIf="this.eventForm.get('date').invalid">{{getErrorMessage(this.eventForm.get('date'))}}</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <input formControlName="time" matInput type="time" placeholder="Starting time" required [(ngModel)]="this.startingTime">
+          <mat-error *ngIf="this.eventForm.get('time').invalid">{{getErrorMessage(this.eventForm.get('time'))}}</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <input formControlName="duration" [min]="this.minDuration" [max]="this.maxDuration" matInput type="number" placeholder="Estimated duration (h)" required
+                 [(ngModel)]="this.event.estimatedTimeMillis">
+          <mat-error *ngIf="this.eventForm.get('duration').invalid">{{getErrorMessage(this.eventForm.get('duration'))}}</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <input formControlName="distance" [min]="this.minDistance" [max]="this.maxDistance" matInput placeholder="Estimated distance (m)" type="number" required
+                 [(ngModel)]="this.event.estimatedDistanceMetres">
+          <mat-error *ngIf="this.eventForm.get('distance').invalid">{{getErrorMessage(this.eventForm.get('distance'))}}</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <textarea class="event-description-input" formControlName="description" matInput required placeholder="Event Description"
+                    [(ngModel)]="this.event.description"></textarea>
+          <mat-error *ngIf="this.eventForm.get('description').invalid">{{getErrorMessage(this.eventForm.get('description'))}}</mat-error>
+        </mat-form-field>
+        <mat-chip-list>
+          <mat-chip class="checkpoints-count-chip" style="display: inline-flex; justify-content: space-between">
+            Checkpoints count: {{checkpointsCount}}
+            <i class="material-icons" title="
+            Map controls:
+            - Mouse left button on map to create a new event
+            - Mouse left button on existing marker to edit it
+            - Righ mouse button on marker to delete it">info</i>
+          </mat-chip>
+          <mat-error class="checkpoints-count-error" *ngIf="this.submitted && this.eventForm.get('checkpointsCount').invalid">{{getErrorMessage(this.eventForm.get('checkpointsCount'))}}</mat-error>
+        </mat-chip-list>
+        <button *ngIf="this.editingEvent!==true" class="event-create-button" mat-raised-button color="primary" type="submit">Create</button>
+        <button *ngIf="this.editingEvent===true" class="event-create-button" mat-raised-button color="primary" type="submit">Update</button>
+      </form>
+    </div>
+    <div class="map">
+      <app-event-create-map [event]="currentEvent" (checkpointsList)="getCheckpoints($event)"></app-event-create-map>
+    </div>
+  </div>
+</mat-card>
