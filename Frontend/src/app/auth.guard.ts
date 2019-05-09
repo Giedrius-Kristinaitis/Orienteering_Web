@@ -13,7 +13,7 @@ export class AuthGuard implements CanActivate {
     boolean {
     // console.log('Tikrinimas');
     // console.log(this.userService.getCurrentUser());
-    if (this.userService.getCurrentUser() === undefined) {
+    if (this.userService.getCurrentUser() === null || this.userService.getCurrentUser() === undefined) {
       // console.log('Neprisijunges');
       this.router.navigate(['login']);
 
