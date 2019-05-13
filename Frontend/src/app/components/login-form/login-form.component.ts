@@ -18,8 +18,9 @@ export class LoginFormComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (this.userService.getCurrentUser() != undefined)
+    if (this.userService.getCurrentUser() !== undefined) {
       this.router.navigate(['events']);
+    }
   }
 
   login(email: string, password: string) {
