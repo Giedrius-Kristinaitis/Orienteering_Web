@@ -1,0 +1,13 @@
+.main-div {
+  margin-bottom: 36.5%;
+}
+
+.input-field {
+  width: 100%;
+}
+
+.header-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
