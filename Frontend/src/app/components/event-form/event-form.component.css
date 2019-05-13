@@ -39,7 +39,7 @@
   margin-left: 5% !important;
   margin-top: 2%;
   width: 90%;
-  background-color: lightgrey;
+  background-color: #e3e8ef;
   display: inline-flex;
   flex-direction: row;
   justify-content: space-between;
@@ -54,4 +54,8 @@
   width: 90%;
   margin-left: 5%;
   margin-top: 5%;
+}
+
+.info-icon {
+  color: #673ab7;
 }
