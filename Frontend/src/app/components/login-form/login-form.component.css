@@ -1,0 +1,17 @@
+.input-field {
+  width: 100%;
+}
+
+.header-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.login-button {
+  width: 100%;
+}
+
+.sub-text {
+  margin-top: 5%;
+}
