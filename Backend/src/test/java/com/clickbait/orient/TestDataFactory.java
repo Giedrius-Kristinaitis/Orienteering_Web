@@ -54,7 +54,8 @@ public class TestDataFactory {
                 EventStatus.OPEN,
                 (long) 2*60*60*1000, // 2 hours * 60 minutes * 60 seconds * 1000 milliseconds
                 2500,
-                photos
+                photos,
+                new UserDTO("id1", "le_email@email.com", "QWERTY", "ASDFGH")
         );
     }
 
