@@ -65,7 +65,8 @@ public class EventControllerTest {
                 .andExpect(jsonPath("$.starting", anything()))
                 .andExpect(jsonPath("$.estimatedTimeMillis", is(7200000)))
                 .andExpect(jsonPath("$.estimatedDistanceMetres", is(2500)))
-                .andExpect(jsonPath("$.photos", hasSize(1)));
+                .andExpect(jsonPath("$.photos", hasSize(1)))
+                .andExpect(jsonPath("$.owner.id", is("id1")));
     }
 
     @Test

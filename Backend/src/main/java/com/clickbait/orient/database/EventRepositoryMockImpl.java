@@ -67,7 +67,8 @@ public class EventRepositoryMockImpl implements EventRepository {
                         EventStatus.OPEN,
                         (long) 2*60*60*1000, // 2 hours * 60 minutes * 60 seconds * 1000 milliseconds
                         2500,
-                        (List<Photo>) ((ArrayList<Photo>) photos).clone()
+                        (List<Photo>) ((ArrayList<Photo>) photos).clone(),
+                        new UserDTO("id1", "le_email@email.com", "QWERTY", "ASDFGH")
                 ),
 
                 new Event(
@@ -88,7 +89,8 @@ public class EventRepositoryMockImpl implements EventRepository {
                         EventStatus.OPEN,
                         (long) 2*60*60*1000, // 2 hours * 60 minutes * 60 seconds * 1000 milliseconds
                         2500,
-                        (List<Photo>) ((ArrayList<Photo>) photos).clone()
+                        (List<Photo>) ((ArrayList<Photo>) photos).clone(),
+                        new UserDTO("id1", "le_email@email.com", "QWERTY", "ASDFGH")
                 ),
 
                 new Event(
@@ -109,7 +111,8 @@ public class EventRepositoryMockImpl implements EventRepository {
                         EventStatus.OPEN,
                         (long) 2*60*60*1000, // 2 hours * 60 minutes * 60 seconds * 1000 milliseconds
                         2500,
-                        (List<Photo>) ((ArrayList<Photo>) photos).clone()
+                        (List<Photo>) ((ArrayList<Photo>) photos).clone(),
+                        new UserDTO("id1", "le_email@email.com", "QWERTY", "ASDFGH")
                 ),
 
                 new Event(
@@ -130,7 +133,8 @@ public class EventRepositoryMockImpl implements EventRepository {
                         EventStatus.OPEN,
                         (long) 2*60*60*1000, // 2 hours * 60 minutes * 60 seconds * 1000 milliseconds
                         2500,
-                        (List<Photo>) ((ArrayList<Photo>) photos).clone()
+                        (List<Photo>) ((ArrayList<Photo>) photos).clone(),
+                        new UserDTO("id1", "le_email@email.com", "QWERTY", "ASDFGH")
                 ),
 
                 new Event(
@@ -151,7 +155,8 @@ public class EventRepositoryMockImpl implements EventRepository {
                         EventStatus.OPEN,
                         (long) 2*60*60*1000, // 2 hours * 60 minutes * 60 seconds * 1000 milliseconds
                         2500,
-                        (List<Photo>) ((ArrayList<Photo>) photos).clone()
+                        (List<Photo>) ((ArrayList<Photo>) photos).clone(),
+                        new UserDTO("id1", "le_email@email.com", "QWERTY", "ASDFGH")
                 ),
 
                 new Event(
@@ -172,7 +177,8 @@ public class EventRepositoryMockImpl implements EventRepository {
                         EventStatus.OPEN,
                         (long) 2*60*60*1000, // 2 hours * 60 minutes * 60 seconds * 1000 milliseconds
                         2500,
-                        (List<Photo>) ((ArrayList<Photo>) photos).clone()
+                        (List<Photo>) ((ArrayList<Photo>) photos).clone(),
+                        new UserDTO("id1", "le_email@email.com", "QWERTY", "ASDFGH")
                 ),
 
                 new Event(
@@ -193,7 +199,8 @@ public class EventRepositoryMockImpl implements EventRepository {
                         EventStatus.OPEN,
                         (long) 2*60*60*1000, // 2 hours * 60 minutes * 60 seconds * 1000 milliseconds
                         2500,
-                        (List<Photo>) ((ArrayList<Photo>) photos).clone()
+                        (List<Photo>) ((ArrayList<Photo>) photos).clone(),
+                        new UserDTO("id1", "le_email@email.com", "QWERTY", "ASDFGH")
                 ),
 
                 new Event(
@@ -214,7 +221,8 @@ public class EventRepositoryMockImpl implements EventRepository {
                         EventStatus.OPEN,
                         (long) 2*60*60*1000, // 2 hours * 60 minutes * 60 seconds * 1000 milliseconds
                         2500,
-                        (List<Photo>) ((ArrayList<Photo>) photos).clone()
+                        (List<Photo>) ((ArrayList<Photo>) photos).clone(),
+                        new UserDTO("id1", "le_email@email.com", "QWERTY", "ASDFGH")
                 ),
 
                 new Event(
@@ -235,7 +243,8 @@ public class EventRepositoryMockImpl implements EventRepository {
                         EventStatus.OPEN,
                         (long) 2*60*60*1000, // 2 hours * 60 minutes * 60 seconds * 1000 milliseconds
                         2500,
-                        (List<Photo>) ((ArrayList<Photo>) photos).clone()
+                        (List<Photo>) ((ArrayList<Photo>) photos).clone(),
+                        new UserDTO("id1", "le_email@email.com", "QWERTY", "ASDFGH")
                 ),
 
                 new Event(
@@ -256,7 +265,8 @@ public class EventRepositoryMockImpl implements EventRepository {
                         EventStatus.OPEN,
                         (long) 2*60*60*1000, // 2 hours * 60 minutes * 60 seconds * 1000 milliseconds
                         2500,
-                        (List<Photo>) ((ArrayList<Photo>) photos).clone()
+                        (List<Photo>) ((ArrayList<Photo>) photos).clone(),
+                        new UserDTO("id1", "le_email@email.com", "QWERTY", "ASDFGH")
                 ),
 
                 new Event(
@@ -277,7 +287,8 @@ public class EventRepositoryMockImpl implements EventRepository {
                         EventStatus.OPEN,
                         (long) 2*60*60*1000, // 2 hours * 60 minutes * 60 seconds * 1000 milliseconds
                         2500,
-                        (List<Photo>) ((ArrayList<Photo>) photos).clone()
+                        (List<Photo>) ((ArrayList<Photo>) photos).clone(),
+                        new UserDTO("id1", "le_email@email.com", "QWERTY", "ASDFGH")
                 )));
     }
 
