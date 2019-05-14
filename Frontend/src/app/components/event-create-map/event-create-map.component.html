@@ -1,2 +1,6 @@
-<agm-map [latitude]="0" [longitude]="0" style="height: 87vh">
+<agm-map class="map" (mapClick)="saveMarker($event)" [latitude]="centerLat" [longitude]="centerLong" draggableCursor="default">
+  <agm-marker *ngFor="let marker of markers" latitude="{{marker.latitude}}"
+              longitude="{{marker.longitude}}"
+    label="{{marker.name}}"
+  (markerClick)="editMarker(marker)" (markerRightClick)="deleteMarker(marker)"></agm-marker>
 </agm-map>

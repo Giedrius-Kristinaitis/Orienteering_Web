@@ -5,19 +5,22 @@
   <mat-card-content>
     <div class="login-form">
       <mat-form-field style="width: 100%">
-        <input #emailInput matInput placeholder="Email" name="email" [formControl]="email" type="email" required>
+        <input #emailInput [formControl]="email" matInput name="email" placeholder="Email" required type="email">
         <mat-error *ngIf="email.invalid">{{getErrorMessage(this.email)}}</mat-error>
       </mat-form-field>
       <mat-form-field style="width: 100%">
-        <input #passwordInput matInput placeholder="Password" name="password" [formControl]="password" type="password" required>
+        <input #passwordInput [formControl]="password" matInput name="password" placeholder="Password" required
+               type="password">
         <mat-error *ngIf="password.invalid">{{getErrorMessage(this.password)}}</mat-error>
       </mat-form-field>
     </div>
     <mat-spinner [style.display]="showSpinner ? 'block' : 'none'"></mat-spinner>
   </mat-card-content>
   <mat-card-actions>
-    <button mat-raised-button style="width: 100%" (click)="login(emailInput.value, password.value)" color="primary">Login</button>
+    <button (click)="login(emailInput.value, password.value)" color="primary" mat-raised-button style="width: 100%">
+      Login
+    </button>
     <p style="margin-top: 35px">Don't have an account?</p>
-    <button mat-raised-button style="width: 100%; margin: auto" color="warn">Sign Up</button>
+    <button color="warn" mat-raised-button style="width: 100%; margin: auto">Sign Up</button>
   </mat-card-actions>
 </mat-card>

@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { EventCreateMapComponent } from './event-create-map.component';
+import {EventCreateMapComponent} from './event-create-map.component';
 
 describe('EventCreateMapComponent', () => {
   let component: EventCreateMapComponent;
@@ -8,9 +8,9 @@ describe('EventCreateMapComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ EventCreateMapComponent ]
+      declarations: [EventCreateMapComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

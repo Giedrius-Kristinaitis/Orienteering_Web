@@ -8,7 +8,9 @@ import {Checkpoint} from "../checkpoint";
 })
 export class MapComponent implements OnInit {
   @Input() checkpoints: Checkpoint[];
-  constructor() { }
+
+  constructor() {
+  }
 
   ngOnInit() {
   }

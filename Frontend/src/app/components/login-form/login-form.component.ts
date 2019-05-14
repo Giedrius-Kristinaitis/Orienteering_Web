@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import {FormControl, Validators} from "@angular/forms";
-import {AuthenticationService} from "../../services/authentication.service";
-import {Router} from "@angular/router";
-import {UserService} from "../../services/user.service";
+import {Component, OnInit} from '@angular/core';
+import {FormControl, Validators} from '@angular/forms';
+import {AuthenticationService} from '../../services/authentication.service';
+import {Router} from '@angular/router';
+import {UserService} from '../../services/user.service';
 
 @Component({
   selector: 'app-login-form',
@@ -10,18 +10,20 @@ import {UserService} from "../../services/user.service";
   styleUrls: ['./login-form.component.css']
 })
 export class LoginFormComponent implements OnInit {
-  email = new FormControl('', [Validators.required, Validators.minLength(6),  Validators.pattern('[a-zA-Z0-9_.]+@[a-zZ-z0-9_]+(\\.[a-zA-Z]+)+')]);
+  email = new FormControl('', [Validators.required, Validators.minLength(6),
+    Validators.pattern('[a-zA-Z0-9_.]+@[a-zZ-z0-9_]+(\\.[a-zA-Z]+)+')]);
   password = new FormControl('', [Validators.required, Validators.minLength(5)]);
 
-  constructor( private authService: AuthenticationService, private router: Router, private userService: UserService) { }
+  constructor(private authService: AuthenticationService, private router: Router, private userService: UserService) {
+  }
 
   ngOnInit() {
-    if(this.userService.getCurrentUser() != undefined)
+    if (this.userService.getCurrentUser() != undefined)
       this.router.navigate(['events']);
   }
 
   login(email: string, password: string) {
-    if(!this.email.invalid && !this.password.invalid) {
+    if (!this.email.invalid && !this.password.invalid) {
       this.authService.login(email, password).subscribe(
         data => {
           this.router.navigate(['events']);

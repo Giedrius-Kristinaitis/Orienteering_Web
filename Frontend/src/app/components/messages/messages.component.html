@@ -1,0 +1,3 @@
+<div class="content" *ngIf="messageService.messages.length">
+  <mat-card class="error-message" *ngFor="let message of messageService.messages">{{message}}</mat-card>
+</div>

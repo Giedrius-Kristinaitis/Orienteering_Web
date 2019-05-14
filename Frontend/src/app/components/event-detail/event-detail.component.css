@@ -30,6 +30,10 @@
   margin-bottom: 6%;
 }
 
+.event-info-text {
+  text-align: left;
+}
+
 .event-properties {
   text-align: left
 }

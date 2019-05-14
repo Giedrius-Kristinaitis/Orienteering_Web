@@ -1,0 +1,10 @@
+.content {
+  background-color: red;
+  margin-top: 2%;
+}
+
+.error-message {
+  background-color: red;
+  font-weight: bold;
+  color: white;
+}

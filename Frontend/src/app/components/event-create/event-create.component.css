@@ -30,3 +30,25 @@
 .map {
   width: 75%;
 }
+
+.event-description-input {
+  resize: none;
+}
+
+.checkpoints-count-chip {
+  margin-left: 5% !important;
+  margin-top: 2%;
+  width: 90%;
+  background-color: lightgrey;
+}
+
+.checkpoints-count-error {
+  font-size: 75%;
+  margin-left: 7%;
+}
+
+.event-create-button {
+  width: 90%;
+  margin-left: 5%;
+  margin-top: 5%;
+}
