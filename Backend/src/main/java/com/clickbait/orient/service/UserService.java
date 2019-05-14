@@ -17,4 +17,12 @@ public interface UserService {
      * @return authenticated user dto if authentication was successful, null otherwise
      */
     UserDTO authenticateUser(User user);
+
+    /**
+     * Registers a new user
+     *
+     * @param user user to register
+     * @return registered user
+     */
+    UserDTO registerUser(User user);
 }
