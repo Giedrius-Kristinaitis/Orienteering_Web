@@ -95,6 +95,14 @@ public class TestDataFactory {
     }
 
     /**
+     * Gets a single valid event in JSON format without created date and status
+     * @return event in JSON
+     */
+    public static String getValidEventAsJsonNoCreatedDateAndStatus() {
+        return "{\"id\": \"1\", \"name\": \"Le Event 1\", \"description\": \"This is just an event\", \"checkpointCount\": 2, \"checkpoints\": [], \"teamSize\": 2, \"teams\": [], \"starting\": \"2019-11-12\", \"estimatedTimeMillis\": 7200000, \"estimatedDistanceMetres\": 2500, \"photos\": []}";
+    }
+
+    /**
      * Gets a single invalid event in JSON format
      * @return invalid event in JSON
      */
