@@ -10,9 +10,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import javax.swing.text.html.Option;
 import java.util.Optional;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 
 @RunWith(SpringRunner.class)
@@ -76,5 +78,40 @@ public class UserServiceTest {
         assertEquals(user.getEmail(), userDTO.getEmail());
         assertEquals(user.getFirstName(), userDTO.getFirstName());
         assertEquals(user.getLastName(), userDTO.getLastName());
+    }
+
+    @Test
+    public void testRegisterUser_shouldReturnNullBecauseUserExistsWithEmail() {
+        // setup
+        User user = new User("le id", "", "", "", "");
+
+        Optional<User> optional = Optional.of(user);
+
+        given(repository.findByEmail(any(String.class))).willReturn(optional);
+
+        // execute
+        UserDTO registered = service.registerUser(user);
+
+        // assert
+        assertNull(registered);
+    }
+
+    @Test
+    public void testRegisterUser_shouldReturnRegisteredUser() {
+        // setup
+        User user = new User("1", "email@email.com", "password", "aaaaaa", "bbbbbbb");
+
+        given(repository.findByEmail(any(String.class))).willReturn(Optional.ofNullable(null));
+        given(repository.save(any(User.class))).willReturn(user);
+
+        // execute
+        UserDTO registered = service.registerUser(user);
+
+        // assert
+        assertNotNull(registered);
+        assertEquals(user.getId(), registered.getId());
+        assertEquals(user.getEmail(), registered.getEmail());
+        assertEquals(user.getFirstName(), registered.getFirstName());
+        assertEquals(user.getLastName(), registered.getLastName());
     }
 }
