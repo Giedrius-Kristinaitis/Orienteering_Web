@@ -17,7 +17,7 @@ const httpOptions = {
 export class EventService {
 
   // http://104.196.227.120
-  private static readonly host = 'http://localhost:8080';
+  private static readonly host = 'http://104.196.227.120';
 
   constructor(private http: HttpClient) {
   }
@@ -50,6 +50,20 @@ export class EventService {
    */
   addEvent(event) {
     return this.http.post<Event>(`${EventService.host}/api/event/`, event, httpOptions).pipe(
+      retry(1),
+      catchError(this.handleError)
+    );
+  }
+
+  /**
+   * Updates event
+   * @param event Updated event
+   */
+  updateEvent(event: Event) {
+    const tempEvent = new Event(event);
+    tempEvent.estimatedTimeMillis = 3600000 * tempEvent.estimatedTimeMillis;
+    console.log(tempEvent);
+    return this.http.put<Event>(`${EventService.host}/api/event/${tempEvent.id}`, JSON.stringify(tempEvent), httpOptions).pipe(
       retry(1),
       catchError(this.handleError)
     );

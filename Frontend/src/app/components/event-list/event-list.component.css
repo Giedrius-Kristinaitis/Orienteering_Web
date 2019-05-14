@@ -119,3 +119,18 @@ mat-checkbox {
 .create-event-button {
   margin: 1.5% 2% 0% 2%;
 }
+
+.description {
+  white-space: nowrap;
+  width: 75%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.delete-icon:hover {
+  color: red;
+}
+
+.edit-icon:hover {
+  color: #673ab7;
+}

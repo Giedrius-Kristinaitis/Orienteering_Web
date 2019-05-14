@@ -15,11 +15,13 @@ const httpOptions = {
 
 export class AuthenticationService {
 
+  private static readonly host = 'http://104.196.227.120';
+
   constructor(private http: HttpClient) {
   }
 
   login(email: string, password: string) {
-    return this.http.post<User>('http://localhost:8080/user/login', {
+    return this.http.post<User>(`${AuthenticationService.host}/user/login`, {
       email: email,
       password: password
     }, httpOptions).pipe(map(user => {

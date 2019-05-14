@@ -1,7 +1,10 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Marker} from '../marker';
 import {MatDialog} from '@angular/material';
 import {MarkerEditDialogComponent} from '../marker-edit-dialog/marker-edit-dialog.component';
+import {Observable} from 'rxjs';
+import {Event} from '../event';
+import {google} from '@agm/core/services/google-maps-types';
 
 export interface DialogData {
   id: string;
@@ -14,7 +17,8 @@ export interface DialogData {
   styleUrls: ['./event-create-map.component.css']
 })
 export class EventCreateMapComponent implements OnInit {
-  static checkpointName = 1;
+  checkpointName = 1;
+  @Input() event: Observable<Event>;
   @Output() checkpointsList: EventEmitter<Marker[]> = new EventEmitter<Marker[]>();
 
   constructor(public dialog: MatDialog) {
@@ -24,32 +28,75 @@ export class EventCreateMapComponent implements OnInit {
   name: string;
 
   markers: Marker[] = [];
-  centerLong = 30;
-  centerLat = 30;
+  centerLong: number;
+  centerLat: number;
 
+  /**
+   * Adds existing markers from event
+   */
   ngOnInit() {
+    // this.centerLong = 0;
+    // this.centerLat = 0;
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(position => this.setMapCoordsToUserLoc(position));
+    }
+
+    if (this.event !== undefined) {
+      this.event.subscribe(
+        data => {
+          data.checkpoints.forEach(x => this.saveMarker({
+            name: x.name,
+            coords: {lat: x.latitude, lng: x.longitude}
+          }));
+        }
+      );
+    }
   }
 
+  setMapCoordsToUserLoc(position) {
+    this.centerLat = position.coords.latitude;
+    this.centerLong = position.coords.longitude;
+  }
+
+  /**
+   * Adds marker to list
+   * @param event Press event
+   */
   saveMarker(event) {
     const newMarker = {
       latitude: event.coords.lat,
       longitude: event.coords.lng,
-      id: EventCreateMapComponent.checkpointName.toString(),
-      name: EventCreateMapComponent.checkpointName.toString()
+      id: this.checkpointName.toString(),
+      name: event.name !== undefined ? event.name : this.checkpointName.toString()
     };
 
-    EventCreateMapComponent.checkpointName++;
+    this.checkpointName++;
     this.markers.push(newMarker);
     this.checkpointsList.emit(this.markers);
   }
 
+  /**
+   * Removes marker from list
+   * @param marker Marker
+   */
   deleteMarker(marker) {
+    const lat = marker.latitude;
+    const lng = marker.longitude;
+
+    if (this.markers.length === 1) {
+      this.centerLong = lat;
+      this.centerLat = lng;
+    }
+
     this.markers = this.markers.filter(mk => mk.id !== marker.id);
     this.checkpointsList.emit(this.markers);
     this.reorderMarkersIDs();
-    EventCreateMapComponent.checkpointName = this.markers.length + 1;
+    this.checkpointName = this.markers.length + 1;
   }
 
+  /**
+   * Reorders markers id's
+   */
   reorderMarkersIDs() {
     let counter = 1;
     this.markers.forEach(marker => {
@@ -66,6 +113,10 @@ export class EventCreateMapComponent implements OnInit {
     this.openDialog(marker);
   }
 
+  /**
+   * Opens marker info dialog
+   * @param marker Marker
+   */
   openDialog(marker: Marker): void {
     const dialogRef = this.dialog.open(MarkerEditDialogComponent, {
       width: '250px',

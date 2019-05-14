@@ -41,11 +41,13 @@ import {MessagesComponent} from './components/messages/messages.component';
 import {MessageService} from './services/message.service';
 import {EventService} from './services/event.service';
 import { MarkerEditDialogComponent } from './components/marker-edit-dialog/marker-edit-dialog.component';
+import { EventEditComponent } from './components/event-edit/event-edit.component';
+import { EventFormComponent } from './components/event-form/event-form.component';
 
 @NgModule({
   declarations: [AppComponent, EventListComponent, EventScreenComponent, NavigationBarComponent, EventDetailComponent,
     MapComponent, EventCreateComponent, EventCreateMapComponent, LoginFormComponent, LoginFormScreenComponent,
-    MessagesComponent, MarkerEditDialogComponent],
+    MessagesComponent, MarkerEditDialogComponent, EventEditComponent, EventFormComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

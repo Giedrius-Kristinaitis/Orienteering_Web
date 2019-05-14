@@ -36,6 +36,10 @@ export class EventListComponent implements OnInit {
     // this.dataSource.paginator = this.paginator;
   }
 
+  editEvent(event): void {
+    this.router.navigateByUrl(`/event/edit/${event.id}`);
+  }
+
   /**
    * Deletes event after delete button click
    * @param event Click event
@@ -45,6 +49,7 @@ export class EventListComponent implements OnInit {
     this.eventService.deleteEvent(event.id).subscribe(
       data => {
         this.dataSource.data.filter(x => x.id !== event.id);
+        window.location.reload();
       },
       error => {
         this.messageService.add(error.toString());

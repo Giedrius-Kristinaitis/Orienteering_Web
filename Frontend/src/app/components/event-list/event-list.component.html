@@ -39,7 +39,7 @@
       <ng-container matColumnDef="description">
         <th *matHeaderCellDef mat-header-cell mat-sort-header>Description</th>
         <td *matCellDef="let event" mat-cell>
-          <div>
+          <div class="description">
             {{event.description}}
           </div>
         </td>
@@ -78,7 +78,8 @@
       <ng-container matColumnDef="delete">
         <th *matHeaderCellDef mat-header-cell></th>
         <td *matCellDef="let event" mat-cell style="text-align: right">
-          <i class="material-icons" (click)="deleteEvent(event)">delete_forever</i>
+          <i class="material-icons edit-icon" (click)="editEvent(event)" title="Edit event">edit</i>
+          <i style="margin-left: 10%;" class="material-icons delete-icon" (click)="deleteEvent(event)" title="Delete event">delete_forever</i>
         </td>
       </ng-container>
 

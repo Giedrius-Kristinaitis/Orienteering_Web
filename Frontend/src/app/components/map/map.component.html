@@ -1,6 +1,6 @@
 <agm-map [latitude]="checkpoints[0].latitude" [longitude]="checkpoints[0].longitude" [mapDraggable]="false"
-         [mapTypeControl]="true" [zoomControl]="false" [zoom]="12" draggableCursor="default" mapTypeId="satellite"
+         [mapTypeControl]="true" [zoomControl]="false" [zoom]="12" draggableCursor="default" mapTypeId="satellite" [fitBounds]="true"
          style="height: 87vh">
   <agm-marker *ngFor="let checkpoint of checkpoints" [latitude]="checkpoint.latitude"
-              [longitude]="checkpoint.longitude" label="{{checkpoint.name}}"></agm-marker>
+              [longitude]="checkpoint.longitude" [agmFitBounds]="true" label="{{checkpoint.name}}"></agm-marker>
 </agm-map>
