@@ -1,6 +1,7 @@
 package com.clickbait.orient.service;
 
 import com.clickbait.orient.database.EventRepository;
+import com.clickbait.orient.dto.UserDTO;
 import com.clickbait.orient.model.Checkpoint;
 import com.clickbait.orient.model.Event;
 import com.clickbait.orient.model.Photo;
@@ -148,6 +149,19 @@ public class EventServiceImpl implements EventService {
      */
     public static void checkIn(Event event, String teamId, String checkpointId) {
         // get the team object
+        Team team = getTeamById(event, teamId);
+
+        team.getCheckedCheckpoints().add(checkpointId);
+    }
+
+    /**
+     * Gets a team in an event
+     *
+     * @param event
+     * @param teamId
+     * @return
+     */
+    private static Team getTeamById(Event event, String teamId) {
         Team team = null;
 
         for (Team t: event.getTeams()) {
@@ -157,9 +171,8 @@ public class EventServiceImpl implements EventService {
             }
         }
 
-        team.getCheckedCheckpoints().add(checkpointId);
+        return team;
     }
-
     /**
      * Deletes an event
      *
@@ -177,5 +190,123 @@ public class EventServiceImpl implements EventService {
         repository.deleteById(id);
 
         return existing.get();
+    }
+
+    /**
+     * Creates a new team
+     *
+     * @param eventId id of the event to which the team belongs
+     * @param team    team to create
+     * @return created team
+     */
+    @Override
+    public Team createTeam(String eventId, Team team) {
+        Event event = getEventById(eventId);
+
+        if (event == null) {
+            return null;
+        }
+
+        team.setId(String.valueOf(System.currentTimeMillis()));
+
+        event.getTeams().add(team);
+
+        return team;
+    }
+
+    /**
+     * Gets a team by it's id
+     *
+     * @param eventId id of the event to which the team belongs
+     * @param id      id of the team
+     * @return team object
+     */
+    @Override
+    public Team getTeam(String eventId, String id) {
+        Event event = getEventById(eventId);
+
+        if (event == null) {
+            return null;
+        }
+
+        return getTeamById(event, id);
+    }
+
+    /**
+     * Adds a new member to a team
+     *
+     * @param eventId id of the event
+     * @param teamId  id of the team
+     * @param member  member to add
+     * @return added member
+     */
+    @Override
+    public UserDTO addTeamMember(String eventId, String teamId, UserDTO member) {
+        Team team = getTeamInEvent(eventId, teamId);
+
+        if (team == null) {
+            return null;
+        }
+
+        team.getMembers().add(member);
+
+        return member;
+    }
+
+    /**
+     * Removes a team member
+     *
+     * @param eventId id of the event
+     * @param teamId  id of the team
+     * @param userId  id of the user to be removed
+     * @return removed member
+     */
+    @Override
+    public UserDTO removeTeamMember(String eventId, String teamId, String userId) {
+        Team team = getTeamInEvent(eventId, teamId);
+
+        if (team == null) {
+            return null;
+        }
+
+        return removeTeamMember(team, userId);
+    }
+
+    /**
+     * Validates a team, as in checks if it exists in the given event
+     *
+     * @param eventId
+     * @param teamId
+     * @return non-null team object if the team exists
+     */
+    private Team getTeamInEvent(String eventId, String teamId) {
+        Event event = getEventById(eventId);
+
+        if (event == null) {
+            return null;
+        }
+
+        return getTeamById(event, teamId);
+    }
+
+    /**
+     * Removes a team member
+     *
+     * @param team
+     * @param userId
+     * @return
+     */
+    private UserDTO removeTeamMember(Team team, String userId) {
+        UserDTO removed = null;
+
+        for (int i = 0; i < team.getMembers().size(); i++) {
+            if (team.getMembers().get(i).getId().equals(userId)) {
+                removed = team.getMembers().get(i);
+                team.getMembers().remove(i);
+                break;
+            }
+        }
+
+        return removed;
     }
 }

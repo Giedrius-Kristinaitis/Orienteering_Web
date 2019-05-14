@@ -47,6 +47,24 @@ public class EventRepositoryMockImpl implements EventRepository {
         List<String> checkedIn = new ArrayList<>();
         checkedIn.add("1");
 
+        List<UserDTO> teamMembers1 = new ArrayList<>();
+        teamMembers1.addAll(Arrays.asList(new UserDTO("id1", "le_email@email.com", "QWERTY", "ASDFGH"), new UserDTO("id2", "karpis@gmail.com", "Karpis", "Karsis")));
+
+        List<UserDTO> teamMembers2 = new ArrayList<>();
+        teamMembers2.addAll(Arrays.asList(new UserDTO("id3", "stotele@inbox.lt", "Stoteles", "Darbininke"), new UserDTO("id4", "bulka@ktu.edu", "Flex", "Tape")));
+
+        List<Team> teams = new ArrayList<>();
+        teams.addAll(Arrays.asList(
+                new Team("team1", "Team One", teamMembers1, checkedIn),
+                new Team("team2", "Team Two", teamMembers2, checkedIn)
+        ));
+
+        List<Checkpoint> checkpoints = new ArrayList<>();
+        checkpoints.addAll(Arrays.asList(
+                new Checkpoint("1", "First", new BigDecimal(10), new BigDecimal(10)),
+                new Checkpoint("2", "Second", new BigDecimal(20), new BigDecimal(20)))
+        );
+
         // add all events
         events.addAll(Arrays.asList(
                 new Event(
@@ -54,14 +72,9 @@ public class EventRepositoryMockImpl implements EventRepository {
                         "Le Event 1",
                         "This is just an event",
                         2,
-                        Arrays.asList(
-                                new Checkpoint("1", "First", new BigDecimal(10), new BigDecimal(10)),
-                                new Checkpoint("2", "Second", new BigDecimal(20), new BigDecimal(20))),
+                        checkpoints,
                         2,
-                        Arrays.asList(
-                                new Team("team1", "Team One", Arrays.asList(new UserDTO("id1", "le_email@email.com", "QWERTY", "ASDFGH"), new UserDTO("id2", "karpis@gmail.com", "Karpis", "Karsis")), checkedIn),
-                                new Team("team2", "Team Two", Arrays.asList(new UserDTO("id3", "stotele@inbox.lt", "Stoteles", "Darbininke"), new UserDTO("id4", "bulka@ktu.edu", "Flex", "Tape")), checkedIn)
-                        ),
+                        teams,
                         new Date(),
                         new Date(),
                         EventStatus.OPEN,
@@ -76,14 +89,9 @@ public class EventRepositoryMockImpl implements EventRepository {
                         "Le Event 2",
                         "This is just an event",
                         2,
-                        Arrays.asList(
-                                new Checkpoint("1", "First", new BigDecimal(10), new BigDecimal(10)),
-                                new Checkpoint("2", "Second", new BigDecimal(20), new BigDecimal(20))),
+                        checkpoints,
                         2,
-                        Arrays.asList(
-                                new Team("team1", "Team One", Arrays.asList(new UserDTO("id1", "le_email@email.com", "QWERTY", "ASDFGH"), new UserDTO("id2", "karpis@gmail.com", "Karpis", "Karsis")), checkedIn),
-                                new Team("team2", "Team Two", Arrays.asList(new UserDTO("id3", "stotele@inbox.lt", "Stoteles", "Darbininke"), new UserDTO("id4", "bulka@ktu.edu", "Flex", "Tape")), checkedIn)
-                        ),
+                        teams,
                         new Date(),
                         new Date(),
                         EventStatus.OPEN,
@@ -98,14 +106,9 @@ public class EventRepositoryMockImpl implements EventRepository {
                         "Le Event 3",
                         "This is just an event",
                         2,
-                        Arrays.asList(
-                                new Checkpoint("1", "First", new BigDecimal(10), new BigDecimal(10)),
-                                new Checkpoint("2", "Second", new BigDecimal(20), new BigDecimal(20))),
+                        checkpoints,
                         2,
-                        Arrays.asList(
-                                new Team("team1", "Team One", Arrays.asList(new UserDTO("id1", "le_email@email.com", "QWERTY", "ASDFGH"), new UserDTO("id2", "karpis@gmail.com", "Karpis", "Karsis")), checkedIn),
-                                new Team("team2", "Team Two", Arrays.asList(new UserDTO("id3", "stotele@inbox.lt", "Stoteles", "Darbininke"), new UserDTO("id4", "bulka@ktu.edu", "Flex", "Tape")), checkedIn)
-                        ),
+                        teams,
                         new Date(),
                         new Date(),
                         EventStatus.OPEN,
@@ -120,14 +123,9 @@ public class EventRepositoryMockImpl implements EventRepository {
                         "Le Event 4",
                         "This is just an event",
                         2,
-                        Arrays.asList(
-                                new Checkpoint("1", "First", new BigDecimal(10), new BigDecimal(10)),
-                                new Checkpoint("2", "Second", new BigDecimal(20), new BigDecimal(20))),
+                        checkpoints,
                         2,
-                        Arrays.asList(
-                                new Team("team1", "Team One", Arrays.asList(new UserDTO("id1", "le_email@email.com", "QWERTY", "ASDFGH"), new UserDTO("id2", "karpis@gmail.com", "Karpis", "Karsis")), checkedIn),
-                                new Team("team2", "Team Two", Arrays.asList(new UserDTO("id3", "stotele@inbox.lt", "Stoteles", "Darbininke"), new UserDTO("id4", "bulka@ktu.edu", "Flex", "Tape")), checkedIn)
-                        ),
+                        teams,
                         new Date(),
                         new Date(),
                         EventStatus.OPEN,
@@ -142,14 +140,9 @@ public class EventRepositoryMockImpl implements EventRepository {
                         "Le Event 5",
                         "This is just an event",
                         2,
-                        Arrays.asList(
-                                new Checkpoint("1", "First", new BigDecimal(10), new BigDecimal(10)),
-                                new Checkpoint("2", "Second", new BigDecimal(20), new BigDecimal(20))),
+                        checkpoints,
                         2,
-                        Arrays.asList(
-                                new Team("team1", "Team One", Arrays.asList(new UserDTO("id1", "le_email@email.com", "QWERTY", "ASDFGH"), new UserDTO("id2", "karpis@gmail.com", "Karpis", "Karsis")), checkedIn),
-                                new Team("team2", "Team Two", Arrays.asList(new UserDTO("id3", "stotele@inbox.lt", "Stoteles", "Darbininke"), new UserDTO("id4", "bulka@ktu.edu", "Flex", "Tape")), checkedIn)
-                        ),
+                        teams,
                         new Date(),
                         new Date(),
                         EventStatus.OPEN,
@@ -164,14 +157,9 @@ public class EventRepositoryMockImpl implements EventRepository {
                         "Le Event 6",
                         "This is just an event",
                         2,
-                        Arrays.asList(
-                                new Checkpoint("1", "First", new BigDecimal(10), new BigDecimal(10)),
-                                new Checkpoint("2", "Second", new BigDecimal(20), new BigDecimal(20))),
+                        checkpoints,
                         2,
-                        Arrays.asList(
-                                new Team("team1", "Team One", Arrays.asList(new UserDTO("id1", "le_email@email.com", "QWERTY", "ASDFGH"), new UserDTO("id2", "karpis@gmail.com", "Karpis", "Karsis")), checkedIn),
-                                new Team("team2", "Team Two", Arrays.asList(new UserDTO("id3", "stotele@inbox.lt", "Stoteles", "Darbininke"), new UserDTO("id4", "bulka@ktu.edu", "Flex", "Tape")), checkedIn)
-                        ),
+                        teams,
                         new Date(),
                         new Date(),
                         EventStatus.OPEN,
@@ -186,14 +174,9 @@ public class EventRepositoryMockImpl implements EventRepository {
                         "Le Event 7",
                         "This is just an event",
                         2,
-                        Arrays.asList(
-                                new Checkpoint("1", "First", new BigDecimal(10), new BigDecimal(10)),
-                                new Checkpoint("2", "Second", new BigDecimal(20), new BigDecimal(20))),
+                        checkpoints,
                         2,
-                        Arrays.asList(
-                                new Team("team1", "Team One", Arrays.asList(new UserDTO("id1", "le_email@email.com", "QWERTY", "ASDFGH"), new UserDTO("id2", "karpis@gmail.com", "Karpis", "Karsis")), checkedIn),
-                                new Team("team2", "Team Two", Arrays.asList(new UserDTO("id3", "stotele@inbox.lt", "Stoteles", "Darbininke"), new UserDTO("id4", "bulka@ktu.edu", "Flex", "Tape")), checkedIn)
-                        ),
+                        teams,
                         new Date(),
                         new Date(),
                         EventStatus.OPEN,
@@ -208,14 +191,9 @@ public class EventRepositoryMockImpl implements EventRepository {
                         "Le Event 8",
                         "This is just an event",
                         2,
-                        Arrays.asList(
-                                new Checkpoint("1", "First", new BigDecimal(10), new BigDecimal(10)),
-                                new Checkpoint("2", "Second", new BigDecimal(20), new BigDecimal(20))),
+                        checkpoints,
                         2,
-                        Arrays.asList(
-                                new Team("team1", "Team One", Arrays.asList(new UserDTO("id1", "le_email@email.com", "QWERTY", "ASDFGH"), new UserDTO("id2", "karpis@gmail.com", "Karpis", "Karsis")), checkedIn),
-                                new Team("team2", "Team Two", Arrays.asList(new UserDTO("id3", "stotele@inbox.lt", "Stoteles", "Darbininke"), new UserDTO("id4", "bulka@ktu.edu", "Flex", "Tape")), checkedIn)
-                        ),
+                        teams,
                         new Date(),
                         new Date(),
                         EventStatus.OPEN,
@@ -230,14 +208,9 @@ public class EventRepositoryMockImpl implements EventRepository {
                         "Le Event 9",
                         "This is just an event",
                         2,
-                        Arrays.asList(
-                                new Checkpoint("1", "First", new BigDecimal(10), new BigDecimal(10)),
-                                new Checkpoint("2", "Second", new BigDecimal(20), new BigDecimal(20))),
+                        checkpoints,
                         2,
-                        Arrays.asList(
-                                new Team("team1", "Team One", Arrays.asList(new UserDTO("id1", "le_email@email.com", "QWERTY", "ASDFGH"), new UserDTO("id2", "karpis@gmail.com", "Karpis", "Karsis")), checkedIn),
-                                new Team("team2", "Team Two", Arrays.asList(new UserDTO("id3", "stotele@inbox.lt", "Stoteles", "Darbininke"), new UserDTO("id4", "bulka@ktu.edu", "Flex", "Tape")), checkedIn)
-                        ),
+                        teams,
                         new Date(),
                         new Date(),
                         EventStatus.OPEN,
@@ -252,14 +225,9 @@ public class EventRepositoryMockImpl implements EventRepository {
                         "Le Event 10",
                         "This is just an event",
                         2,
-                        Arrays.asList(
-                                new Checkpoint("1", "First", new BigDecimal(10), new BigDecimal(10)),
-                                new Checkpoint("2", "Second", new BigDecimal(20), new BigDecimal(20))),
+                        checkpoints,
                         2,
-                        Arrays.asList(
-                                new Team("team1", "Team One", Arrays.asList(new UserDTO("id1", "le_email@email.com", "QWERTY", "ASDFGH"), new UserDTO("id2", "karpis@gmail.com", "Karpis", "Karsis")), checkedIn),
-                                new Team("team2", "Team Two", Arrays.asList(new UserDTO("id3", "stotele@inbox.lt", "Stoteles", "Darbininke"), new UserDTO("id4", "bulka@ktu.edu", "Flex", "Tape")), checkedIn)
-                        ),
+                        teams,
                         new Date(),
                         new Date(),
                         EventStatus.OPEN,
@@ -274,14 +242,9 @@ public class EventRepositoryMockImpl implements EventRepository {
                         "Le Event 11",
                         "This is just an event",
                         2,
-                        Arrays.asList(
-                                new Checkpoint("1", "First", new BigDecimal(10), new BigDecimal(10)),
-                                new Checkpoint("2", "Second", new BigDecimal(20), new BigDecimal(20))),
+                        checkpoints,
                         2,
-                        Arrays.asList(
-                                new Team("team1", "Team One", Arrays.asList(new UserDTO("id1", "le_email@email.com", "QWERTY", "ASDFGH"), new UserDTO("id2", "karpis@gmail.com", "Karpis", "Karsis")), checkedIn),
-                                new Team("team2", "Team Two", Arrays.asList(new UserDTO("id3", "stotele@inbox.lt", "Stoteles", "Darbininke"), new UserDTO("id4", "bulka@ktu.edu", "Flex", "Tape")), checkedIn)
-                        ),
+                        teams,
                         new Date(),
                         new Date(),
                         EventStatus.OPEN,
