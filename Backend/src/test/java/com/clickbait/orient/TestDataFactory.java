@@ -36,6 +36,18 @@ public class TestDataFactory {
         List<String> checkedIn = new ArrayList<>();
         checkedIn.add("1");
 
+        List<UserDTO> teamMembers1 = new ArrayList<>();
+        teamMembers1.addAll(Arrays.asList(new UserDTO("id1", "le_email@email.com", "QWERTY", "ASDFGH"), new UserDTO("id2", "karpis@gmail.com", "Karpis", "Karsis")));
+
+        List<UserDTO> teamMembers2 = new ArrayList<>();
+        teamMembers2.addAll(Arrays.asList(new UserDTO("id3", "stotele@inbox.lt", "Stoteles", "Darbininke"), new UserDTO("id4", "bulka@ktu.edu", "Flex", "Tape")));
+
+        List<Team> teams = new ArrayList<>();
+        teams.addAll(Arrays.asList(
+                new Team("team1", "Team One", teamMembers1, checkedIn),
+                new Team("team2", "Team Two", teamMembers2, checkedIn)
+        ));
+
         return new Event(
                 "1",
                 "Le Event 1",
@@ -45,10 +57,7 @@ public class TestDataFactory {
                         new Checkpoint("1", "First", new BigDecimal(10), new BigDecimal(10)),
                         new Checkpoint("2", "Second", new BigDecimal(20), new BigDecimal(20))),
                 2,
-                Arrays.asList(
-                        new Team("team1", "Team One", Arrays.asList(new UserDTO("id1", "le_email@email.com", "QWERTY", "ASDFGH"), new UserDTO("id2", "karpis@gmail.com", "Karpis", "Karsis")), checkedIn),
-                        new Team("team2", "Team Two", Arrays.asList(new UserDTO("id3", "stotele@inbox.lt", "Stoteles", "Darbininke"), new UserDTO("id4", "bulka@ktu.edu", "Flex", "Tape")), checkedIn)
-                ),
+                teams,
                 new Date(),
                 new Date(),
                 EventStatus.OPEN,
@@ -57,6 +66,28 @@ public class TestDataFactory {
                 photos,
                 new UserDTO("id1", "le_email@email.com", "QWERTY", "ASDFGH")
         );
+    }
+
+    /**
+     * Gets a team
+     * @return
+     */
+    public static Team getTeam() {
+        List<String> checkedIn = new ArrayList<>();
+        checkedIn.add("1");
+
+        List<UserDTO> teamMembers = new ArrayList<>();
+        teamMembers.addAll(Arrays.asList(new UserDTO("id1", "le_email@email.com", "QWERTY", "ASDFGH"), new UserDTO("id2", "karpis@gmail.com", "Karpis", "Karsis")));
+
+        return new Team("team1", "Team One", teamMembers, checkedIn);
+    }
+
+    /**
+     * Gets a UserDTO
+     * @return
+     */
+    public static UserDTO getUserDTO() {
+        return new UserDTO("id1", "le_email@email.com", "QWERTY", "ASDFGH");
     }
 
     /**

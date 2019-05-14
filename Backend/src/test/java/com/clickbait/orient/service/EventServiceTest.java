@@ -2,8 +2,10 @@ package com.clickbait.orient.service;
 
 import com.clickbait.orient.TestDataFactory;
 import com.clickbait.orient.database.EventRepository;
+import com.clickbait.orient.dto.UserDTO;
 import com.clickbait.orient.model.Event;
 import com.clickbait.orient.model.Photo;
+import com.clickbait.orient.model.Team;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -320,5 +322,133 @@ public class EventServiceTest {
         // assert
         assertNotNull(deleted);
         assertEquals(event.getId(), deleted.getId());
+    }
+
+    @Test
+    public void testCreateTeam_shouldReturnNullBecauseBadEvent() {
+        // setup
+        given(repository.findById(any(String.class))).willReturn(Optional.ofNullable(null));
+
+        // execute
+        Team created = service.createTeam("not important", null); // team can be null here because it doesn't matter in this test
+
+        // assert
+        assertNull(created);
+    }
+
+    @Test
+    public void testCreateTeam_shouldCreateTeam() {
+        // setup
+        Event event = TestDataFactory.getEvent();
+        Team team = TestDataFactory.getTeam();
+
+        given(repository.findById(any(String.class))).willReturn(Optional.of(event));
+
+        // execute
+        Team created = service.createTeam(event.getId(), team);
+
+        // assert
+        assertNotNull(created);
+        assertNotNull(created.getId());
+    }
+
+    @Test
+    public void testGetTeam_shouldReturnNullBecauseBadEvent() {
+        // setup
+        given(repository.findById(any(String.class))).willReturn(Optional.ofNullable(null));
+
+        // execute
+        Team team = service.getTeam("not important", "not important");
+
+        // assert
+        assertNull(team);
+    }
+
+    @Test
+    public void testGetTeam_shouldReturnNullBecauseBadTeamId() {
+        // setup
+        Event event = TestDataFactory.getEvent();
+
+        given(repository.findById(any(String.class))).willReturn(Optional.of(event));
+
+        // execute
+        Team team = service.getTeam(event.getId(), "non-existing team id");
+
+        // assert
+        assertNull(team);
+    }
+
+    @Test
+    public void testGetTeam_shouldReturnTeam() {
+        // setup
+        Event event = TestDataFactory.getEvent();
+
+        given(repository.findById(any(String.class))).willReturn(Optional.of(event));
+
+        // execute
+        Team team = service.getTeam(event.getId(), event.getTeams().get(0).getId());
+
+        // assert
+        assertNotNull(team);
+    }
+
+    @Test
+    public void testAddTeamMember_shouldReturnNullBecauseBadTeamOrEvent() {
+        // setup
+        given(repository.findById(any(String.class))).willReturn(Optional.ofNullable(null));
+
+        UserDTO user = TestDataFactory.getUserDTO();
+
+        // execute
+        UserDTO added = service.addTeamMember("non-existing event", "non-existing team", user);
+
+        // assert
+        assertNull(added);
+    }
+
+    @Test
+    public void testAddTeamMember_shouldAddTeamMember() {
+        // setup
+        Event event = TestDataFactory.getEvent();
+
+        given(repository.findById(any(String.class))).willReturn(Optional.of(event));
+
+        UserDTO user = TestDataFactory.getUserDTO();
+
+        // execute
+        UserDTO added = service.addTeamMember(event.getId(), event.getTeams().get(0).getId(), user);
+
+        // assert
+        assertNotNull(added);
+    }
+
+    @Test
+    public void testRemoveTeamMember_shouldReturnNullBecauseBadEventOrTeam() {
+        // setup
+        given(repository.findById(any(String.class))).willReturn(Optional.ofNullable(null));
+
+        UserDTO user = TestDataFactory.getUserDTO();
+
+        // execute
+        UserDTO removed = service.removeTeamMember("non-existing event", "non-existing team", user.getId());
+
+        // assert
+        assertNull(removed);
+    }
+
+    @Test
+    public void testRemoveTeamMember_shouldRemoveMember() {
+        // setup
+        Event event = TestDataFactory.getEvent();
+
+        given(repository.findById(any(String.class))).willReturn(Optional.of(event));
+
+        UserDTO user = TestDataFactory.getUserDTO();
+
+        // execute
+        UserDTO removed = service.removeTeamMember(event.getId(), event.getTeams().get(0).getId(), user.getId());
+
+        // assert
+        assertNotNull(removed);
     }
 }

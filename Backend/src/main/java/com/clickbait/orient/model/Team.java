@@ -1,9 +1,8 @@
 package com.clickbait.orient.model;
 
 import com.clickbait.orient.dto.UserDTO;
+import org.springframework.data.annotation.Id;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import java.util.List;
 
 /**
@@ -12,13 +11,11 @@ import java.util.List;
 @SuppressWarnings("unused")
 public class Team {
 
-    @NotBlank
+    @Id
     private String id;
 
-    @NotBlank
     private String name;
 
-    @NotNull
     private List<UserDTO> members;
 
     private List<String> checkedCheckpoints;
