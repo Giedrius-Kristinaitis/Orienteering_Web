@@ -203,7 +203,7 @@ public class EventControllerTest {
         mvc.perform(post("/api/event").accept("application/json")
                 .contentType("application/json")
                 .characterEncoding("utf-8")
-                .content(TestDataFactory.getValidEventAsJson()))
+                .content(TestDataFactory.getValidEventAsJsonNoCreatedDateAndStatus()))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.id", is(event.getId())))
                 .andExpect(jsonPath("$.name", is(event.getName())))

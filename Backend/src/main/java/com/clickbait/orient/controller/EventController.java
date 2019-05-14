@@ -1,6 +1,7 @@
 package com.clickbait.orient.controller;
 
 import com.clickbait.orient.model.Event;
+import com.clickbait.orient.model.EventStatus;
 import com.clickbait.orient.model.EventsResponse;
 import com.clickbait.orient.model.Photo;
 import com.clickbait.orient.service.EventService;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -108,6 +110,9 @@ public class EventController {
             // event already exists, return conflict
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
+
+        event.setStatus(EventStatus.OPEN);
+        event.setCreated(new Date());
 
         Event addedEvent = service.saveEvent(event);
 
