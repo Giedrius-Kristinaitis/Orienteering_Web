@@ -36,7 +36,7 @@ public class EventController {
     public EventController(EventService service, UserRepository userRepository, ModelMapper modelMapper) {
         this.service = service;
         this.userRepository = userRepository;
-        this.
+        this.modelMapper = modelMapper;
     }
 
     /**
