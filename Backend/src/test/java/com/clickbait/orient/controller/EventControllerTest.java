@@ -1,18 +1,23 @@
 package com.clickbait.orient.controller;
 
 import com.clickbait.orient.TestDataFactory;
+import com.clickbait.orient.database.UserRepository;
 import com.clickbait.orient.dto.UserDTO;
 import com.clickbait.orient.model.Event;
 import com.clickbait.orient.model.Team;
+import com.clickbait.orient.model.User;
 import com.clickbait.orient.service.EventService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.domain.Page;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+
+import java.util.Optional;
 
 import static org.hamcrest.CoreMatchers.anything;
 import static org.hamcrest.Matchers.hasSize;
@@ -32,6 +37,12 @@ public class EventControllerTest {
 
     @MockBean
     private EventService service;
+
+    @MockBean
+    private UserRepository userRepository;
+
+    @MockBean
+    private ModelMapper modelMapper;
 
     @Test
     public void testGetEvent_shouldReturnNotFound() throws Exception {
@@ -177,7 +188,7 @@ public class EventControllerTest {
         given(service.getEventById(event.getId())).willReturn(event);
 
         // execute and assert
-        mvc.perform(post("/api/event").accept("application/json")
+        mvc.perform(post("/api/event/" + event.getOwner().getId()).accept("application/json")
                 .contentType("application/json")
                 .characterEncoding("utf-8")
                 .content(TestDataFactory.getValidEventAsJson()))
@@ -187,23 +198,41 @@ public class EventControllerTest {
     @Test
     public void testAddEvent_shouldFailValidation() throws Exception {
         // execute and assert
-        mvc.perform(post("/api/event").accept("application/json")
+        mvc.perform(post("/api/event/id1").accept("application/json")
                 .contentType("application/json")
                 .characterEncoding("utf-8")
                 .content(TestDataFactory.getInvalidEventAsJson()))
                 .andExpect(status().isBadRequest());
-    } 
+    }
+
+    @Test
+    public void testAddEvent_shouldReturnBadRequestBecauseBadOwnerId() throws Exception {
+        // setup
+        given(service.getEventById(any(String.class))).willReturn(null);
+        given(userRepository.findById(any(String.class))).willReturn(Optional.ofNullable(null));
+
+        // execute and assert
+        mvc.perform(post("/api/event/bad_owner_id").accept("application/json")
+                .contentType("application/json")
+                .characterEncoding("utf-8")
+                .content(TestDataFactory.getValidEventAsJsonNoCreatedDateAndStatus()))
+                .andExpect(status().isBadRequest());
+    }
   
     @Test      
     public void testAddEvent_shouldReturnInsertedEvent() throws Exception {
         // setup
         Event event = TestDataFactory.getEvent();
 
+        User owner = new User(event.getOwner().getId(), event.getOwner().getEmail(), "", event.getOwner().getFirstName(), event.getOwner().getLastName());
+
         given(service.getEventById(event.getId())).willReturn(null);
         given(service.saveEvent(any(Event.class))).willReturn(event);
+        given(userRepository.findById(any(String.class))).willReturn(Optional.of(owner));
+        given(modelMapper.map(any(), any())).willReturn(event.getOwner());
 
         // execute and assert
-        mvc.perform(post("/api/event").accept("application/json")
+        mvc.perform(post("/api/event/" + owner.getId()).accept("application/json")
                 .contentType("application/json")
                 .characterEncoding("utf-8")
                 .content(TestDataFactory.getValidEventAsJsonNoCreatedDateAndStatus()))
