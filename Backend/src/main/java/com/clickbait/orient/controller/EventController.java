@@ -219,7 +219,7 @@ public class EventController {
      * @return added member
      */
     @PostMapping("/team/member/{eventId}/{teamId}")
-    public ResponseEntity<UserDTO> addTeamMember(@PathVariable String eventId, @PathVariable String teamId, UserDTO user) {
+    public ResponseEntity<UserDTO> addTeamMember(@PathVariable String eventId, @PathVariable String teamId, @RequestBody UserDTO user) {
         UserDTO added = service.addTeamMember(eventId, teamId, user);
 
         if (added == null) {
