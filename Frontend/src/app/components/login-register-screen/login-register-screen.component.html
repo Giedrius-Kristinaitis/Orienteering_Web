@@ -1,0 +1,12 @@
+<div class="background">
+  <div class="container">
+    <div class="toolbar">
+<!--    <app-navigation-bar *ngIf="router.url=='/login'" showGoBackButton="false" title="Login" showUserIcons="false"></app-navigation-bar>-->
+    <app-navigation-bar *ngIf="router.url=='/register'" showGoBackButton="true" title="Registration" showUserIcons="false"></app-navigation-bar>
+    </div>
+    <div class="content">
+      <app-login-form *ngIf="router.url=='/login'" title="Login"></app-login-form>
+      <app-register-form *ngIf="router.url=='/register'" title="Register"></app-register-form>
+    </div>
+  </div>
+</div>

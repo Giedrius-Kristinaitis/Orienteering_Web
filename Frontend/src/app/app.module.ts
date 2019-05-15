@@ -35,7 +35,6 @@ import {EventCreateComponent} from './components/event-create/event-create.compo
 import {EventCreateMapComponent} from './components/event-create-map/event-create-map.component';
 import {key} from './mapApiKey';
 import {LoginFormComponent} from './components/login-form/login-form.component';
-import {LoginFormScreenComponent} from './components/login-register-screen/login-form-screen.component';
 import {AuthGuard} from './auth.guard';
 import {MessagesComponent} from './components/messages/messages.component';
 import {MessageService} from './services/message.service';
@@ -43,11 +42,13 @@ import {EventService} from './services/event.service';
 import { MarkerEditDialogComponent } from './components/marker-edit-dialog/marker-edit-dialog.component';
 import { EventEditComponent } from './components/event-edit/event-edit.component';
 import { EventFormComponent } from './components/event-form/event-form.component';
+import { RegisterFormComponent } from './components/register-form/register-form.component';
+import { LoginRegisterScreenComponent } from './components/login-register-screen/login-register-screen.component';
 
 @NgModule({
   declarations: [AppComponent, EventListComponent, EventScreenComponent, NavigationBarComponent, EventDetailComponent,
-    MapComponent, EventCreateComponent, EventCreateMapComponent, LoginFormComponent, LoginFormScreenComponent,
-    MessagesComponent, MarkerEditDialogComponent, EventEditComponent, EventFormComponent],
+    MapComponent, EventCreateComponent, EventCreateMapComponent, LoginFormComponent, MessagesComponent,
+    MarkerEditDialogComponent, EventEditComponent, EventFormComponent, RegisterFormComponent, LoginRegisterScreenComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
