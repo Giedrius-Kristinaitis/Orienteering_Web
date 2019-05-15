@@ -16,6 +16,7 @@ import javax.validation.Valid;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Handles requests related to events
