@@ -32,7 +32,7 @@ public class EventServiceImpl implements EventService {
     @Autowired
     public EventServiceImpl(EventRepository repository, UserRepository userRepository) {
         this.repository = repository;
-        this.userReopsitory = userRepository;
+        this.userRepository = userRepository;
     }
 
     /**
@@ -252,7 +252,7 @@ public class EventServiceImpl implements EventService {
             return null;
         }
         
-        if (!userRepository.findById(member.getId())) {
+        if (!userRepository.findById(member.getId()).isPresent()) {
             return null;
         }
 
