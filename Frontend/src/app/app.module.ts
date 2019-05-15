@@ -22,7 +22,8 @@ import {
   MatProgressSpinnerModule,
   MatSortModule,
   MatTableModule,
-  MatToolbarModule
+  MatToolbarModule,
+  MatExpansionModule
 } from '@angular/material';
 import {EventScreenComponent} from './components/event-screen/event-screen.component';
 import {HttpClientModule} from '@angular/common/http';
@@ -44,11 +45,12 @@ import { EventEditComponent } from './components/event-edit/event-edit.component
 import { EventFormComponent } from './components/event-form/event-form.component';
 import { RegisterFormComponent } from './components/register-form/register-form.component';
 import { LoginRegisterScreenComponent } from './components/login-register-screen/login-register-screen.component';
+import { EventJoinComponent } from './components/event-join/event-join.component';
 
 @NgModule({
   declarations: [AppComponent, EventListComponent, EventScreenComponent, NavigationBarComponent, EventDetailComponent,
     MapComponent, EventCreateComponent, EventCreateMapComponent, LoginFormComponent, MessagesComponent,
-    MarkerEditDialogComponent, EventEditComponent, EventFormComponent, RegisterFormComponent, LoginRegisterScreenComponent],
+    MarkerEditDialogComponent, EventEditComponent, EventFormComponent, RegisterFormComponent, LoginRegisterScreenComponent, EventJoinComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -74,12 +76,13 @@ import { LoginRegisterScreenComponent } from './components/login-register-screen
     MatDatepickerModule,
     MatNativeDateModule,
     MatDialogModule,
+    MatExpansionModule,
     AgmCoreModule.forRoot({
       apiKey: key,
     })
   ],
   exports: [MarkerEditDialogComponent],
-  entryComponents: [MarkerEditDialogComponent],
+  entryComponents: [MarkerEditDialogComponent, EventJoinComponent],
   providers: [AuthGuard, MessageService, EventService],
   bootstrap: [AppComponent]
 })
