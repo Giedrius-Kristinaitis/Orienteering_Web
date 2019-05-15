@@ -23,14 +23,20 @@ import java.util.List;
 public class EventController {
 
     private EventService service;
+    
+    private UserRepository userRepository;
+    
+    private ModelMapper modelMapper;
 
     /**
      * Default class constructor
      * @param service
      */
     @Autowired
-    public EventController(EventService service) {
+    public EventController(EventService service, UserRepository userRepository, ModelMapper modelMapper) {
         this.service = service;
+        this.userRepository = userRepository;
+        this.
     }
 
     /**
@@ -100,10 +106,12 @@ public class EventController {
      * Adds an event to the event list
      *
      * @param event event to add
+     * @param ownerId who created the event
+     *
      * @return added event
      */
-    @PostMapping
-    public ResponseEntity<Event> addEvent(@Valid @RequestBody Event event) {
+    @PostMapping("/{ownerId}")
+    public ResponseEntity<Event> addEvent(@Valid @RequestBody Event event, @PathVariable String ownerId) {
         if (service.getEventById(event.getId()) != null) {
             // event already exists, return conflict
             return new ResponseEntity<>(HttpStatus.CONFLICT);
@@ -111,7 +119,17 @@ public class EventController {
 
         event.setStatus(EventStatus.OPEN);
         event.setCreated(new Date());
+        
+        Optional<User> foundUser = userRepository.findById(ownerId);
+        
+        if (!foundUser.isPresent) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        
+        UserDTO owner = modelMapper.map(foundUser.get(), UserDTO.class);
 
+        event.setOwner(owner);
+        
         Event addedEvent = service.saveEvent(event);
 
         return new ResponseEntity<>(addedEvent, HttpStatus.CREATED);
