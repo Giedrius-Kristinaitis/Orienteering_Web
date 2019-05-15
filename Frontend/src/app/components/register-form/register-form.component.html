@@ -1,0 +1,32 @@
+<mat-card class="main-div" (keyup.enter)="register()">
+  <mat-card-header class="header-text">
+    <mat-card-title>Account registration</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <form (ngSubmit)="register()" [formGroup]="input">
+      <div class="login-form">
+        <mat-form-field class="input-field">
+          <input formControlName="email" matInput name="email" placeholder="Email" required type="email" [(ngModel)]="this.user.email">
+          <mat-error *ngIf="this.input.get('email').invalid">{{getErrorMessage(this.input.get('email'))}}</mat-error>
+        </mat-form-field>
+        <mat-form-field class="input-field">
+          <input formControlName="firstName" matInput name="firstName" placeholder="First name" required type="text" [(ngModel)]="this.user.firstName">
+          <mat-error *ngIf="this.input.get('firstName').invalid">{{getErrorMessage(this.input.get('firstName'))}}</mat-error>
+        </mat-form-field>
+        <mat-form-field class="input-field">
+          <input formControlName="lastName" matInput name="lastName" placeholder="Last name" required type="text" [(ngModel)]="this.user.lastName">
+          <mat-error *ngIf="this.input.get('lastName').invalid">{{getErrorMessage(this.input.get('lastName'))}}</mat-error>
+        </mat-form-field>
+        <mat-form-field class="input-field">
+          <input formControlName="password" matInput name="password" placeholder="Password" required [(ngModel)]="this.user.password"
+                 type="password">
+          <mat-error *ngIf="this.input.get('password').invalid">{{getErrorMessage(this.input.get('password'))}}</mat-error>
+        </mat-form-field>
+        <button class="submit-button" type="submit" color="primary" mat-raised-button>
+          Register
+        </button>
+      </div>
+    </form>
+    <mat-spinner [style.display]="showSpinner ? 'block' : 'none'"></mat-spinner>
+  </mat-card-content>
+</mat-card>
