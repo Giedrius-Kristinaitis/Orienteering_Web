@@ -31,7 +31,7 @@ export class EventFormComponent implements OnInit {
   readonly minDuration = 1;
   readonly maxDuration = 1_000_000;
   readonly minDescriptionLength = 1;
-  readonly maxDescriptionLength = 200;
+  readonly maxDescriptionLength = 1000000;
   readonly minCheckpoints = 1;
   readonly maxCheckpoints = 100;
 

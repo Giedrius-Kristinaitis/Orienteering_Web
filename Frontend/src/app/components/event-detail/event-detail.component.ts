@@ -2,6 +2,8 @@ import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {EventService} from '../../services/event.service';
 import {Event} from '../event';
+import {MatDialog} from '@angular/material';
+import {EventJoinComponent} from '../event-join/event-join.component';
 
 @Component({
   selector: 'app-event-detail',
@@ -14,7 +16,8 @@ export class EventDetailComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private eventService: EventService
+    private eventService: EventService,
+    private dialog: MatDialog
   ) {
   }
 
@@ -29,6 +32,25 @@ export class EventDetailComponent implements OnInit {
       this.eventName.emit(event.name);
       // console.log(this.event.estimatedDistanceMetres);
       // console.log(`Event name: ${this.event.name}`);
+    });
+  }
+
+  /**
+   * Opens event join dialog
+   * @param marker Marker
+   */
+  openDialog(event: Event): void {
+    const dialogRef = this.dialog.open(EventJoinComponent, {
+      data: event
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(result);
+      // if (result === true) {
+      //   this.deleteMarker(marker);
+      // } else if (typeof result === 'object') {
+      //   marker.name = result.name;
+      // }
     });
   }
 

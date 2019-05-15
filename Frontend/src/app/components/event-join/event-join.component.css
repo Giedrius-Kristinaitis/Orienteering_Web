@@ -1,0 +1,13 @@
+.event-join-button {
+  background-color: #43bc43;
+  width: 30%  ;
+}
+
+.event-join-cancel-button {
+  width: 30%;
+}
+
+.join-dialog-buttons {
+  display: inline-flex;
+  justify-content: center;
+}
