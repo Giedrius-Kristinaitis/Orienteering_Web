@@ -21,14 +21,17 @@ public class EventServiceImpl implements EventService {
 
     // repo to CRUD events
     private EventRepository repository;
+    
+    private UserRepository userRepository;
 
     /**
      * Default class constructor
      * @param repository event repository
      */
     @Autowired
-    public EventServiceImpl(EventRepository repository) {
+    public EventServiceImpl(EventRepository repository, UserRepository userRepository) {
         this.repository = repository;
+        this.userReopsitory = userRepository;
     }
 
     /**
@@ -245,6 +248,10 @@ public class EventServiceImpl implements EventService {
         Team team = getTeamInEvent(eventId, teamId);
 
         if (team == null) {
+            return null;
+        }
+        
+        if (!userRepository.findById(member.getId())) {
             return null;
         }
 
