@@ -46,7 +46,7 @@ public class BeanConfig {
      */
     @Bean
     public EventService eventService() {
-        return new EventServiceImpl(context.getBean(EventRepository.class));
+        return new EventServiceImpl(context.getBean(EventRepository.class), context.getBean(UserRepository.class));
     }
 
     /**
