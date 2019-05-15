@@ -125,7 +125,7 @@ public class EventController {
         
         Optional<User> foundUser = userRepository.findById(ownerId);
         
-        if (!foundUser.isPresent) {
+        if (!foundUser.isPresent()) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         
