@@ -10,8 +10,8 @@
           <mat-error *ngIf="this.input.get('email').invalid">{{getErrorMessage(this.input.get('email'))}}</mat-error>
         </mat-form-field>
         <mat-form-field class="input-field">
-          <input formControlName="name" matInput name="name" placeholder="Name" required type="text" [(ngModel)]="this.user.name">
-          <mat-error *ngIf="this.input.get('name').invalid">{{getErrorMessage(this.input.get('name'))}}</mat-error>
+          <input formControlName="firstName" matInput name="firstName" placeholder="First name" required type="text" [(ngModel)]="this.user.firstName">
+          <mat-error *ngIf="this.input.get('firstName').invalid">{{getErrorMessage(this.input.get('firstName'))}}</mat-error>
         </mat-form-field>
         <mat-form-field class="input-field">
           <input formControlName="lastName" matInput name="lastName" placeholder="Last name" required type="text" [(ngModel)]="this.user.lastName">

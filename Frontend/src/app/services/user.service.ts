@@ -16,7 +16,8 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class UserService {
-  private static readonly host = 'http://104.196.227.120';
+  // private static readonly host = 'http://104.196.227.120';
+  private static readonly host = 'http://localhost:8080';
 
   constructor(private router: Router,
               private http: HttpClient) {
@@ -35,8 +36,12 @@ export class UserService {
     this.router.navigate(['login']);
   }
 
+  /**
+   * Registers user
+   * @param user User object
+   */
   addUser(user: User) {
-    return this.http.post<User>(`${UserService.host}`, user, httpOptions).pipe(
+    return this.http.post<User>(`${UserService.host}/user/sign-up`, user, httpOptions).pipe(
       retry(1),
       catchError(this.handleError)
     );
@@ -64,7 +69,8 @@ export class UserService {
    * Formats error codes to messages
    * @param status Request status
    */
-  selectErrorMessage(status: string) {
+  selectErrorMessage(status: string): string {
+    console.log('Status: ' + status);
     let message = status;
 
     switch (status) {

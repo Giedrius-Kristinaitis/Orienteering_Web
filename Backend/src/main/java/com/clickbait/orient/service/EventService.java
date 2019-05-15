@@ -1,7 +1,9 @@
 package com.clickbait.orient.service;
 
+import com.clickbait.orient.dto.UserDTO;
 import com.clickbait.orient.model.Event;
 import com.clickbait.orient.model.Photo;
+import com.clickbait.orient.model.Team;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
@@ -53,4 +55,42 @@ public interface EventService {
      * @return deleted event
      */
     Event deleteEvent(String id);
+
+    /**
+     * Creates a new team
+     *
+     * @param eventId id of the event to which the team belongs
+     * @param team team to create
+     * @return created team
+     */
+    Team createTeam(String eventId, Team team);
+
+    /**
+     * Gets a team by it's id
+     *
+     * @param eventId id of the event to which the team belongs
+     * @param id id of the team
+     * @return team object
+     */
+    Team getTeam(String eventId, String id);
+
+    /**
+     * Adds a new member to a team
+     *
+     * @param eventId id of the event
+     * @param teamId id of the team
+     * @param member member to add
+     * @return added member
+     */
+    UserDTO addTeamMember(String eventId, String teamId, UserDTO member);
+
+    /**
+     * Removes a team member
+     *
+     * @param eventId id of the event
+     * @param teamId id of the team
+     * @param userId id of the user to be removed
+     * @return removed member
+     */
+    UserDTO removeTeamMember(String eventId, String teamId, String userId);
 }

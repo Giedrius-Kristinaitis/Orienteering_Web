@@ -50,4 +50,24 @@ public class UserServiceImpl implements UserService {
 
         return null;
     }
+
+    /**
+     * Registers a new user
+     *
+     * @param user user to register
+     * @return registered user
+     */
+    @Override
+    public UserDTO registerUser(User user) {
+        Optional<User> existing = userRepository.findByEmail(user.getEmail());
+
+        if (existing.isPresent()) {
+            // return null if a user with this email already exists
+            return null;
+        }
+
+        User saved = userRepository.save(user);
+
+        return modelMapper.map(saved, UserDTO.class);
+    }
 }

@@ -33,7 +33,7 @@ export class RegisterFormComponent implements OnInit {
     this.input = new FormGroup({
       email: new FormControl(this.user.email, [Validators.required, Validators.minLength(RegisterFormComponent.minEmailLength),
         Validators.maxLength(RegisterFormComponent.maxEmailLength), Validators.pattern('^.+@+.+$')]),
-      name: new FormControl(this.user.firstName, [Validators.required, Validators.minLength(RegisterFormComponent.minNameLength),
+      firstName: new FormControl(this.user.firstName, [Validators.required, Validators.minLength(RegisterFormComponent.minNameLength),
         Validators.maxLength(RegisterFormComponent.maxNameLength)]),
       lastName: new FormControl(this.user.lastName, [Validators.required, Validators.minLength(RegisterFormComponent.minLastNameLength),
         Validators.maxLength(RegisterFormComponent.maxLastNameLength)]),
@@ -50,7 +50,7 @@ export class RegisterFormComponent implements OnInit {
             form.hasError('maxLength') ? `Your email length must be equal or lower than ${RegisterFormComponent.maxEmailLength}` :
               form.hasError('pattern') ? 'You must enter a valid email' : '';
       }
-      case this.input.get('name') : {
+      case this.input.get('firstName') : {
         return form.hasError('required') ? 'You must enter your first name' :
           form.hasError('minLength') ? `Your first name length must be equal or higher than ${RegisterFormComponent.minNameLength}` :
             form.hasError('maxLength') ? `Your last name length must be equal or lower than ${RegisterFormComponent.maxNameLength}` : '';
@@ -71,15 +71,19 @@ export class RegisterFormComponent implements OnInit {
 
   register() {
     if (this.input.valid) {
+      console.log(this.user);
       this.userService.addUser(this.user).subscribe(
-        data => {},
+        data => {
+          console.log('Data: ' + data);
+        },
         error => {
+          console.log('Error: ' + error);
           this.messageService.add(error.toString());
         },
         () => {
           this.router.navigateByUrl('/login');
         }
-      )
+      );
     }
   }
 

@@ -1,5 +1,6 @@
 package com.clickbait.orient.model;
 
+import com.clickbait.orient.dto.UserDTO;
 import org.springframework.data.annotation.Id;
 
 import javax.validation.constraints.Min;
@@ -54,6 +55,8 @@ public class Event {
 
     private List<Photo> photos;
 
+    private UserDTO owner;
+
     /**
      * Default no-args constructor
      */
@@ -74,8 +77,9 @@ public class Event {
      * @param estimatedTimeMillis
      * @param estimatedDistanceMetres
      * @param photos
+     * @param owner
      */
-    public Event(String id, String name, String description, Integer checkpointCount, List<Checkpoint> checkpoints, Integer teamSize, List<Team> teams, Date created, Date starting, EventStatus status, Long estimatedTimeMillis, Integer estimatedDistanceMetres, List<Photo> photos) {
+    public Event(String id, String name, String description, Integer checkpointCount, List<Checkpoint> checkpoints, Integer teamSize, List<Team> teams, Date created, Date starting, EventStatus status, Long estimatedTimeMillis, Integer estimatedDistanceMetres, List<Photo> photos, UserDTO owner) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -89,6 +93,7 @@ public class Event {
         this.estimatedTimeMillis = estimatedTimeMillis;
         this.estimatedDistanceMetres = estimatedDistanceMetres;
         this.photos = photos;
+        this.owner = owner;
     }
 
     // GETTERS
@@ -105,6 +110,7 @@ public class Event {
     public Long getEstimatedTimeMillis() { return estimatedTimeMillis; }
     public Integer getEstimatedDistanceMetres() { return estimatedDistanceMetres; }
     public List<Photo> getPhotos() { return photos; }
+    public UserDTO getOwner() { return owner; }
 
     // SETTERS
     public void setId(String id) { this.id = id; }
@@ -120,4 +126,5 @@ public class Event {
     public void setEstimatedTimeMillis(Long estimatedTimeMillis) { this.estimatedTimeMillis = estimatedTimeMillis; }
     public void setEstimatedDistanceMetres(Integer estimatedDistanceMetres) { this.estimatedDistanceMetres = estimatedDistanceMetres; }
     public void setPhotos(List<Photo> photos) { this.photos = photos; }
+    public void setOwner(UserDTO owner) { this.owner = owner; }
 }

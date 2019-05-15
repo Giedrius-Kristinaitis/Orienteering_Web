@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,12 +16,14 @@ import java.util.Optional;
 public class UserRepositoryMockImpl implements UserRepository {
 
     // mock some users for now
-    private User[] users = new User[] {
-            new User("id1", "le_email@email.com", "password", "QWERTY", "ASDFGH"),
-            new User("id2", "karpis@gmail.com", "password", "Karpis", "Karsis"),
-            new User("id3", "stotele@inbox.lt", "password", "Stoteles", "Darbininke"),
-            new User("id4", "bulka@ktu.edu", "password", "Flex", "Tape")
-    };
+    private List<User> users = new ArrayList<User>();
+
+    public UserRepositoryMockImpl() {
+        users.add(new User("id1", "le_email@email.com", "password", "QWERTY", "ASDFGH"));
+        users.add(new User("id2", "karpis@gmail.com", "password", "Karpis", "Karsis"));
+        users.add(new User("id3", "stotele@inbox.lt", "password", "Stoteles", "Darbininke"));
+        users.add(new User("id4", "bulka@ktu.edu", "password", "Flex", "Tape"));
+    }
 
     @Override
     public Optional<User> findByEmail(String email) {
@@ -46,7 +49,9 @@ public class UserRepositoryMockImpl implements UserRepository {
 
     @Override
     public <S extends User> S save(S s) {
-        return null;
+        s.setId(String.valueOf(System.currentTimeMillis()));
+        users.add(s);
+        return s;
     }
 
     @Override
@@ -56,7 +61,13 @@ public class UserRepositoryMockImpl implements UserRepository {
 
     @Override
     public Optional<User> findById(String s) {
-        return Optional.empty();
+        for (User user: users) {
+            if (user.getId().equals(s)) {
+                return Optional.of(user);
+            }
+        }
+
+        return Optional.ofNullable(null);
     }
 
     @Override

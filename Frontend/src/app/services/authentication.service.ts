@@ -15,7 +15,8 @@ const httpOptions = {
 
 export class AuthenticationService {
 
-  private static readonly host = 'http://104.196.227.120';
+  // private static readonly host = 'http://104.196.227.120';
+  private static readonly host = 'http://localhost:8080';
 
   constructor(private http: HttpClient) {
   }

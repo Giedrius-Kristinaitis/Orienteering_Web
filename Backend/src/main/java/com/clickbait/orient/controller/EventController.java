@@ -1,8 +1,7 @@
 package com.clickbait.orient.controller;
 
-import com.clickbait.orient.model.Event;
-import com.clickbait.orient.model.EventsResponse;
-import com.clickbait.orient.model.Photo;
+import com.clickbait.orient.dto.UserDTO;
+import com.clickbait.orient.model.*;
 import com.clickbait.orient.service.EventService;
 import com.clickbait.orient.service.EventServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -109,6 +109,9 @@ public class EventController {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
 
+        event.setStatus(EventStatus.OPEN);
+        event.setCreated(new Date());
+
         Event addedEvent = service.saveEvent(event);
 
         return new ResponseEntity<>(addedEvent, HttpStatus.CREATED);
@@ -147,5 +150,83 @@ public class EventController {
         }
 
         return new ResponseEntity<>(deleted, HttpStatus.OK);
+    }
+
+    /**
+     * Creates a new team
+     *
+     * @param eventId event to add the team to
+     * @param team team to create
+     * @return created team
+     */
+    @PostMapping("/team/{eventId}")
+    public ResponseEntity<Team> createTeam(@PathVariable String eventId, @RequestBody Team team) {
+        if (service.getEventById(eventId) == null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+        Team created = service.createTeam(eventId, team);
+
+        return new ResponseEntity<>(created, HttpStatus.CREATED);
+    }
+
+    /**
+     * Gets a team
+     *
+     * @param eventId id of the event the team belongs to
+     * @param teamId id of the team
+     * @return team with the specified id
+     */
+    @GetMapping("/team/{eventId}/{teamId}")
+    public ResponseEntity<Team> getTeam(@PathVariable String eventId, @PathVariable String teamId) {
+        if (service.getEventById(eventId) == null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+        Team team = service.getTeam(eventId, teamId);
+
+        if (team == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity<>(team, HttpStatus.OK);
+    }
+
+    /**
+     * Adds a team member
+     *
+     * @param eventId id of the event
+     * @param teamId id of the team
+     * @param user member to add
+     * @return added member
+     */
+    @PostMapping("/team/member/{eventId}/{teamId}")
+    public ResponseEntity<UserDTO> addTeamMember(@PathVariable String eventId, @PathVariable String teamId, UserDTO user) {
+        UserDTO added = service.addTeamMember(eventId, teamId, user);
+
+        if (added == null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+        return new ResponseEntity<>(added, HttpStatus.OK);
+    }
+
+    /**
+     * Removes a team member
+     *
+     * @param eventId id of the event
+     * @param teamId id of the team
+     * @param userId id of the member to remove
+     * @return removed member
+     */
+    @DeleteMapping("/team/member/{eventId}/{teamId}/{userId}")
+    public ResponseEntity<UserDTO> removeTeamMember(@PathVariable String eventId, @PathVariable String teamId, @PathVariable String userId) {
+        UserDTO removed = service.removeTeamMember(eventId, teamId, userId);
+
+        if (removed == null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+        return new ResponseEntity<>(removed, HttpStatus.OK);
     }
 }

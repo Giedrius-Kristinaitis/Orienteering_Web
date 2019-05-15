@@ -1,7 +1,9 @@
 package com.clickbait.orient.controller;
 
 import com.clickbait.orient.TestDataFactory;
+import com.clickbait.orient.dto.UserDTO;
 import com.clickbait.orient.model.Event;
+import com.clickbait.orient.model.Team;
 import com.clickbait.orient.service.EventService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -65,7 +67,8 @@ public class EventControllerTest {
                 .andExpect(jsonPath("$.starting", anything()))
                 .andExpect(jsonPath("$.estimatedTimeMillis", is(7200000)))
                 .andExpect(jsonPath("$.estimatedDistanceMetres", is(2500)))
-                .andExpect(jsonPath("$.photos", hasSize(1)));
+                .andExpect(jsonPath("$.photos", hasSize(1)))
+                .andExpect(jsonPath("$.owner.id", is("id1")));
     }
 
     @Test
@@ -203,7 +206,7 @@ public class EventControllerTest {
         mvc.perform(post("/api/event").accept("application/json")
                 .contentType("application/json")
                 .characterEncoding("utf-8")
-                .content(TestDataFactory.getValidEventAsJson()))
+                .content(TestDataFactory.getValidEventAsJsonNoCreatedDateAndStatus()))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.id", is(event.getId())))
                 .andExpect(jsonPath("$.name", is(event.getName())))
@@ -305,5 +308,126 @@ public class EventControllerTest {
                 .andExpect(jsonPath("$.estimatedTimeMillis", is(7200000)))
                 .andExpect(jsonPath("$.estimatedDistanceMetres", is(2500)))
                 .andExpect(jsonPath("$.photos", hasSize(1)));
+    }
+
+    @Test
+    public void testCreateTeam_shouldReturnBadRequest() throws Exception {
+        // setup
+        given(service.getEventById(any(String.class))).willReturn(null);
+
+        // execute and assert
+        mvc.perform(post("/api/event/team/1").accept("application/json"))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void testCreateTeam_shouldReturnCreatedTeam() throws Exception {
+        // setup
+        Event event = TestDataFactory.getEvent();
+        Team team = TestDataFactory.getTeam();
+
+        given(service.getEventById(any(String.class))).willReturn(event);
+        given(service.createTeam(any(String.class), any(Team.class))).willReturn(team);
+
+        // execute and assert
+        mvc.perform(post("/api/event/team/" + event.getId()).accept("application/json").characterEncoding("utf-8").contentType("application/json").content("{}"))
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.id", is(team.getId())))
+                .andExpect(jsonPath("$.name", is(team.getName())))
+                .andExpect(jsonPath("$.members", hasSize(team.getMembers().size())))
+                .andExpect(jsonPath("$.checkedCheckpoints", hasSize(team.getCheckedCheckpoints().size())));
+    }
+
+    @Test
+    public void testGetTeam_shouldReturnBadRequestBecauseBadEventId() throws Exception {
+        // setup
+        given(service.getEventById(any(String.class))).willReturn(null);
+
+        // execute and assert
+        mvc.perform(get("/api/event/team/1/1").accept("application/json"))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void testGetTeam_shouldReturnNotFound() throws Exception {
+        // setup
+        Event event = TestDataFactory.getEvent();
+
+        given(service.getEventById(any(String.class))).willReturn(event);
+        given(service.getTeam(any(String.class), any(String.class))).willReturn(null);
+
+        // execute and assert
+        mvc.perform(get("/api/event/team/" + event.getId() + "/1").accept("application/json"))
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
+    public void testGetTeam_shouldReturnTeam() throws Exception {
+        // setup
+        Event event = TestDataFactory.getEvent();
+        Team team = TestDataFactory.getTeam();
+
+        given(service.getEventById(any(String.class))).willReturn(event);
+        given(service.getTeam(any(String.class), any(String.class))).willReturn(team);
+
+        // execute and assert
+        mvc.perform(get("/api/event/team/" + event.getId() + "/" + team.getId()).accept("application/json"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id", is(team.getId())))
+                .andExpect(jsonPath("$.name", is(team.getName())))
+                .andExpect(jsonPath("$.members", hasSize(team.getMembers().size())))
+                .andExpect(jsonPath("$.checkedCheckpoints", hasSize(team.getCheckedCheckpoints().size())));
+    }
+
+    @Test
+    public void testAddTeamMember_shouldReturnBadRequestBecauseBadEventOrTeam() throws Exception {
+        // setup
+        given(service.addTeamMember(any(String.class), any(String.class), any(UserDTO.class))).willReturn(null);
+
+        // execute and assert
+        mvc.perform(post("/api/event/team/member/1/1").accept("application/json"))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void testAddTeamMember_shouldAddTeamMember() throws Exception {
+        // setup
+        UserDTO user = TestDataFactory.getUserDTO();
+
+        given(service.addTeamMember(any(String.class), any(String.class), any(UserDTO.class))).willReturn(user);
+
+        // execute and assert
+        mvc.perform(post("/api/event/team/member/1/1").accept("application/json").characterEncoding("utf-8").contentType("application/json").content("{}"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id", is(user.getId())))
+                .andExpect(jsonPath("$.firstName", is(user.getFirstName())))
+                .andExpect(jsonPath("$.lastName", is(user.getLastName())))
+                .andExpect(jsonPath("$.email", is(user.getEmail())));
+    }
+
+    @Test
+    public void testRemoveTeamMember_shouldReturnBadRequestBecauseBadEventOrTeam() throws Exception {
+        // setup
+        given(service.removeTeamMember(any(String.class), any(String.class), any(String.class))).willReturn(null);
+
+        // execute and assert
+        mvc.perform(delete("/api/event/team/member/1/1/1").accept("application/json"))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void testRemoveTeamMember_shouldReturnRemovedMember() throws Exception {
+        // setup
+        UserDTO user = TestDataFactory.getUserDTO();
+
+        given(service.removeTeamMember(any(String.class), any(String.class), any(String.class))).willReturn(user);
+
+        // execute and assert
+        mvc.perform(delete("/api/event/team/member/1/1/1").accept("application/json"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id", is(user.getId())))
+                .andExpect(jsonPath("$.firstName", is(user.getFirstName())))
+                .andExpect(jsonPath("$.lastName", is(user.getLastName())))
+                .andExpect(jsonPath("$.email", is(user.getEmail())));
     }
 }
