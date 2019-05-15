@@ -6,6 +6,7 @@ import com.clickbait.orient.model.Checkpoint;
 import com.clickbait.orient.model.Event;
 import com.clickbait.orient.model.Photo;
 import com.clickbait.orient.model.Team;
+import com.clickbait.orient.database.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;

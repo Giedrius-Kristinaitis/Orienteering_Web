@@ -4,6 +4,7 @@ import com.clickbait.orient.dto.UserDTO;
 import com.clickbait.orient.model.*;
 import com.clickbait.orient.service.EventService;
 import com.clickbait.orient.service.EventServiceImpl;
+import com.clickbait.orient.database.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
