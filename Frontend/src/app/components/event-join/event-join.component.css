@@ -7,11 +7,19 @@
   /*width: 30%;*/
 }
 
-.join-dialog-buttons {
+.dialog-buttons {
   display: inline-flex;
   justify-content: center;
 }
 
 .dialog {
   min-width: 25vw;
+}
+
+.event-leave-button {
+  width: 100%;
+}
+
+.event-create-button {
+  /*background-color: #43bc43;*/
 }

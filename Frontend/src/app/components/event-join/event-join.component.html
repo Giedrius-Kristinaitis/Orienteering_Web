@@ -1,10 +1,9 @@
-<h1 mat-dialog-title>Join event
+<h1 mat-dialog-title>Join a team
   <button mat-raised-button (click)="onCreateClick()"></button>
 </h1>
 <div mat-dialog-content class="dialog">
-  <mat-accordion multi="false">
-    <mat-expansion-panel *ngFor="let team of data.teams" (opened)="panelOpenState = true"
-                         (closed)="panelOpenState = false">
+  <mat-accordion multi="false" displayMode="default" close>
+    <mat-expansion-panel *ngFor="let team of data.teams">
       <mat-expansion-panel-header>
         <mat-panel-title>
           {{team.name}}
@@ -16,12 +15,19 @@
       </mat-expansion-panel-header>
       <div style="text-align: left">
         <p *ngFor="let member of team.members">{{member.firstName}} {{member.lastName}}</p>
-        <button *ngIf="getUserTeam() === undefined && team.members.length < data.teamSize" class="event-join-button" mat-raised-button (click)="onJoinClick(team)" cdkFocusInitial color="primary">Join</button>
-        <button *ngIf="getUserTeam() ==" class="event-join-button" mat-raised-button (click)="onJoinClick(team)" cdkFocusInitial color="primary">Join</button>
+        <button *ngIf="getUserTeam() === undefined && team.members.length < data.teamSize" class="event-join-button"
+                mat-raised-button (click)="onJoinClick(team)" color="primary">Join
+        </button>
+        <button *ngIf="getUserTeam() !== undefined && getUserTeam().id == team.id" class="event-leave-button"
+                mat-raised-button (click)="onLeaveClick(team)" color="warn">Leave
+        </button>
       </div>
     </mat-expansion-panel>
   </mat-accordion>
 </div>
-<div class="join-dialog-buttons" mat-dialog-actions>
+<div class="dialog-buttons" mat-dialog-actions>
+  <button *ngIf="getUserTeam() === undefined" class="event-create-button" mat-raised-button (click)="onCreateClick()"
+          color="primary">Create team
+  </button>
   <button class="event-join-cancel-button" mat-raised-button (click)="onCancelClick()" color="warn">Cancel</button>
 </div>
