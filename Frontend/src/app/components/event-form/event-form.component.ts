@@ -7,6 +7,7 @@ import {Router} from '@angular/router';
 import {Marker} from '../marker';
 import {Event} from '../event';
 import {Observable} from 'rxjs';
+import {UserService} from '../../services/user.service';
 
 @Component({
   selector: 'app-event-form',
@@ -46,7 +47,8 @@ export class EventFormComponent implements OnInit {
 
   constructor(private eventService: EventService,
               private messageService: MessageService,
-              private router: Router) {
+              private router: Router,
+              private userService: UserService) {
   }
 
   ngOnInit() {
@@ -158,7 +160,7 @@ export class EventFormComponent implements OnInit {
           }
         );
       } else {
-        this.eventService.addEvent(JSON.stringify(this.createNewEvent())).subscribe(
+        this.eventService.addEvent(JSON.stringify(this.createNewEvent()), this.userService.getCurrentUser().id).subscribe(
           data => {
           },
           error => {
@@ -183,6 +185,7 @@ export class EventFormComponent implements OnInit {
 
     return {
       id: this.event.id,
+      ownerId: '',
       name: this.event.name,
       teamSize: this.event.teamSize,
       starting: moment(timeInMilis + dateInMilis).toJSON(),
