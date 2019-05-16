@@ -2,10 +2,12 @@ package com.clickbait.orient.service;
 
 import com.clickbait.orient.TestDataFactory;
 import com.clickbait.orient.database.EventRepository;
+import com.clickbait.orient.database.UserRepository;
 import com.clickbait.orient.dto.UserDTO;
 import com.clickbait.orient.model.Event;
 import com.clickbait.orient.model.Photo;
 import com.clickbait.orient.model.Team;
+import com.clickbait.orient.model.User;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +36,9 @@ public class EventServiceTest {
 
     @MockBean
     private EventRepository repository;
+
+    @MockBean
+    private UserRepository userRepository;
 
     @Test
     public void testGetEventById_shouldReturnNull() {
@@ -407,11 +412,29 @@ public class EventServiceTest {
     }
 
     @Test
+    public void testAddTeamMember_shouldReturnNullBecauseBadUserId() {
+        // setup
+        Event event = TestDataFactory.getEvent();
+
+        given(repository.findById(any(String.class))).willReturn(Optional.of(event));
+        given(userRepository.findById(any(String.class))).willReturn(Optional.ofNullable(null));
+
+        UserDTO user = TestDataFactory.getUserDTO();
+
+        // execute
+        UserDTO added = service.addTeamMember("non-existing event", "non-existing team", user);
+
+        // assert
+        assertNull(added);
+    }
+
+    @Test
     public void testAddTeamMember_shouldAddTeamMember() {
         // setup
         Event event = TestDataFactory.getEvent();
 
         given(repository.findById(any(String.class))).willReturn(Optional.of(event));
+        given(userRepository.findById(any(String.class))).willReturn(Optional.of(new User()));
 
         UserDTO user = TestDataFactory.getUserDTO();
 
