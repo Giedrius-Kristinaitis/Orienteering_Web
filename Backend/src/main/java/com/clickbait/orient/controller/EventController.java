@@ -14,6 +14,7 @@ import org.modelmapper.ModelMapper;
 
 import javax.validation.Valid;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -122,6 +123,8 @@ public class EventController {
 
         event.setStatus(EventStatus.OPEN);
         event.setCreated(new Date());
+        event.setTeams(new ArrayList<>());
+        event.setPhotos(new ArrayList<>());
         
         Optional<User> foundUser = userRepository.findById(ownerId);
         
