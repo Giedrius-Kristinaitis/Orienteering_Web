@@ -26,6 +26,10 @@ export class EventDetailComponent implements OnInit {
     this.getEvent(eventId);
   }
 
+  /**
+   * Loads event data
+   * @param id Event id
+   */
   getEvent(id: string): void {
     this.eventService.getEvent(id).subscribe(event => {
       this.event = event;
@@ -44,14 +48,7 @@ export class EventDetailComponent implements OnInit {
       data: event
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
-      // if (result === true) {
-      //   this.deleteMarker(marker);
-      // } else if (typeof result === 'object') {
-      //   marker.name = result.name;
-      // }
-    });
+    dialogRef.afterClosed().subscribe();
   }
 
 }
