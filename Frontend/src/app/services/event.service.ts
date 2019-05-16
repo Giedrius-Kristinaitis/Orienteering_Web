@@ -4,6 +4,7 @@ import {Event} from '../components/event';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {EventResponse} from '../components/eventResponse';
 import {catchError, retry} from 'rxjs/operators';
+import {User} from '../components/user';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -17,7 +18,8 @@ const httpOptions = {
 export class EventService {
 
   // http://104.196.227.120
-  private static readonly host = 'http://104.196.227.120';
+  // private static readonly host = 'http://104.196.227.120';
+  private static readonly host = 'http://localhost:8080';
 
   constructor(private http: HttpClient) {
   }
@@ -48,8 +50,8 @@ export class EventService {
    * Adds a new event to event list
    * @param event New event
    */
-  addEvent(event) {
-    return this.http.post<Event>(`${EventService.host}/api/event/`, event, httpOptions).pipe(
+  addEvent(event, ownerId) {
+    return this.http.post<Event>(`${EventService.host}/api/event/${ownerId}`, event, httpOptions).pipe(
       retry(1),
       catchError(this.handleError)
     );
@@ -77,6 +79,14 @@ export class EventService {
     return this.http.delete<Event>(`${EventService.host}/api/event/${id}`, httpOptions).pipe(
       retry(1),
       catchError(this.handleError),
+    );
+  }
+
+  addTeamMember(eventId: string, teamId: string, user: User) {
+    console.log('Service: ' + user);
+    return this.http.post<User>(`${EventService.host}/api/event/team/member/${eventId}/${teamId}`, user, httpOptions).pipe(
+      retry(1),
+      catchError(this.handleError)
     );
   }
 
