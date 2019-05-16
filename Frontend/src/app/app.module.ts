@@ -46,11 +46,12 @@ import { EventFormComponent } from './components/event-form/event-form.component
 import { RegisterFormComponent } from './components/register-form/register-form.component';
 import { LoginRegisterScreenComponent } from './components/login-register-screen/login-register-screen.component';
 import { EventJoinComponent } from './components/event-join/event-join.component';
+import { EventTeamCreateDialogComponent } from './components/event-team-create-dialog/event-team-create-dialog.component';
 
 @NgModule({
   declarations: [AppComponent, EventListComponent, EventScreenComponent, NavigationBarComponent, EventDetailComponent,
     MapComponent, EventCreateComponent, EventCreateMapComponent, LoginFormComponent, MessagesComponent,
-    MarkerEditDialogComponent, EventEditComponent, EventFormComponent, RegisterFormComponent, LoginRegisterScreenComponent, EventJoinComponent],
+    MarkerEditDialogComponent, EventEditComponent, EventFormComponent, RegisterFormComponent, LoginRegisterScreenComponent, EventJoinComponent, EventTeamCreateDialogComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -82,7 +83,7 @@ import { EventJoinComponent } from './components/event-join/event-join.component
     })
   ],
   exports: [MarkerEditDialogComponent],
-  entryComponents: [MarkerEditDialogComponent, EventJoinComponent],
+  entryComponents: [MarkerEditDialogComponent, EventJoinComponent, EventTeamCreateDialogComponent],
   providers: [AuthGuard, MessageService, EventService],
   bootstrap: [AppComponent]
 })
