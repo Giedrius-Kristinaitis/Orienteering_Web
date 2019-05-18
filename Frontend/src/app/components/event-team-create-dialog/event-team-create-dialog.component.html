@@ -1,0 +1,13 @@
+<h1 mat-dialog-title>Create a new team</h1>
+<div mat-dialog-content class="dialog">
+  <form (ngSubmit)="onCreateClick()">
+    <mat-form-field>
+      <input [formControl]="teamName" matInput [(ngModel)]="name" required placeholder="Name" value="{{name}}">
+      <mat-error *ngIf="this.teamName.invalid">You must enter a valid name</mat-error>
+    </mat-form-field>
+  </form>
+</div>
+<div class="dialog-buttons" mat-dialog-actions>
+  <button class="team-create-button" mat-raised-button (click)="onCreateClick()" color="primary">Create</button>
+  <button class="team-cancel-button" mat-raised-button (click)="onCancelClick()" color="warn">Cancel</button>
+</div>

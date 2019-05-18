@@ -2,7 +2,8 @@ import {Checkpoint} from './checkpoint';
 import {Team} from './team';
 
 export class Event {
-  id: number;
+  id: string;
+  ownerId: string;
   name: string;
   description: string;
   checkpointCount: number;

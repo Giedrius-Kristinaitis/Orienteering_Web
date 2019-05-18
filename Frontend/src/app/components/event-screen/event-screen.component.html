@@ -5,7 +5,7 @@
       <app-navigation-bar *ngIf="router.url=='/event/create'" showGoBackButton="true" showUserIcons="true"
                           title="Create Event"></app-navigation-bar>
       <app-navigation-bar *ngIf="router.url.includes('/event/detail')" showGoBackButton="true"
-                          title="{{eventName}}"></app-navigation-bar>
+                          title="{{eventName}}" showUserIcons="true"></app-navigation-bar>
       <app-navigation-bar *ngIf="router.url.includes('/event/edit')" showGoBackButton="true"
                           title="Edit event"></app-navigation-bar>
     </div>

@@ -4,6 +4,8 @@ import {Event} from '../components/event';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {EventResponse} from '../components/eventResponse';
 import {catchError, retry} from 'rxjs/operators';
+import {User} from '../components/user';
+import {Team} from '../components/team';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -17,9 +19,37 @@ const httpOptions = {
 export class EventService {
 
   // http://104.196.227.120
-  private static readonly host = 'http://104.196.227.120';
+  // private static readonly host = 'http://104.196.227.120';
+  private static readonly host = 'http://localhost:8080';
 
   constructor(private http: HttpClient) {
+  }
+
+  /**
+   * Formats error codes to messages
+   * @param status Request status
+   */
+  static selectErrorMessage(status: number) {
+    let message = status.toString();
+    // console.log('Status: ' + status);
+
+    switch (status) {
+      case 404 : {
+        message += ' Request not found';
+        break;
+      }
+      case 400 : {
+        message += ' Bad request';
+        break;
+      }
+      case 409 : {
+        message += ' Object already exists';
+        break;
+      }
+    }
+
+    console.log(message);
+    return message;
   }
 
   /**
@@ -48,8 +78,8 @@ export class EventService {
    * Adds a new event to event list
    * @param event New event
    */
-  addEvent(event) {
-    return this.http.post<Event>(`${EventService.host}/api/event/`, event, httpOptions).pipe(
+  addEvent(event, ownerId) {
+    return this.http.post<Event>(`${EventService.host}/api/event/${ownerId}`, event, httpOptions).pipe(
       retry(1),
       catchError(this.handleError)
     );
@@ -62,7 +92,7 @@ export class EventService {
   updateEvent(event: Event) {
     const tempEvent = new Event(event);
     tempEvent.estimatedTimeMillis = 3600000 * tempEvent.estimatedTimeMillis;
-    console.log(tempEvent);
+    // console.log(tempEvent);
     return this.http.put<Event>(`${EventService.host}/api/event/${tempEvent.id}`, JSON.stringify(tempEvent), httpOptions).pipe(
       retry(1),
       catchError(this.handleError)
@@ -81,45 +111,52 @@ export class EventService {
   }
 
   /**
+   * Creates a new team
+   * @param eventId Event id
+   * @param team New team
+   */
+  createTeam(eventId: string, team: Team) {
+    return this.http.post<Team>(`${EventService.host}/api/event/team/${eventId}`, team, httpOptions).pipe(
+      retry(1),
+      catchError(this.handleError)
+    );
+  }
+
+  /**
+   * Adds member to a team
+   * @param eventId id of the event
+   * @param teamId id of the team
+   * @param user to add
+   */
+  addTeamMember(eventId: string, teamId: string, user: User) {
+    // console.log('Service: ' + user);
+    return this.http.post<User>(`${EventService.host}/api/event/team/member/${eventId}/${teamId}`, user, httpOptions).pipe(
+      retry(1),
+      catchError(this.handleError)
+    );
+  }
+
+  /**
+   * Removes teams member
+   * @param eventId id of the event
+   * @param teamId id of the team
+   * @param userId id of the user to remove
+   */
+  removeTeamMember(eventId: string, teamId: string, userId: string) {
+    return this.http.delete(`${EventService.host}/api/event/team/member/${eventId}/${teamId}/${userId}`).pipe(
+      retry(1),
+      catchError(this.handleError)
+    );
+  }
+
+  /**
    * Handles requests errors
    * @param error Error
    */
   private handleError(error) {
-    let errorMessage = '';
-    if (error.error instanceof ErrorEvent) {
-      // client-side error
-      errorMessage = `Error: ${error.error.message}`;
-    } else {
-      // server-side error
-      errorMessage = `Error: ${error.status}`;
-    }
+    // console.log(error);
 
     // window.alert(errorMessage);
-    return throwError(this.selectErrorMessage(errorMessage));
-  }
-
-  /**
-   * Formats error codes to messages
-   * @param status Request status
-   */
-  selectErrorMessage(status: string) {
-    let message = status;
-
-    switch (status) {
-      case '404' : {
-        message += ' Event not found';
-        break;
-      }
-      case '400' : {
-        message += ' Bad request';
-        break;
-      }
-      case '409' : {
-        message += ' Event already exists';
-        break;
-      }
-    }
-
-    return message;
+    return throwError(EventService.selectErrorMessage(error.status));
   }
 }

@@ -27,10 +27,16 @@ export class UserService {
     return undefined;
   }
 
+  /**
+   * Returns user object from local storage
+   */
   getCurrentUser(): User {
     return JSON.parse(localStorage.getItem('currentUser'));
   }
 
+  /**
+   * Removes current user from local storage
+   */
   logout(): void {
     localStorage.removeItem('currentUser');
     this.router.navigate(['login']);
