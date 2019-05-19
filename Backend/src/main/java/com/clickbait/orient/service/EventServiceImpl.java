@@ -15,6 +15,7 @@ import org.springframework.data.domain.Pageable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * Manages event operations
@@ -93,7 +94,7 @@ public class EventServiceImpl implements EventService {
             return null;
         }
 
-        return event.getPhotos();
+        return event.getPhotos().stream().filter(photo -> photo.getTeamId().equals(teamId)).collect(Collectors.toList());
     }
 
     /**
