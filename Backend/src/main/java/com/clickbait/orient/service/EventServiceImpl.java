@@ -93,7 +93,7 @@ public class EventServiceImpl implements EventService {
         if (!validateTeamId(event, teamId)) {
             return null;
         }
-
+        
         return event.getPhotos().stream().filter(photo -> photo.getTeamId().equals(teamId)).collect(Collectors.toList());
     }
 
