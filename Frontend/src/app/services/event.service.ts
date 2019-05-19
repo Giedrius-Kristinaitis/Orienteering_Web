@@ -6,6 +6,7 @@ import {EventResponse} from '../components/eventResponse';
 import {catchError, retry} from 'rxjs/operators';
 import {User} from '../components/user';
 import {Team} from '../components/team';
+import {Photo} from '../components/photo';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -19,8 +20,8 @@ const httpOptions = {
 export class EventService {
 
   // http://104.196.227.120
-  // private static readonly host = 'http://104.196.227.120';
-  private static readonly host = 'http://localhost:8080';
+  private static readonly host = 'http://104.196.227.120';
+  // private static readonly host = 'http://localhost:8080';
 
   constructor(private http: HttpClient) {
   }
@@ -48,7 +49,7 @@ export class EventService {
       }
     }
 
-    console.log(message);
+    // console.log(message);
     return message;
   }
 
@@ -69,6 +70,13 @@ export class EventService {
   getEvent(id: string): Observable<Event> {
     // return of(EVENTS.find(event => event.id === id));
     return this.http.get<Event>(`${EventService.host}/api/event/${id}`).pipe(
+      retry(1),
+      catchError(this.handleError)
+    );
+  }
+
+  getEventTeamPhotos(eventId: string, teamId: string) {
+    return this.http.get<Photo[]>(`${EventService.host}/api/event/photos/${eventId}/${teamId}`).pipe(
       retry(1),
       catchError(this.handleError)
     );
@@ -116,6 +124,7 @@ export class EventService {
    * @param team New team
    */
   createTeam(eventId: string, team: Team) {
+    console.log(team);
     return this.http.post<Team>(`${EventService.host}/api/event/team/${eventId}`, team, httpOptions).pipe(
       retry(1),
       catchError(this.handleError)

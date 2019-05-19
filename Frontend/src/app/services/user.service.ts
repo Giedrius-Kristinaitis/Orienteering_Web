@@ -1,7 +1,6 @@
 import {Injectable} from '@angular/core';
 import {User} from '../components/user';
 import {Router} from '@angular/router';
-import {EventResponse} from '../components/eventResponse';
 import {catchError, retry} from 'rxjs/operators';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {throwError} from 'rxjs';
@@ -16,11 +15,46 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class UserService {
-  // private static readonly host = 'http://104.196.227.120';
-  private static readonly host = 'http://localhost:8080';
+  private static readonly host = 'http://104.196.227.120';
+
+  // private static readonly host = 'http://localhost:8080';
 
   constructor(private router: Router,
               private http: HttpClient) {
+  }
+
+  /**
+   * Formats error codes to messages
+   * @param status Request status
+   */
+  static selectErrorMessage(status: number) {
+    let message = status.toString();
+    // console.log('Status: ' + status);
+
+    switch (status) {
+      case 404 : {
+        message += ' Request not found';
+        break;
+      }
+      case 400 : {
+        message += ' Bad request';
+        break;
+      }
+      case 409 : {
+        message += ' This email is already used';
+        break;
+      }
+      case 401: {
+        message += ' Wrong email or password';
+        break;
+      }
+      default: {
+        message += ' Error not found';
+      }
+    }
+
+    // console.log(message);
+    return message;
   }
 
   getUser(id: number): User {
@@ -58,42 +92,9 @@ export class UserService {
    * @param error Error
    */
   private handleError(error) {
-    let errorMessage = '';
-    if (error.error instanceof ErrorEvent) {
-      // client-side error
-      errorMessage = `Error: ${error.error.message}`;
-    } else {
-      // server-side error
-      errorMessage = `Error: ${error.status}`;
-    }
+    // console.log(error);
 
     // window.alert(errorMessage);
-    return throwError(this.selectErrorMessage(errorMessage));
-  }
-
-  /**
-   * Formats error codes to messages
-   * @param status Request status
-   */
-  selectErrorMessage(status: string): string {
-    console.log('Status: ' + status);
-    let message = status;
-
-    switch (status) {
-      case '404' : {
-        message += ' Event not found';
-        break;
-      }
-      case '400' : {
-        message += ' Bad request';
-        break;
-      }
-      case '409' : {
-        message += ' Event already exists';
-        break;
-      }
-    }
-
-    return message;
+    return throwError(UserService.selectErrorMessage(error.status));
   }
 }
