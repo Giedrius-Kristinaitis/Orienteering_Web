@@ -12,6 +12,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -212,6 +213,8 @@ public class EventServiceImpl implements EventService {
         }
 
         team.setId(String.valueOf(System.currentTimeMillis()));
+        team.setMembers(new ArrayList<>());
+        team.setCheckedCheckpoints(new ArrayList<>());
 
         event.getTeams().add(team);
 
