@@ -1,0 +1,27 @@
+.photos-div {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.photo-with-name {
+  width: 25%;
+}
+
+.photo {
+  height: 70%;
+  width: 100%;
+}
+
+.dialog {
+  min-width: 35vw;
+}
+
+.dialog-buttons {
+  display: inline-flex;
+  justify-content: center;
+}
+
+.progress-bar {
+  width: 50%;
+}
