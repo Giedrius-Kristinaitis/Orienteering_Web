@@ -3,6 +3,7 @@ import {FormControl, Validators} from '@angular/forms';
 import {AuthenticationService} from '../../services/authentication.service';
 import {Router} from '@angular/router';
 import {UserService} from '../../services/user.service';
+import {MessageService} from '../../services/message.service';
 
 @Component({
   selector: 'app-login-form',
@@ -14,10 +15,12 @@ export class LoginFormComponent implements OnInit {
     Validators.pattern('[a-zA-Z0-9_.]+@[a-zZ-z0-9_]+(\\.[a-zA-Z]+)+')]);
   password = new FormControl('', [Validators.required, Validators.minLength(5)]);
 
-  constructor(private authService: AuthenticationService, private router: Router, private userService: UserService) {
+  constructor(private authService: AuthenticationService, private router: Router, private userService: UserService,
+              private messageService: MessageService) {
   }
 
   ngOnInit() {
+    this.messageService.clear();
     if (this.userService.getCurrentUser() !== undefined) {
       this.router.navigate(['events']);
     }
@@ -31,6 +34,7 @@ export class LoginFormComponent implements OnInit {
         },
         error => {
           console.log(error);
+          this.messageService.add(error);
         });
     }
   }

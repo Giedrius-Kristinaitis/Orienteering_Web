@@ -25,6 +25,7 @@ export class EventJoinComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.messageService.clear();
     // console.log(this.data);
   }
 
@@ -38,7 +39,6 @@ export class EventJoinComponent implements OnInit {
       data => {
       },
       error => {
-        this.messageService.clear();
         this.messageService.add(error);
       },
       () => {
@@ -56,7 +56,6 @@ export class EventJoinComponent implements OnInit {
       data => {
       },
       error => {
-        this.messageService.clear();
         this.messageService.add(error);
       },
       () => {
