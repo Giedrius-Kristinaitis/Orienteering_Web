@@ -2,7 +2,7 @@
   <button mat-raised-button (click)="onCreateClick()"></button>
 </h1>
 <div mat-dialog-content class="dialog">
-  <mat-accordion multi="false" displayMode="default" close>
+  <mat-accordion multi="false" displayMode="default" close *ngIf="data.teams">
     <mat-expansion-panel *ngFor="let team of data.teams">
       <mat-expansion-panel-header>
         <mat-panel-title>
