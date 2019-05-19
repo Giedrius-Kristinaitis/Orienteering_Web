@@ -20,11 +20,11 @@
   width: 25%;
 }
 
-.event-name-status {
+.event-name-join {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   margin-left: 4%;
   margin-right: 4%;
   margin-bottom: 6%;
@@ -56,8 +56,9 @@
 
 .spn {
   position: fixed !important;
-  margin-top: 19% !important;
-  margin-bottom: 19% !important;
-  margin-left: 35% !important;
-  margin-right: 35% !important;
+  margin: 19% 19% 35% 35% !important;
+}
+
+.event-join-button {
+  background-color: #43bc43;
 }
