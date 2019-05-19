@@ -4,6 +4,7 @@ import {EventService} from '../../services/event.service';
 import {MatPaginator, MatSort, MatTableDataSource, PageEvent} from '@angular/material';
 import {Router} from '@angular/router';
 import {MessageService} from '../../services/message.service';
+import {UserService} from '../../services/user.service';
 
 @Component({
   selector: 'app-event-list',
@@ -28,10 +29,12 @@ export class EventListComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private eventService: EventService, private router: Router, private messageService: MessageService) {
+  constructor(private eventService: EventService, private router: Router, private messageService: MessageService,
+              private userService: UserService) {
   }
 
   ngOnInit() {
+    this.messageService.clear();
     this.getServerData(null);
     // this.dataSource.paginator = this.paginator;
   }
