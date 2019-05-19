@@ -4,7 +4,8 @@
       <mat-card class="event-name-card">
         <mat-card-title class="event-name-join">
           {{event.name}}
-          <button class="event-join-button" mat-raised-button color="primary" (click)="openDialog(event)">Join</button>
+          <button class="event-join-button" mat-raised-button color="primary" *ngIf="event.status.toLocaleLowerCase()==='open'" (click)="openJoinDialog(event)">Join</button>
+          <button class="event-join-button" mat-raised-button color="primary" *ngIf="event.status.toLocaleLowerCase()!=='open'" (click)="openProgressDialog(event)">Progress</button>
         </mat-card-title>
         <mat-divider></mat-divider>
         <mat-list class="event-info-text">
@@ -25,6 +26,7 @@
         </mat-list>
         <mat-divider></mat-divider>
         <p class="description">{{event.description}}</p>
+        <button class="event-start-button" mat-raised-button color="primary" *ngIf="event.owner.id === userService.getCurrentUser().id && event.status.toLocaleLowerCase() === 'open'" (click)="startEvent()">Start event</button>
       </mat-card>
     </div>
     <div class="map">

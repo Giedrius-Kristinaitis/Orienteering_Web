@@ -23,7 +23,8 @@ import {
   MatSortModule,
   MatTableModule,
   MatToolbarModule,
-  MatExpansionModule
+  MatExpansionModule,
+  MatProgressBarModule,
 } from '@angular/material';
 import {EventScreenComponent} from './components/event-screen/event-screen.component';
 import {HttpClientModule} from '@angular/common/http';
@@ -47,11 +48,13 @@ import { RegisterFormComponent } from './components/register-form/register-form.
 import { LoginRegisterScreenComponent } from './components/login-register-screen/login-register-screen.component';
 import { EventJoinComponent } from './components/event-join/event-join.component';
 import { EventTeamCreateDialogComponent } from './components/event-team-create-dialog/event-team-create-dialog.component';
+import { EventTeamProgressDialogComponent } from './components/event-team-progress-dialog/event-team-progress-dialog.component';
 
 @NgModule({
   declarations: [AppComponent, EventListComponent, EventScreenComponent, NavigationBarComponent, EventDetailComponent,
     MapComponent, EventCreateComponent, EventCreateMapComponent, LoginFormComponent, MessagesComponent,
-    MarkerEditDialogComponent, EventEditComponent, EventFormComponent, RegisterFormComponent, LoginRegisterScreenComponent, EventJoinComponent, EventTeamCreateDialogComponent],
+    MarkerEditDialogComponent, EventEditComponent, EventFormComponent, RegisterFormComponent, LoginRegisterScreenComponent,
+    EventJoinComponent, EventTeamCreateDialogComponent, EventTeamProgressDialogComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -78,12 +81,13 @@ import { EventTeamCreateDialogComponent } from './components/event-team-create-d
     MatNativeDateModule,
     MatDialogModule,
     MatExpansionModule,
+    MatProgressBarModule,
     AgmCoreModule.forRoot({
       apiKey: key,
     })
   ],
   exports: [MarkerEditDialogComponent],
-  entryComponents: [MarkerEditDialogComponent, EventJoinComponent, EventTeamCreateDialogComponent],
+  entryComponents: [MarkerEditDialogComponent, EventJoinComponent, EventTeamCreateDialogComponent, EventTeamProgressDialogComponent],
   providers: [AuthGuard, MessageService, EventService],
   bootstrap: [AppComponent]
 })
