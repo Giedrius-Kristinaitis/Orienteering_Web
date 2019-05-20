@@ -1,16 +1,17 @@
 .photos-div {
-  display: flex;
+  display: inline-flex;
   flex-direction: row;
   flex-wrap: wrap;
 }
 
 .photo-with-name {
-  width: 25%;
+  width: 8vw;
+  margin: 0 0.5vw 0 0.5vw;
 }
 
 .photo {
-  height: 70%;
-  width: 100%;
+  height: auto;
+  width: 5vw;
 }
 
 .dialog {

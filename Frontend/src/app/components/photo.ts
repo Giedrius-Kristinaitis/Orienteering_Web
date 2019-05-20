@@ -2,7 +2,7 @@ export class Photo {
   eventId: string;
   teamId: string;
   checkpointId: string;
-  downloadUrl: string;
+  downloadURL: string;
   fileType: string;
   fileSize: string;
 }

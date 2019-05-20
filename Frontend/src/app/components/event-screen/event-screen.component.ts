@@ -9,7 +9,7 @@ import {Router} from '@angular/router';
 export class EventScreenComponent implements OnInit {
   eventName = '';
 
-  constructor(private router: Router) {
+  constructor(public router: Router) {
   }
 
   ngOnInit() {

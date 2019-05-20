@@ -13,7 +13,7 @@
         <mat-error *ngIf="password.invalid">{{getErrorMessage(this.password)}}</mat-error>
       </mat-form-field>
     </div>
-    <mat-spinner [style.display]="showSpinner ? 'block' : 'none'"></mat-spinner>
+<!--    <mat-spinner [style.display]="showSpinner ? 'block' : 'none'"></mat-spinner>-->
   </mat-card-content>
   <mat-card-actions>
     <button class="login-button" (click)="login(email.value, password.value)" color="primary" mat-raised-button>

@@ -1,6 +1,7 @@
 import {Checkpoint} from './checkpoint';
 import {Team} from './team';
 import {User} from './user';
+import {Photo} from './photo';
 
 export class Event {
   id: string;
@@ -17,6 +18,7 @@ export class Event {
   estimatedTimeMillis: number;
   estimatedDistanceMetres: number;
   owner: User;
+  photos: Photo[];
 
   constructor(event: Event) {
     if (event === null) {
@@ -36,5 +38,6 @@ export class Event {
     this.estimatedTimeMillis = event.estimatedTimeMillis;
     this.estimatedDistanceMetres = event.estimatedDistanceMetres;
     this.owner = event.owner;
+    this.photos = event.photos;
   }
 }

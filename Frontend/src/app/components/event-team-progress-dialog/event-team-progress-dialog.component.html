@@ -13,11 +13,11 @@
           </mat-panel-description>
         </mat-expansion-panel-header>
         <mat-progress-bar mode="determinate" [value]="calculateProgressPercent(team)"></mat-progress-bar>
-        <div *ngIf="showedPhotos!==null">
-          <div class="photos-div" *ngFor="let photo of showedPhotos">
+        <div *ngIf="showedPhotos" class="photos-div">
+          <div *ngFor="let photo of showedPhotos">
             <div class="photo-with-name">
-              <p>{{photo.checkpointId}}</p>
-              <img class="photo" [src]="photo.downloadUrl" alt="Checkpoint photo" />
+              <p>Checkpoint: {{photo.checkpointId}}</p>
+              <img class="photo" [src]="photo.downloadURL" alt="Checkpoint photo" />
             </div>
           </div>
         </div>

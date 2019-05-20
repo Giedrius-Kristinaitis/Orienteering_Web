@@ -15,6 +15,7 @@ import {interval} from 'rxjs';
   styleUrls: ['./event-team-progress-dialog.component.css']
 })
 export class EventTeamProgressDialogComponent implements OnInit {
+  static readonly updateInterval = 3000;
   showedPhotos: Photo[];
 
   constructor(public dialogRef: MatDialogRef<MarkerEditDialogComponent>,
@@ -26,10 +27,13 @@ export class EventTeamProgressDialogComponent implements OnInit {
 
   ngOnInit() {
     this.messageService.clear();
+    this.showedPhotos = null;
+    // console.log(this.data);
 
-    interval(3000).subscribe(
+    interval(EventTeamProgressDialogComponent.updateInterval).subscribe(
       () => {
         this.updateEvent();
+        console.log('Updated');
       }
     );
   }
@@ -46,25 +50,43 @@ export class EventTeamProgressDialogComponent implements OnInit {
    * @param team Team
    */
   expandedTeam(team: Team) {
-    this.eventService.getEventTeamPhotos(this.data.id, team.id).subscribe(
-      data => {
-        // console.log(data.filter(photo => photo.teamId === team.id));
-        if (data !== null) {
-          this.showedPhotos = data.filter(photo => photo.teamId === team.id);
-        }
-      },
-      error => {
-        this.messageService.add(error);
-      },
-      () => {
+    this.showedPhotos = this.data.photos.filter(x => x.teamId === team.id).sort((a, b) => {
+      if (+a.checkpointId > +b.checkpointId) {
+        return 1;
       }
-    );
+      if (+a.checkpointId < +b.checkpointId) {
+        return -1;
+      }
+      return 0;
+    });
+    // this.showedPhotos.forEach(x => console.log(x));
+    // console.log('Masyv: ' + this.showedPhotos[0].downloadURL);
   }
 
   updateEvent(): void {
     this.eventService.getEvent(this.data.id).subscribe(
       data => {
-        this.data = data;
+        if (data.photos.length !== this.showedPhotos.length) {
+          console.log('Yra nauju ft');
+          data.photos.forEach(photo => {
+            if (!this.showedPhotos.find(x => x.checkpointId === photo.checkpointId)) {
+              this.data.teams.filter(x => x.id === photo.teamId)[0].checkedCheckpoints.push(photo.checkpointId);
+              this.showedPhotos.push(photo);
+            }
+          });
+
+          this.showedPhotos = this.showedPhotos.sort((a, b) => {
+            if (+a.checkpointId > +b.checkpointId) {
+              return 1;
+            }
+            if (+a.checkpointId < +b.checkpointId) {
+              return -1;
+            }
+            return 0;
+          });
+        }
+        // data.photos = this.showedPhotos;
+        // this.data = data;
       },
       error => {
         this.messageService.add(error);

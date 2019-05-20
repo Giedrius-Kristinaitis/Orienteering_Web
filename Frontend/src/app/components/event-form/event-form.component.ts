@@ -209,7 +209,8 @@ export class EventFormComponent implements OnInit {
       teams: this.event.teams,
       created: this.event.created,
       status: this.event.status,
-      owner: this.userService.getCurrentUser()
+      owner: this.userService.getCurrentUser(),
+      photos: this.event.photos
     };
   }
 
