@@ -65,7 +65,7 @@ export class EventFormComponent implements OnInit {
           const localDate = utcTime.local().toDate();
           const localTime = utcTime.local().format('HH:mm');
 
-          console.log('Uzkraunant: ' + localTime);
+          // console.log('Uzkraunant: ' + localTime);
 
           this.startingDate = localDate;
           this.startingTime = localTime;

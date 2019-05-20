@@ -94,8 +94,6 @@ export class EventListComponent implements OnInit {
         this.pageSize = data.pageSize;
         this.length = data.totalElements;
 
-        data.events.forEach(x => console.log('Owner: ' + x.owner.id));
-
         // this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
         this.applyFilter(this.searchInput, false);

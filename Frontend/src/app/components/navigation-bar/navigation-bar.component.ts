@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Location} from "@angular/common";
-import {UserService} from "../../services/user.service";
+import {Location} from '@angular/common';
+import {UserService} from '../../services/user.service';
 
 @Component({
   selector: 'app-navigation-bar',

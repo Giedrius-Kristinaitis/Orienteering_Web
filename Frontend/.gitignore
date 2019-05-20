@@ -44,3 +44,4 @@ testem.log
 Thumbs.db
 /src/app/mapApiKey.ts
 Dockerfile
+nginx.conf

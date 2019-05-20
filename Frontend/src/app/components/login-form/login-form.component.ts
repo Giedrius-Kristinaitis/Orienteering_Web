@@ -33,7 +33,7 @@ export class LoginFormComponent implements OnInit {
           this.router.navigate(['events']);
         },
         error => {
-          console.log(error);
+          // console.log(error);
           this.messageService.add(error);
         });
     }

@@ -84,13 +84,10 @@ export class RegisterFormComponent implements OnInit {
    */
   register() {
     if (this.input.valid) {
-      // console.log(this.user);
       this.userService.addUser(this.user).subscribe(
         data => {
-          // console.log('Data: ' + data);
         },
         error => {
-          // console.log('Error: ' + error);
           this.messageService.add(error.toString());
         },
         () => {
@@ -99,7 +96,6 @@ export class RegisterFormComponent implements OnInit {
               this.router.navigate(['events']);
             },
             error => {
-              // console.log(error);
               this.messageService.add(error.toString());
               this.router.navigateByUrl('/login');
             });

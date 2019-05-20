@@ -1,5 +1,5 @@
 import {BrowserModule} from '@angular/platform-browser';
-import {NgModule} from '@angular/core';
+import {NgModule, enableProdMode} from '@angular/core';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 import {AppRoutingModule} from './app-routing.module';
@@ -41,14 +41,16 @@ import {AuthGuard} from './auth.guard';
 import {MessagesComponent} from './components/messages/messages.component';
 import {MessageService} from './services/message.service';
 import {EventService} from './services/event.service';
-import { MarkerEditDialogComponent } from './components/marker-edit-dialog/marker-edit-dialog.component';
-import { EventEditComponent } from './components/event-edit/event-edit.component';
-import { EventFormComponent } from './components/event-form/event-form.component';
-import { RegisterFormComponent } from './components/register-form/register-form.component';
-import { LoginRegisterScreenComponent } from './components/login-register-screen/login-register-screen.component';
-import { EventJoinComponent } from './components/event-join/event-join.component';
-import { EventTeamCreateDialogComponent } from './components/event-team-create-dialog/event-team-create-dialog.component';
-import { EventTeamProgressDialogComponent } from './components/event-team-progress-dialog/event-team-progress-dialog.component';
+import {MarkerEditDialogComponent} from './components/marker-edit-dialog/marker-edit-dialog.component';
+import {EventEditComponent} from './components/event-edit/event-edit.component';
+import {EventFormComponent} from './components/event-form/event-form.component';
+import {RegisterFormComponent} from './components/register-form/register-form.component';
+import {LoginRegisterScreenComponent} from './components/login-register-screen/login-register-screen.component';
+import {EventJoinComponent} from './components/event-join/event-join.component';
+import {EventTeamCreateDialogComponent} from './components/event-team-create-dialog/event-team-create-dialog.component';
+import {EventTeamProgressDialogComponent} from './components/event-team-progress-dialog/event-team-progress-dialog.component';
+
+enableProdMode();
 
 @NgModule({
   declarations: [AppComponent, EventListComponent, EventScreenComponent, NavigationBarComponent, EventDetailComponent,
@@ -91,5 +93,6 @@ import { EventTeamProgressDialogComponent } from './components/event-team-progre
   providers: [AuthGuard, MessageService, EventService],
   bootstrap: [AppComponent]
 })
+
 export class AppModule {
 }
