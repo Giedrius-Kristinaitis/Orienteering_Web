@@ -33,7 +33,6 @@ export class EventTeamProgressDialogComponent implements OnInit {
     interval(EventTeamProgressDialogComponent.updateInterval).subscribe(
       () => {
         this.updateEvent();
-        console.log('Updated');
       }
     );
   }
@@ -66,8 +65,7 @@ export class EventTeamProgressDialogComponent implements OnInit {
   updateEvent(): void {
     this.eventService.getEvent(this.data.id).subscribe(
       data => {
-        if (data.photos.length !== this.showedPhotos.length) {
-          console.log('Yra nauju ft');
+        if (data.photos != null && data.photos.length !== this.showedPhotos.length) {
           data.photos.forEach(photo => {
             if (!this.showedPhotos.find(x => x.checkpointId === photo.checkpointId)) {
               this.data.teams.filter(x => x.id === photo.teamId)[0].checkedCheckpoints.push(photo.checkpointId);
@@ -110,6 +108,11 @@ export class EventTeamProgressDialogComponent implements OnInit {
   calculateProgressPercent(team: Team): number {
     // console.log(team);
     return (team.checkedCheckpoints.length / this.data.checkpointCount) * 100;
+  }
+
+  isUserInTeam(team: Team): boolean {
+    return team.members.filter(x => x.id === this.userService.getCurrentUser().id).length !== 0 ||
+      this.data.owner.id === this.userService.getCurrentUser().id;
   }
 
 }

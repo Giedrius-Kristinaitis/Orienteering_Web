@@ -2,7 +2,9 @@
 <div mat-dialog-content class="dialog">
   <mat-accordion multi="false" displayMode="default" close *ngIf="data.teams">
     <div *ngFor="let team of data.teams">
-      <mat-expansion-panel [ngStyle]="calculateProgressPercent(team) >= 100 && {'background-color':'#dfffd6'}" (afterExpand)="expandedTeam(team)" (afterCollapse)="collapsedTeam()">
+      <mat-expansion-panel *ngIf="isUserInTeam(team)"
+                           [ngStyle]="calculateProgressPercent(team) >= 100 && {'background-color':'#dfffd6'}"
+                           (afterExpand)="expandedTeam(team)" (afterCollapse)="collapsedTeam()">
         <mat-expansion-panel-header>
           <mat-panel-title>
             {{team.name}}

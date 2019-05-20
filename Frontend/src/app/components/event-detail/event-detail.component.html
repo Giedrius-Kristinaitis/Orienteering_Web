@@ -5,7 +5,7 @@
         <mat-card-title class="event-name-join">
           {{event.name}}
           <button class="event-join-button" mat-raised-button color="primary" *ngIf="event.status.toLocaleLowerCase()==='open'" (click)="openJoinDialog(event)">Join</button>
-          <button class="event-join-button" mat-raised-button color="primary" *ngIf="event.status.toLocaleLowerCase()!=='open'" (click)="openProgressDialog(event)">Progress</button>
+          <button class="event-join-button" mat-raised-button color="primary" *ngIf="((isUserJoined() || event.owner.id === userService.getCurrentUser().id) && event.status.toLowerCase()==='in progress') || event.status.toLowerCase() === 'closed'" (click)="openProgressDialog(event)">Progress</button>
         </mat-card-title>
         <mat-divider></mat-divider>
         <mat-list class="event-info-text">

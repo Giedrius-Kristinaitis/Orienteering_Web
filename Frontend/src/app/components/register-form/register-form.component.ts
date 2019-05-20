@@ -101,8 +101,8 @@ export class RegisterFormComponent implements OnInit {
             error => {
               // console.log(error);
               this.messageService.add(error.toString());
+              this.router.navigateByUrl('/login');
             });
-          this.router.navigateByUrl('/login');
         }
       );
     }
