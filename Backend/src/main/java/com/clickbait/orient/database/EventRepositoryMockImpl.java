@@ -300,18 +300,18 @@ public class EventRepositoryMockImpl implements EventRepository {
             if (optional.isPresent()) {
                 Event event = optional.get();
 
-                event.setName(s.getName());
-                event.setDescription(s.getDescription());
-                event.setCheckpointCount(s.getCheckpointCount());
-                event.setCheckpoints(s.getCheckpoints());
-                event.setTeamSize(s.getTeamSize());
-                event.setTeams(s.getTeams());
-                event.setCreated(s.getCreated());
-                event.setStarting(s.getStarting());
-                event.setEstimatedTimeMillis(s.getEstimatedTimeMillis());
-                event.setEstimatedDistanceMetres(s.getEstimatedDistanceMetres());
-                event.setPhotos(s.getPhotos());
-                event.setStatus(s.getStatus());
+                event.setName(s.getName() == null ? event.getName() : s.getName());
+                event.setDescription(s.getDescription() == null ? event.getDescription() : s.getDescription());
+                event.setCheckpointCount(s.getCheckpointCount() == null ? event.getCheckpointCount() : s.getCheckpointCount());
+                event.setCheckpoints(s.getCheckpoints() == null ? event.getCheckpoints() : s.getCheckpoints());
+                event.setTeamSize(s.getTeamSize() == null ? event.getTeamSize() : s.getTeamSize());
+                event.setTeams(s.getTeams() == null ? event.getTeams() : s.getTeams());
+                event.setCreated(s.getCreated() == null ? event.getCreated() : s.getCreated());
+                event.setStarting(s.getStarting() == null ? event.getStarting() : s.getStarting());
+                event.setEstimatedTimeMillis(s.getEstimatedTimeMillis() == null ? event.getEstimatedTimeMillis() : s.getEstimatedTimeMillis());
+                event.setEstimatedDistanceMetres(s.getEstimatedDistanceMetres() == null ? event.getEstimatedDistanceMetres() : s.getEstimatedDistanceMetres());
+                event.setPhotos(s.getPhotos() == null ? event.getPhotos() : s.getPhotos());
+                event.setStatus(s.getStatus() == null ? event.getStatus() : s.getStatus());
             } else {
                 events.add(s);
             }
