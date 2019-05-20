@@ -35,10 +35,15 @@ export class EventCreateMapComponent implements OnInit {
    * Adds existing markers from event
    */
   ngOnInit() {
-    // this.centerLong = 0;
-    // this.centerLat = 0;
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(position => this.setMapCoordsToUserLoc(position));
+      navigator.geolocation.getCurrentPosition(position => this.setMapCoordsToUserLoc(position), error => {
+        this.setMapCoordsToUserLoc({
+          coords : [{
+            latitude: 54.903362,
+            longitude: 23.960036
+          }]
+        });
+      });
     }
 
     if (this.event !== undefined) {
