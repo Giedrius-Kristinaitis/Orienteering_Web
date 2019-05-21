@@ -96,7 +96,7 @@ export class EventListComponent implements OnInit {
 
         // this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
-        this.applyFilter(this.searchInput, false);
+        this.applyFilter(this.searchInput, this.showCompleted);
       });
     return event;
   }

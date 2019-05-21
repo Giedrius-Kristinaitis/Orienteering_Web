@@ -118,7 +118,7 @@ export class EventDetailComponent implements OnInit {
       },
       () => {
         tempEvent.status = status;
-        console.log(tempEvent);
+        // console.log(tempEvent);
         this.eventService.updateEvent(tempEvent).subscribe(
           data => {
           },
