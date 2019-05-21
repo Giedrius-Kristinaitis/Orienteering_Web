@@ -29,7 +29,6 @@ export class AuthenticationService {
    */
   static selectErrorMessage(status: number) {
     let message = status.toString();
-    // console.log('Status: ' + status);
 
     switch (status) {
       case 404 : {
@@ -53,7 +52,6 @@ export class AuthenticationService {
       }
     }
 
-    // console.log(message);
     return message;
   }
 

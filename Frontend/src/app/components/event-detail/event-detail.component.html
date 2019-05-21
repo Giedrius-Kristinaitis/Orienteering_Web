@@ -27,6 +27,7 @@
         <mat-divider></mat-divider>
         <p class="description">{{event.description}}</p>
         <button class="event-start-button" mat-raised-button color="primary" *ngIf="event.owner.id === userService.getCurrentUser().id && event.status.toLocaleLowerCase() === 'open'" (click)="startEvent()">Start event</button>
+        <button class="event-start-button" mat-raised-button color="warn" *ngIf="event.owner.id === userService.getCurrentUser().id && event.status.toLocaleLowerCase() === 'in progress'" (click)="stopEvent()">Stop event</button>
       </mat-card>
     </div>
     <div class="map">

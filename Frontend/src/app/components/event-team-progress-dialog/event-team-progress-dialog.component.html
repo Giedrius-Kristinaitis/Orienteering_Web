@@ -1,8 +1,8 @@
-<h1 mat-dialog-title>Teams</h1>
+<h1 mat-dialog-title>Event progress</h1>
 <div mat-dialog-content class="dialog">
   <mat-accordion multi="false" displayMode="default" close *ngIf="data.teams">
     <div *ngFor="let team of data.teams">
-      <mat-expansion-panel *ngIf="isUserInTeam(team)"
+      <mat-expansion-panel *ngIf="isUserInTeam(team) || userService.getCurrentUser().id===data.owner.id || data.status.toLowerCase()==='closed'"
                            [ngStyle]="calculateProgressPercent(team) >= 100 && {'background-color':'#dfffd6'}"
                            (afterExpand)="expandedTeam(team)" (afterCollapse)="collapsedTeam()">
         <mat-expansion-panel-header>

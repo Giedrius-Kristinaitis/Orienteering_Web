@@ -65,7 +65,8 @@ export class EventTeamProgressDialogComponent implements OnInit {
   updateEvent(): void {
     this.eventService.getEvent(this.data.id).subscribe(
       data => {
-        if (data.photos != null && data.photos.length !== this.showedPhotos.length) {
+        if (data.photos != null && this.showedPhotos != null &&
+          data.photos.length !== this.showedPhotos.length) {
           data.photos.forEach(photo => {
             if (!this.showedPhotos.find(x => x.checkpointId === photo.checkpointId)) {
               this.data.teams.filter(x => x.id === photo.teamId)[0].checkedCheckpoints.push(photo.checkpointId);

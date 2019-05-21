@@ -99,7 +99,9 @@ export class EventService {
    */
   updateEvent(event: Event) {
     const tempEvent = new Event(event);
-    tempEvent.estimatedTimeMillis = 3600000 * tempEvent.estimatedTimeMillis;
+    // if (3600000 * tempEvent.estimatedTimeMillis < 9223372036854775807) {
+    //   tempEvent.estimatedTimeMillis = 3600000 * tempEvent.estimatedTimeMillis;
+    // }
     // console.log(tempEvent);
     return this.http.put<Event>(`${EventService.host}/api/event/${tempEvent.id}`, JSON.stringify(tempEvent), httpOptions).pipe(
       retry(1),
@@ -124,7 +126,6 @@ export class EventService {
    * @param team New team
    */
   createTeam(eventId: string, team: Team) {
-    console.log(team);
     return this.http.post<Team>(`${EventService.host}/api/event/team/${eventId}`, team, httpOptions).pipe(
       retry(1),
       catchError(this.handleError)

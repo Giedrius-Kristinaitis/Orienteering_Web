@@ -87,28 +87,7 @@ export class EventDetailComponent implements OnInit {
   }
 
   startEvent(): void {
-    let tempEvent;
-    this.eventService.getEvent(this.event.id).subscribe(
-      data => {
-        tempEvent = data;
-      },
-      error => {
-        this.messageService.add(error);
-      },
-      () => {
-        tempEvent.status = 'In progress';
-        this.eventService.updateEvent(tempEvent).subscribe(
-          data => {
-          },
-          error => {
-            this.messageService.add(error);
-          },
-          () => {
-            this.event = tempEvent;
-          }
-        );
-      }
-    );
+    this.changeEventStatus('In progress');
   }
 
   isUserJoined(): boolean {
@@ -122,6 +101,36 @@ export class EventDetailComponent implements OnInit {
     });
 
     return isJoined;
+  }
+
+  stopEvent(): void {
+    this.changeEventStatus('Closed');
+  }
+
+  changeEventStatus(status: string): void {
+    let tempEvent;
+    this.eventService.getEvent(this.event.id).subscribe(
+      data => {
+        tempEvent = data;
+      },
+      error => {
+        this.messageService.add(error);
+      },
+      () => {
+        tempEvent.status = status;
+        console.log(tempEvent);
+        this.eventService.updateEvent(tempEvent).subscribe(
+          data => {
+          },
+          error => {
+            this.messageService.add(error);
+          },
+          () => {
+            this.event = tempEvent;
+          }
+        );
+      }
+    );
   }
 
 }
