@@ -4,7 +4,8 @@
       <mat-card class="event-name-card">
         <mat-card-title class="event-name-join">
           {{event.name}}
-          <button class="event-join-button" mat-raised-button color="primary" (click)="openDialog(event)">Join</button>
+          <button class="event-join-button" mat-raised-button color="primary" *ngIf="event.status.toLocaleLowerCase()==='open'" (click)="openJoinDialog(event)">Join</button>
+          <button class="event-join-button" mat-raised-button color="primary" *ngIf="((isUserJoined() || event.owner.id === userService.getCurrentUser().id) && event.status.toLowerCase()==='in progress') || event.status.toLowerCase() === 'closed'" (click)="openProgressDialog(event)">Progress</button>
         </mat-card-title>
         <mat-divider></mat-divider>
         <mat-list class="event-info-text">
@@ -18,13 +19,15 @@
           </mat-list-item>
           <mat-list-item>Team size: {{event.teamSize}}</mat-list-item>
           <mat-list-item>Checkpoints count: {{event.checkpointCount}}</mat-list-item>
-          <mat-list-item>Created: {{event.created | date: 'yyyy-MM-dd hh:mm:ss'}}</mat-list-item>
+          <mat-list-item>Created: {{event.created | date: 'yyyy-MM-dd'}}</mat-list-item>
           <mat-list-item>Starting: {{event.starting | date: 'yyyy-MM-dd hh:mm:ss'}}</mat-list-item>
           <mat-list-item>Estimated time: {{event.estimatedTimeMillis | date: 'hh:mm:ss'}}</mat-list-item>
           <mat-list-item>Estimated distance: {{event.estimatedDistanceMetres}}m</mat-list-item>
         </mat-list>
         <mat-divider></mat-divider>
         <p class="description">{{event.description}}</p>
+        <button class="event-start-button" mat-raised-button color="primary" *ngIf="event.owner.id === userService.getCurrentUser().id && event.status.toLocaleLowerCase() === 'open'" (click)="startEvent()">Start event</button>
+        <button class="event-start-button" mat-raised-button color="warn" *ngIf="event.owner.id === userService.getCurrentUser().id && event.status.toLocaleLowerCase() === 'in progress'" (click)="stopEvent()">Stop event</button>
       </mat-card>
     </div>
     <div class="map">

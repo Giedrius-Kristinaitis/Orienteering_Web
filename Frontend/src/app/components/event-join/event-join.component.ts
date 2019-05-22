@@ -25,6 +25,7 @@ export class EventJoinComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.messageService.clear();
     // console.log(this.data);
   }
 
@@ -38,7 +39,6 @@ export class EventJoinComponent implements OnInit {
       data => {
       },
       error => {
-        this.messageService.clear();
         this.messageService.add(error);
       },
       () => {
@@ -53,9 +53,9 @@ export class EventJoinComponent implements OnInit {
    */
   onLeaveClick(team: Team): void {
     this.eventService.removeTeamMember(this.data.id, team.id, this.userService.getCurrentUser().id).subscribe(
-      data => {},
+      data => {
+      },
       error => {
-        this.messageService.clear();
         this.messageService.add(error);
       },
       () => {
@@ -89,6 +89,10 @@ export class EventJoinComponent implements OnInit {
   getUserTeam(): Team {
     let foundTeam;
     const currentUser = this.userService.getCurrentUser();
+
+    if (this.data.teams === null) {
+      return undefined;
+    }
 
     this.data.teams.forEach(team => {
       team.members.forEach(x => {

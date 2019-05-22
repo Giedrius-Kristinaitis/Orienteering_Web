@@ -24,6 +24,7 @@ export class EventTeamCreateDialogComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.messageService.clear();
   }
 
   /**
@@ -36,14 +37,14 @@ export class EventTeamCreateDialogComponent implements OnInit {
         {
           name: this.name,
           members: [this.userService.getCurrentUser()],
-          id: null
+          id: null,
+          checkedCheckpoints: null
         }
       ).subscribe(
         data => {
           this.data.teams.push(data);
         },
         error => {
-          this.messageService.clear();
           this.messageService.add(error);
         },
         () => {

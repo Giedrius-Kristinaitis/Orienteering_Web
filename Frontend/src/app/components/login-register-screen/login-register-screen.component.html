@@ -5,6 +5,9 @@
     <app-navigation-bar *ngIf="router.url=='/register'" showGoBackButton="true" title="Registration" showUserIcons="false"></app-navigation-bar>
     </div>
     <div class="content">
+      <div class="error-message">
+        <app-messages></app-messages>
+      </div>
       <app-login-form *ngIf="router.url=='/login'" title="Login"></app-login-form>
       <app-register-form *ngIf="router.url=='/register'" title="Register"></app-register-form>
     </div>

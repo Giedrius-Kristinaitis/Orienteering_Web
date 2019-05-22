@@ -1,0 +1,28 @@
+.photos-div {
+  display: inline-flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.photo-with-name {
+  width: 8vw;
+  margin: 0 0.5vw 0 0.5vw;
+}
+
+.photo {
+  height: auto;
+  width: 5vw;
+}
+
+.dialog {
+  min-width: 35vw;
+}
+
+.dialog-buttons {
+  display: inline-flex;
+  justify-content: center;
+}
+
+.progress-bar {
+  width: 50%;
+}

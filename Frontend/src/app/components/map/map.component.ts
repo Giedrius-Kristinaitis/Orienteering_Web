@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Checkpoint} from "../checkpoint";
+import {Checkpoint} from '../checkpoint';
 
 @Component({
   selector: 'app-map',

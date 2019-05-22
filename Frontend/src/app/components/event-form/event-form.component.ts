@@ -51,7 +51,11 @@ export class EventFormComponent implements OnInit {
               private userService: UserService) {
   }
 
+  /**
+   * Get edited event, initializes validation group
+   */
   ngOnInit() {
+    this.messageService.clear();
     this.event = new Event(null);
     if (this.editingEvent === true) {
       this.currentEvent.subscribe(
@@ -61,7 +65,7 @@ export class EventFormComponent implements OnInit {
           const localDate = utcTime.local().toDate();
           const localTime = utcTime.local().format('HH:mm');
 
-          console.log('Uzkraunant: ' + localTime);
+          // console.log('Uzkraunant: ' + localTime);
 
           this.startingDate = localDate;
           this.startingTime = localTime;
@@ -93,6 +97,10 @@ export class EventFormComponent implements OnInit {
 
   }
 
+  /**
+   * Validation error messages
+   * @param form Error message
+   */
   getErrorMessage(form: FormControl) {
     switch (form) {
       case this.eventForm.get('name'): {
@@ -141,6 +149,9 @@ export class EventFormComponent implements OnInit {
     }
   }
 
+  /**
+   * Creates event after submit button press
+   */
   onSubmit(): void {
     this.submitted = true;
     this.eventForm.get('checkpointsCount').updateValueAndValidity();
@@ -164,7 +175,7 @@ export class EventFormComponent implements OnInit {
           data => {
           },
           error => {
-            console.log(error.toString());
+            // console.log(error.toString());
             this.messageService.add(error.toString());
           },
           () => {
@@ -172,11 +183,12 @@ export class EventFormComponent implements OnInit {
           }
         );
       }
-
-      this.messageService.clear();
     }
   }
 
+  /**
+   * Updates event
+   */
   updateEvent(): Event {
     const time = moment(this.eventForm.get('time').value, 'HH:mm');
     const timeInMilis = time.hours() * 3_600_000 + time.minutes() * 60_000;
@@ -196,10 +208,15 @@ export class EventFormComponent implements OnInit {
       checkpoints: this.checkpointsList,
       teams: this.event.teams,
       created: this.event.created,
-      status: this.event.status
+      status: this.event.status,
+      owner: this.userService.getCurrentUser(),
+      photos: this.event.photos
     };
   }
 
+  /**
+   * Formats event data for creating
+   */
   createNewEvent() {
     const time = moment(this.eventForm.get('time').value, 'HH:mm');
     const startingDate = time.hour() * 3_600_000 + time.minutes() * 60_000 + this.eventForm.get('date').value.valueOf();
@@ -213,10 +230,15 @@ export class EventFormComponent implements OnInit {
       estimatedDistanceMetres: this.eventForm.get('distance').value,
       description: this.eventForm.get('description').value,
       checkpointCount: this.checkpointsCount,
-      checkpoints: this.checkpointsList
+      checkpoints: this.checkpointsList,
+      owner: this.userService.getCurrentUser()
     };
   }
 
+  /**
+   * Get event's checkpoints from child component
+   * @param list Checkpoints list
+   */
   getCheckpoints(list: Marker[]): void {
     this.checkpointsList = list;
     this.checkpointsCount = list.length;

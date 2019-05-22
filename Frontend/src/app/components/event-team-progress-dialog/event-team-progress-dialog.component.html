@@ -1,0 +1,32 @@
+<h1 mat-dialog-title>Event progress</h1>
+<div mat-dialog-content class="dialog">
+  <mat-accordion multi="false" displayMode="default" close *ngIf="data.teams">
+    <div *ngFor="let team of data.teams">
+      <mat-expansion-panel *ngIf="isUserInTeam(team) || userService.getCurrentUser().id===data.owner.id || data.status.toLowerCase()==='closed'"
+                           [ngStyle]="calculateProgressPercent(team) >= 100 && {'background-color':'#dfffd6'}"
+                           (afterExpand)="expandedTeam(team)" (afterCollapse)="collapsedTeam()">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{team.name}}
+          </mat-panel-title>
+          <mat-divider></mat-divider>
+          <mat-panel-description>
+            Checkpoints: {{team.checkedCheckpoints.length}}/{{data.checkpointCount}}
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <mat-progress-bar mode="determinate" [value]="calculateProgressPercent(team)"></mat-progress-bar>
+        <div *ngIf="showedPhotos" class="photos-div">
+          <div *ngFor="let photo of showedPhotos">
+            <div class="photo-with-name">
+              <p>Checkpoint: {{photo.checkpointId}}</p>
+              <img class="photo" [src]="photo.downloadURL" alt="Checkpoint photo" />
+            </div>
+          </div>
+        </div>
+      </mat-expansion-panel>
+    </div>
+  </mat-accordion>
+</div>
+<div class="dialog-buttons" mat-dialog-actions>
+  <button class="hide-button" mat-raised-button (click)="onHideClick()" color="primary">Hide</button>
+</div>

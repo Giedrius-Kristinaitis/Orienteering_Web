@@ -6,6 +6,7 @@ import {EventResponse} from '../components/eventResponse';
 import {catchError, retry} from 'rxjs/operators';
 import {User} from '../components/user';
 import {Team} from '../components/team';
+import {Photo} from '../components/photo';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -19,8 +20,8 @@ const httpOptions = {
 export class EventService {
 
   // http://104.196.227.120
-  // private static readonly host = 'http://104.196.227.120';
-  private static readonly host = 'http://localhost:8080';
+  private static readonly host = 'http://104.196.227.120';
+  // private static readonly host = 'http://localhost:8080';
 
   constructor(private http: HttpClient) {
   }
@@ -48,7 +49,7 @@ export class EventService {
       }
     }
 
-    console.log(message);
+    // console.log(message);
     return message;
   }
 
@@ -74,6 +75,13 @@ export class EventService {
     );
   }
 
+  getEventTeamPhotos(eventId: string, teamId: string) {
+    return this.http.get<Photo[]>(`${EventService.host}/api/event/photos/${eventId}/${teamId}`).pipe(
+      retry(1),
+      catchError(this.handleError)
+    );
+  }
+
   /**
    * Adds a new event to event list
    * @param event New event
@@ -91,7 +99,9 @@ export class EventService {
    */
   updateEvent(event: Event) {
     const tempEvent = new Event(event);
-    tempEvent.estimatedTimeMillis = 3600000 * tempEvent.estimatedTimeMillis;
+    // if (3600000 * tempEvent.estimatedTimeMillis < 9223372036854775807) {
+    //   tempEvent.estimatedTimeMillis = 3600000 * tempEvent.estimatedTimeMillis;
+    // }
     // console.log(tempEvent);
     return this.http.put<Event>(`${EventService.host}/api/event/${tempEvent.id}`, JSON.stringify(tempEvent), httpOptions).pipe(
       retry(1),

@@ -4,6 +4,7 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {UserService} from '../../services/user.service';
 import {MessageService} from '../../services/message.service';
 import {Router} from '@angular/router';
+import {AuthenticationService} from '../../services/authentication.service';
 
 @Component({
   selector: 'app-register-form',
@@ -25,10 +26,15 @@ export class RegisterFormComponent implements OnInit {
 
   constructor(private userService: UserService,
               private messageService: MessageService,
-              private router: Router) {
+              private router: Router,
+              private authenticationService: AuthenticationService) {
   }
 
+  /**
+   * Initiliazes form group for input validation
+   */
   ngOnInit() {
+    this.messageService.clear();
     this.user = new User();
     this.input = new FormGroup({
       email: new FormControl(this.user.email, [Validators.required, Validators.minLength(RegisterFormComponent.minEmailLength),
@@ -42,6 +48,10 @@ export class RegisterFormComponent implements OnInit {
     });
   }
 
+  /**
+   * Validation error messages
+   * @param form Error message
+   */
   getErrorMessage(form: FormControl) {
     switch (form) {
       case this.input.get('email') : {
@@ -69,19 +79,26 @@ export class RegisterFormComponent implements OnInit {
     }
   }
 
+  /**
+   * Registers a new user
+   */
   register() {
     if (this.input.valid) {
-      console.log(this.user);
       this.userService.addUser(this.user).subscribe(
         data => {
-          console.log('Data: ' + data);
         },
         error => {
-          console.log('Error: ' + error);
           this.messageService.add(error.toString());
         },
         () => {
-          this.router.navigateByUrl('/login');
+          this.authenticationService.login(this.user.email, this.user.password).subscribe(
+            data => {
+              this.router.navigate(['events']);
+            },
+            error => {
+              this.messageService.add(error.toString());
+              this.router.navigateByUrl('/login');
+            });
         }
       );
     }
