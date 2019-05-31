@@ -1,5 +1,5 @@
 # Orienteering_Web
-Orienteering application front-end and back-end
+Orienteering application that allows to organize and participate in events. Front-end and Back-end
 
 
 Front-end created by: Justas Milišiūnas
